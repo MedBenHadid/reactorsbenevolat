@@ -1,3 +1,28 @@
+reclamation:
+    resource: "@ReclamationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+refugee:
+    resource: "@RefugeeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+communication:
+    resource: "@CommunicationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dons:
+    resource: "@DonsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+mission:
+    resource: "@MissionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+association:
+    resource: "@AssociationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

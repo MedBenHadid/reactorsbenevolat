@@ -1,0 +1,4 @@
+services:
+#    mission.example:
+#        class: MissionBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
