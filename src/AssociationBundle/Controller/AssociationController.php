@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
  * Association controller.
  *
  * @Route("/back/association")
- * @IsGranted("ROLE_SUPER_ADMIN")
  */
 class AssociationController extends Controller
 {

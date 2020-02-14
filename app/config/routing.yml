@@ -31,6 +31,11 @@ association:
     type:     annotation
     prefix:   /
 
+backoffice:
+    resource: "@BackofficeBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation

@@ -2,10 +2,16 @@
 
 namespace BackofficeBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class DefaultController
+ * @IsGranted("ROLE_SUPER_ADMIN")
+ * @package BackofficeBundle\Controller
+ */
 class DefaultController extends Controller
 {
     /**
