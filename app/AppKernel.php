@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new CommunicationBundle\CommunicationBundle(),
             new RefugeeBundle\RefugeeBundle(),
             new ReclamationBundle\ReclamationBundle(),
+            new BackofficeBundle\BackofficeBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
