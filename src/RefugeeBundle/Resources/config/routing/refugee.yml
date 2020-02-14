@@ -8,5 +8,17 @@ refugee_show:
     defaults: { _controller: "RefugeeBundle:Refugee:show" }
     methods:  GET
 
+refugee_new:
+    path:     /new
+    defaults: { _controller: "RefugeeBundle:Refugee:new" }
+    methods:  [GET, POST]
 
+refugee_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "RefugeeBundle:Refugee:edit" }
+    methods:  [GET, POST]
 
+refugee_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "RefugeeBundle:Refugee:delete" }
+    methods:  DELETE

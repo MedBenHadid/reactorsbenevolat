@@ -40,5 +40,13 @@
         <li>
             <a href="{{ path('refugee_index') }}">Back to the list</a>
         </li>
+        <li>
+            <a href="{{ path('refugee_edit', { 'id': refugee.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
     </ul>
 {% endblock %}
