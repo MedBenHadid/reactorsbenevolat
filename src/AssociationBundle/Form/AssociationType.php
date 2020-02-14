@@ -15,7 +15,18 @@ class AssociationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('adresse')->add('numTel')->add('email')->add('location')->add('dateDeCreation')->add('domaine')->add('admin')->add('members');
+        $builder
+            ->add('name')
+            ->add('description')
+            ->add('image', FileType::class, array('label'=>'insert an image mother fucker la nikek b triha'))
+            ->add('adresse')
+            ->add('numTel')
+            ->add('email')
+            ->add('location')
+            ->add('dateDeCreation')
+            ->add('domaine')
+            ->add('admin')
+            ->add('members');
     }/**
      * {@inheritdoc}
      */

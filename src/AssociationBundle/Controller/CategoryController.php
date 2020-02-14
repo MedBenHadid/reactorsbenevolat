@@ -3,6 +3,7 @@
 namespace AssociationBundle\Controller;
 
 use AssociationBundle\Entity\Category;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  * Category controller.
  *
  * @Route("category")
+ * @IsGranted("ROLE_SUPER_ADMIN")
  */
 class CategoryController extends Controller
 {

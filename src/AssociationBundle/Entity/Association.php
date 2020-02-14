@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -30,6 +31,32 @@ class Association
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank(message="Veuillez choisir une image")
+     * @Assert\Image()
+     * @ORM\Column(name="image", type="string",length=255)
+     */
+    private $image ;
+
 
     /**
      * @var string
@@ -289,6 +316,8 @@ class Association
     public function __construct()
     {
         $this->members = new ArrayCollection();
+
     }
+
 }
 

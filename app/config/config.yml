@@ -14,7 +14,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-
+    upload_dir: '%kernel.project_dir%/web/uploads/images'
 framework:
     #esi: ~
     translator: ~

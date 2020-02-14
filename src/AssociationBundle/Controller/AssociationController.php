@@ -6,13 +6,14 @@ use AppBundle\Entity\User;
 use AssociationBundle\Entity\Association;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Association controller.
  *
- * @Route("/back/association")
+ * @Route("/association")
  */
 class AssociationController extends Controller
 {
@@ -42,7 +43,9 @@ class AssociationController extends Controller
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            /**
+             * @var UploadedFile $file
+             */
             // Setting admin user as the one that issues the request
             $user = $this->getUser();
             $user->addRole(User::ASSOCIATION_ADMIN);
@@ -51,7 +54,11 @@ class AssociationController extends Controller
             // Setting association as disabled until admin confirmation
             $association->setIsActivated(false);
 
+            $file=$form->get('image')->getData();
+            $filename = md5(uniqid('', true)).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_dir'),$filename);
 
+            $association->setImage($filename);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($association);
@@ -76,6 +83,7 @@ class AssociationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($association);
             $em->flush();

@@ -1,5 +1,7 @@
-{% extends 'base.html.twig' %}
-
+{% extends '@Backoffice/back/baseback.html.twig' %}
+{% block title %}
+    Association
+{% endblock %}
 {% block body %}
     <!-- *************************************************************** -->
     <!-- End Location and Earnings Charts Section -->
@@ -52,11 +54,11 @@
                                     <td class="border-top-0 px-2 py-4">
                                         <div class="d-flex no-block align-items-center">
                                             <div class="mr-3"><img
-                                                        src="{{ association.profilePic }}"
+                                                        src=""
                                                         alt="user" class="rounded-circle" width="45"
                                                         height="45" /></div>
                                             <div class="">
-                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('association_show', { 'id': association.id }) }}">{{ association.displayName }}</a></h5>
+                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('association_show', { 'id': association.id }) }}">{{ association.name }}</a></h5>
                                                 <span class="text-muted font-14">{{ association.description }}</span>
                                             </div>
                                         </div>

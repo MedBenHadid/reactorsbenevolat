@@ -220,10 +220,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src=".{{asset('/assets/back/images/users/profile-pic.jpg')}}" alt="user" class="rounded-circle"
+                                <img src="{{asset('/assets/back/images/users/profile-pic.jpg')}}" alt="user" class="rounded-circle"
                                      width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                            class="text-dark">{#  app.user.username #}</span> <i data-feather="chevron-down"
+                                            class="text-dark">{{   app.user.username }}</span> <i data-feather="chevron-down"
                                                                                   class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -268,38 +268,79 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item selected"> <a class="sidebar-link sidebar-link" href="{{ path('backend') }}"
-                                                              aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
-                                        class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item selected">
+                            <a class="sidebar-link sidebar-link" href="{{ path('backend') }}" aria-expanded="false">
+                                <i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu">
+                                    Dashboard
+                                </span>
+                            </a>
+                        </li>
                         <li class="list-divider"></li>
-
                         <li class="nav-small-cap"><span class="hide-menu page-title text-truncate text-dark font-weight-medium">Reactors Menu</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                        class="hide-menu">Association </span></a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i data-feather="file-text" class="feather-icon"></i>
+                                <span class="hide-menu">Association </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver association
-                                        </span></a>
+                                <li class="sidebar-item">
+                                    <a href="{{ path('category_index') }}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Gestion de domaines d'activités
+                                        </span>
+                                    </a>
                                 </li>
-                                <li class="sidebar-item"><a href="{{ path('association_index')}}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Association
-                                        </span></a>
+                                <li class="sidebar-item">
+                                    <a href="{{ path('association_index')}}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Lister Association
+                                        </span>
+                                    </a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Association
+                                <li class="sidebar-item">
+                                    <a href="form-checkbox-radio.html" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Update/Delete Association
                                         </span></a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item "> <a class="sidebar-link"
-                                                      href="#" aria-expanded="false"><i data-feather="lock"
-                                                                                        class="feather-icon"></i><span class="hide-menu">User
-                                </span></a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i data-feather="file-text" class="icon-people"></i>
+                                <span class="hide-menu">Gestion des utilisateurs </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item">
+                                    <a href="{{ path('category_index') }}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Gestion de domaines d'activités
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ path('association_index')}}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Lister Association
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="form-checkbox-radio.html" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Update/Delete Association
+                                        </span></a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
-                                        class="hide-menu">Mission </span></a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i data-feather="bar-chart" class="feather-icon"></i>
+                                <span class="hide-menu">
+                                    Mission
+                                </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item"><a href="{# path('mission_index') #}" class="sidebar-link"><span
                                                 class="hide-menu"> Lister Mission
