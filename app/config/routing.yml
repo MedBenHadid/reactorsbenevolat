@@ -13,7 +13,7 @@ reclamation:
 
 refugee:
     resource: "@RefugeeBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   refugee/
 
 communication:
     resource: "@CommunicationBundle/Resources/config/routing.yml"
