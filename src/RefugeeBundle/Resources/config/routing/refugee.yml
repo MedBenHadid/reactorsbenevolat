@@ -1,0 +1,12 @@
+refugee_index:
+    path:     /
+    defaults: { _controller: "RefugeeBundle:Refugee:index" }
+    methods:  GET
+
+refugee_show:
+    path:     /{id}/show
+    defaults: { _controller: "RefugeeBundle:Refugee:show" }
+    methods:  GET
+
+
+

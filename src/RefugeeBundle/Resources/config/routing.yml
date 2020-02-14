@@ -1,3 +1,19 @@
+refugee_image:
+    resource: "@RefugeeBundle/Resources/config/routing/image.yml"
+    prefix:   /image
+
+refugee_hebergement:
+    resource: "@RefugeeBundle/Resources/config/routing/hebergement.yml"
+    prefix:   /hebergement
+
+refugee_refugee:
+    resource: "@RefugeeBundle/Resources/config/routing/refugee.yml"
+    prefix:   /refugee
+
+refugee_hebergementrequest:
+    resource: "@RefugeeBundle/Resources/config/routing/hebergementrequest.yml"
+    prefix:   /refugee
+
 refugee_homepage:
     path:     /
     defaults: { _controller: RefugeeBundle:Default:index }

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Refugee</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ refugee.id }}</td>
+            </tr>
+            <tr>
+                <th>Nativecountry</th>
+                <td>{{ refugee.nativeCountry }}</td>
+            </tr>
+            <tr>
+                <th>Casedescription</th>
+                <td>{{ refugee.caseDescription }}</td>
+            </tr>
+            <tr>
+                <th>Arrivaldate</th>
+                <td>{% if refugee.arrivalDate %}{{ refugee.arrivalDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Passportnumber</th>
+                <td>{{ refugee.passportNumber }}</td>
+            </tr>
+            <tr>
+                <th>Civilstatus</th>
+                <td>{{ refugee.civilStatus }}</td>
+            </tr>
+            <tr>
+                <th>Childrennumber</th>
+                <td>{{ refugee.childrenNumber }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('refugee_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

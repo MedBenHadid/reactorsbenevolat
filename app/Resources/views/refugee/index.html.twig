@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Refugees list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nativecountry</th>
+                <th>Casedescription</th>
+                <th>Arrivaldate</th>
+                <th>Passportnumber</th>
+                <th>Civilstatus</th>
+                <th>Childrennumber</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for refugee in refugees %}
+            <tr>
+                <td><a href="{{ path('refugee_show', { 'id': refugee.id }) }}">{{ refugee.id }}</a></td>
+                <td>{{ refugee.nativeCountry }}</td>
+                <td>{{ refugee.caseDescription }}</td>
+                <td>{% if refugee.arrivalDate %}{{ refugee.arrivalDate|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ refugee.passportNumber }}</td>
+                <td>{{ refugee.civilStatus }}</td>
+                <td>{{ refugee.childrenNumber }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('refugee_show', { 'id': refugee.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}
