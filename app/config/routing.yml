@@ -1,3 +1,7 @@
+association_association:
+    resource: "@AssociationBundle/Controller/AssociationController.php"
+    type:     annotation
+
 reclamation:
     resource: "@ReclamationBundle/Resources/config/routing.yml"
     prefix:   /

@@ -2,6 +2,11 @@
 
 namespace AppBundle\Entity;
 
+use AssociationBundle\Entity\Association;
+use AssociationBundle\Entity\Invitation;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -11,6 +16,10 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser
 {
+    const SUPER_ADMIN = "ROLE_SUPER_ADMIN";
+    const ASSOCIATION_ADMIN = "ROLE_ASSOCIATION_ADMIN";
+    const LIVREUR = "ROLE_LIVREUR";
+    const USER = "ROLE_USER";
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -18,11 +27,28 @@ class User extends BaseUser
      */
     protected $id;
 
+/*
+    /**
+     * @ORM\OneToOne(targetEntity="AssociationBundle\Entity\Invitation")
+     * @ORM\JoinColumn(referencedColumnName="code")
+     * @Assert\NotNull(message="Your invitation is wrong", groups={"Registration"})
+     */
+    //protected $invitation;
+
     public function __construct()
     {
         parent::__construct();
     }
 
-    // TODO hola
+    public function setInvitation(Invitation $invitation)
+    {
+        $this->invitation = $invitation;
+    }
+
+    public function getInvitation()
+    {
+        return $this->invitation;
+    }
+
 }
 
