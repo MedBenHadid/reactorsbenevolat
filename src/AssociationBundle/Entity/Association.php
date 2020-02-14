@@ -42,9 +42,31 @@ class Association
      */
     private $description;
 
-    private $picture;
-
+    /**
+     * @ORM\OneToOne(targetEntity="AssociationBundle\Entity\Category")
+     */
     private $domaine;
+
+    /**
+     * * @ORM\Column(type="boolean")
+     */
+    private $isActivated=FALSE;
+
+    /**
+     * @return bool
+     */
+    public function isActivated(): bool
+    {
+        return $this->isActivated;
+    }
+
+    /**
+     * @param bool $isActivated
+     */
+    public function setIsActivated(bool $isActivated)
+    {
+        $this->isActivated = $isActivated;
+    }
 
     /**
      * @return mixed
@@ -76,22 +98,6 @@ class Association
     public function setDescription(string $description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
-
-    /**
-     * @param mixed $picture
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
     }
 
     /**
@@ -212,11 +218,14 @@ class Association
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=12)
      */
     private $numTel;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=60)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
     /**
@@ -224,7 +233,7 @@ class Association
      */
     private $location;
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date", length=255)
      */
     private $dateDeCreation;
 

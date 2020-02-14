@@ -3,26 +3,24 @@
 namespace AssociationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
-class AssociationType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('description')->add('adresse')->add('numTel')->add('email')->add('location')->add('dateDeCreation')->add('domaine')->add('admin')->add('members');
+        $builder->add('name');
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AssociationBundle\Entity\Association'
+            'data_class' => 'AssociationBundle\Entity\Category'
         ));
     }
 
@@ -31,7 +29,7 @@ class AssociationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'associationbundle_association';
+        return 'associationbundle_category';
     }
 
 

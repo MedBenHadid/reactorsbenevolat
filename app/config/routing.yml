@@ -1,7 +1,6 @@
-backoffice:
-    resource: "@BackofficeBundle/Controller/"
+association_category:
+    resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
-    prefix:   /
 
 association_association:
     resource: "@AssociationBundle/Controller/AssociationController.php"
@@ -13,7 +12,7 @@ reclamation:
 
 refugee:
     resource: "@RefugeeBundle/Resources/config/routing.yml"
-    prefix:   refugee/
+    prefix:   /
 
 communication:
     resource: "@CommunicationBundle/Resources/config/routing.yml"

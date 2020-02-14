@@ -21,6 +21,26 @@ class Category
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=60)
+     */
+    private $name;
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Get id
@@ -30,6 +50,10 @@ class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 }
 

@@ -6,22 +6,19 @@ use AppBundle\Entity\User;
 use AssociationBundle\Entity\Association;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Association controller.
  *
- * @Route("association")
+ * @Route("/back/association")
  * @IsGranted("ROLE_SUPER_ADMIN")
  */
 class AssociationController extends Controller
 {
     /**
-     * Lists all association entities.
-     *
-     * @Route("/", name="association_index")
-     * @Method("GET")
+     * @Route("/", name="association_index",methods={"GET"})
      */
     public function indexAction()
     {
@@ -29,16 +26,13 @@ class AssociationController extends Controller
 
         $associations = $em->getRepository('AssociationBundle:Association')->findAll();
 
-        return $this->render('association/index.html.twig', array(
+        return $this->render('@Association/association/index.html.twig', array(
             'associations' => $associations,
         ));
     }
 
     /**
-     * Creates a new association entity.
-     *
-     * @Route("/register", name="association_register")
-     * @Method({"GET", "POST"})
+     * @Route("/register", name="association_register",methods={"GET","POST"})
      */
     public function registerAction(Request $request)
     {
@@ -50,9 +44,15 @@ class AssociationController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // Setting admin user as the one that issues the request
             $user = $this->getUser();
             $user->addRole(User::ASSOCIATION_ADMIN);
             $association->setAdmin($user);
+
+            // Setting association as disabled until admin confirmation
+            $association->setIsActivated(false);
+
+
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($association);
@@ -61,17 +61,14 @@ class AssociationController extends Controller
             return $this->redirectToRoute('association_show', array('id' => $association->getId()));
         }
 
-        return $this->render('association/new.html.twig', array(
+        return $this->render('@Association/association/new.html.twig', array(
             'association' => $association,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Creates a new association entity.
-     *
-     * @Route("/new", name="association_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="association_new",methods={"GET","POST"})
      */
     public function newAction(Request $request)
     {
@@ -87,33 +84,27 @@ class AssociationController extends Controller
             return $this->redirectToRoute('association_show', array('id' => $association->getId()));
         }
 
-        return $this->render('association/new.html.twig', array(
+        return $this->render('@Association/association/new.html.twig', array(
             'association' => $association,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a association entity.
-     *
-     * @Route("/{id}", name="association_show")
-     * @Method("GET")
+     * @Route("/{id}", name="association_show",methods={"GET"})
      */
     public function showAction(Association $association)
     {
         $deleteForm = $this->createDeleteForm($association);
 
-        return $this->render('association/show.html.twig', array(
+        return $this->render('@Association/association/show.html.twig', array(
             'association' => $association,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing association entity.
-     *
-     * @Route("/{id}/edit", name="association_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="association_edit",methods={"GET","POST"})
      */
     public function editAction(Request $request, Association $association)
     {
@@ -135,10 +126,7 @@ class AssociationController extends Controller
     }
 
     /**
-     * Deletes a association entity.
-     *
-     * @Route("/{id}", name="association_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="association_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Association $association)
     {
