@@ -62,5 +62,29 @@ class Image
     {
         return $this->image;
     }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Refugee")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $hebergement;
+
+    /**
+     * @return mixed
+     */
+    public function getHebergement()
+    {
+        return $this->hebergement;
+    }
+
+    /**
+     * @param mixed $hebergement
+     */
+    public function setHebergement($hebergement)
+    {
+        $this->hebergement = $hebergement;
+    }
+
+
 }
 
