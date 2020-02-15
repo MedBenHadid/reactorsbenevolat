@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
+
 /**
  * UserRepository
  *
@@ -10,4 +12,12 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByAdmin(User $user)
+    {
+        return $this->createQueryBuilder('genus')
+            ->andWhere('genus.admin = :admin')
+            ->setParameter('admin', $user->getId())
+            ->getQuery()
+            ->execute();
+    }
 }

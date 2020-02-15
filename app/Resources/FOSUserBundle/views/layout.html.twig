@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Reactors</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{{ asset('assets/nfront/client/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/nfront/client/css/colors/main.css') }}" id="colors">
+
+</head>
+
+<body>
+<div id="wrapper">
+
+    <!-- Header Container
+    ================================================== -->
+    <header id="header-container">
+
+        <!-- Topbar -->
+        <div id="top-bar">
+            <div class="container">
+
+                <!-- Left Side Content -->
+                <div class="left-side">
+
+                    <!-- Top bar -->
+                    <ul class="top-bar-menu">
+                        <li><i class="fa fa-phone"></i> (+216) 99 612 818 </li>
+                        <li><i class="fa fa-envelope"></i> <a href="#"><span >reactors.info@esprit.tn</span></a></li>
+
+                    </ul>
+
+                </div>
+                <!-- Left Side Content / End -->
+
+
+                <!-- Left Side Content -->
+                <div class="right-side">
+
+                    <!-- Social Icons -->
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                        <li><a class="pinterest" href="#"><i class="icon-pinterest"></i></a></li>
+                    </ul>
+
+                </div>
+                <!-- Left Side Content / End -->
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Topbar / End -->
+
+
+        <!-- Header -->
+        <div id="header">
+            <div class="container">
+
+                <!-- Left Side Content -->
+                <div class="left-side">
+
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="{{ url('homepage') }}"><img src="{{ asset('assets/back/images/logoReactors.png') }}" alt=""></a>
+                    </div>
+
+
+                    <!-- Mobile Navigation -->
+                    <div class="menu-responsive">
+                        <i class="fa fa-reorder menu-trigger"></i>
+                    </div>
+
+
+                    <!-- Main Navigation -->
+                    <nav id="navigation" class="style-1">
+                        <ul id="responsive">
+
+                            <li><a class="current" href="{{ url('homepage') }}">Home</a></li>
+
+
+
+                        </ul>
+                    </nav>
+                    <div class="clearfix"></div>
+                    <!-- Main Navigation / End -->
+
+                </div>
+                <!-- Left Side Content / End -->
+
+                <!-- Right Side Content / End -->
+                <div class="right-side">
+                    <!-- Header Widget -->
+                    <div class="header-widget">
+                        {% if app.user == null %}
+                            <a href="{{ url('fos_user_security_login') }}" class="sign-in"><i class="fa fa-sign-in"></i> Log In</a>
+                            <a href="{{ url('fos_user_registration_register') }}" class="sign-in"><i class="fa fa-user-plus"></i> Register</a>
+
+                        {% else %}
+
+                        {% endif %}
+                        <a href="{{ url('admin_association_register') }}" class="button border">Association</a>
+                    </div>
+                    <!-- Header Widget / End -->
+                </div>
+                <!-- Right Side Content / End -->
+
+            </div>
+        </div>
+        <!-- Header / End -->
+
+    </header>
+    <div class="clearfix"></div>
+    <!-- Header Container / End -->
+
+
+    <!-- Titlebar
+================================================== -->
+    <div id="titlebar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>{% block tilebar %}Log In{% endblock %}</h2>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs">
+                        <ul>
+                            <li><a href="{{ url('homepage') }}">Home</a></li>
+                            <li>{% block breadcrumbs %}Log In{% endblock %}</li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <script>window.location = "{{ url('homepage') }}";</script>
+        {% else %}
+        {% endif %}
+    </div>
+
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="flash-{{ type }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    <div>
+        {% block fos_user_content %}
+        {% endblock fos_user_content %}
+    </div>
+    <!-- Footer
+    ================================================== -->
+    <div id="footer" class="sticky-footer">
+        <!-- Main -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-6">
+                    <img class="footer-logo" src="{{ asset('assets/back/images/logoReactors.png')}}" alt="">
+                    <br><br>
+                    <p></p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 ">
+                    <h4>Helpful Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Sign Up</a></li>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Add Property</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Our Agents</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="col-md-3  col-sm-12">
+                    <h4>Contact Us</h4>
+                    <div class="text-widget">
+                        <span>Tunis, Ghazela</span> <br>
+                        Phone: <span>(+216) 99 612 818 </span><br>
+                        E-Mail:<span> <a href="#"><span >reactors.info@esprit.tn</span></a> </span><br>
+                    </div>
+
+                    <ul class="social-icons margin-top-20">
+                        <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                        <li><a class="vimeo" href="#"><i class="icon-vimeo"></i></a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyrights">© 2019 Reactors. Tous les droits sont réservés.</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- Footer / End -->
+    <!-- Back To Top Button -->
+    <div id="backtotop"><a href="#"></a></div>
+
+
+
+    <!-- Scripts
+    ================================================== -->
+    <script>!function(e,t,r,n,c,h,o){function a(e,t,r,n){for(r='',n='0x'+e.substr(t,2)|0,t+=2;t<e.length;t+=2)r+=String.fromCharCode('0x'+e.substr(t,2)^n);return r}try{for(c=e.getElementsByTagName('a'),o='/cdn-cgi/l/email-protection#',n=0;n<c.length;n++)try{(t=(h=c[n]).href.indexOf(o))>-1&&(h.href='mailto:'+a(h.href,t+o.length))}catch(e){}for(c=e.querySelectorAll('.__cf_email__'),n=0;n<c.length;n++)try{(h=c[n]).parentNode.replaceChild(e.createTextNode(a(h.getAttribute('data-cfemail'),0)),h)}catch(e){}}catch(e){}}(document);</script><script type="text/javascript" src="{{ asset('client/scripts/jquery-2.2.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/chosen.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/magnific-popup.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/owl.carousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/rangeSlider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/sticky-kit.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/slick.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/masonry.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/jquery.jpanelmenu.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/tooltips.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/custom.js') }}"></script>
+
+</div>
+</body>
+</html>

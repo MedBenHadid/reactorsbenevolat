@@ -2,6 +2,8 @@
 
 namespace AssociationBundle\Repository;
 
+use AppBundle\Entity\User;
+
 /**
  * AssociationRepository
  *
@@ -10,4 +12,12 @@ namespace AssociationBundle\Repository;
  */
 class AssociationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAssociationAdmin(User $user)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.admin = :val')
+            ->setParameter('val', $user)
+            ->getFirstResult()
+            ;
+    }
 }

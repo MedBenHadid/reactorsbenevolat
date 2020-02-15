@@ -46,3 +46,7 @@ app:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+admin_association_register:
+    path:     /register/admin/association
+    defaults: { _controller: AppBundle:Registration:registerAdminAssociation }
