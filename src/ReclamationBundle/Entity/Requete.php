@@ -49,12 +49,7 @@ class Requete
      */
     private $type;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IdUser", type="integer")
-     */
-    private $idUser;
+
 
     /**
      * @var int
@@ -170,29 +165,7 @@ class Requete
         return $this->type;
     }
 
-    /**
-     * Set idUser
-     *
-     * @param integer $idUser
-     *
-     * @return Requete
-     */
-    public function setIdUser($idUser)
-    {
-        $this->idUser = $idUser;
 
-        return $this;
-    }
-
-    /**
-     * Get idUser
-     *
-     * @return int
-     */
-    public function getIdUser()
-    {
-        return $this->idUser;
-    }
 
     /**
      * Set idRep
@@ -216,6 +189,27 @@ class Requete
     public function getIdRep()
     {
         return $this->idRep;
+    }
+    /**
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }
 

@@ -49,12 +49,7 @@ class Rponse
      */
     private $date;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IdStaff", type="integer", unique=true)
-     */
-    private $idStaff;
+
 
 
     /**
@@ -164,27 +159,25 @@ class Rponse
     }
 
     /**
-     * Set idStaff
-     *
-     * @param integer $idStaff
-     *
-     * @return Rponse
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
-    public function setIdStaff($idStaff)
-    {
-        $this->idStaff = $idStaff;
+    private $user;
 
-        return $this;
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
-     * Get idStaff
-     *
-     * @return int
+     * @param mixed $user
      */
-    public function getIdStaff()
+    public function setUser($user)
     {
-        return $this->idStaff;
+        $this->user = $user;
     }
 }
 
