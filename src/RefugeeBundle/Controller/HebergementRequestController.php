@@ -45,7 +45,7 @@ class HebergementRequestController extends Controller
             return $this->redirectToRoute('hebergementrequest_show', array('id' => $hebergementRequest->getId()));
         }
 
-        return $this->render('Refugee/HebergementRequest/new.html.twig', array(
+        return $this->render('@Refugee/HebergementRequest/new.html.twig', array(
             'hebergementRequest' => $hebergementRequest,
             'form' => $form->createView(),
         ));
