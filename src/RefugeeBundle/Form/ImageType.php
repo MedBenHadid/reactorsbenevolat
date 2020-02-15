@@ -2,6 +2,8 @@
 
 namespace RefugeeBundle\Form;
 
+use RefugeeBundle\Entity\Hebergement;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +17,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('image')
-            ->add('hebergement');
+            ->add('hebergement', EntityType::class, ['class' => Hebergement::class]);
     }/**
      * {@inheritdoc}
      */

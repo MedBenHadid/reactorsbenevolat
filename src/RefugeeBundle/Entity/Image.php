@@ -85,6 +85,10 @@ class Image
         $this->hebergement = $hebergement;
     }
 
-
+    public function __toString()
+    {
+        return $this->hebergement;
+        // TODO: Implement __toString() method.
+    }
 }
 

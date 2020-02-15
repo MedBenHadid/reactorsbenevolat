@@ -239,5 +239,7 @@ class Refugee
     {
         $this->user = $user;
     }
+
+
 }
 
