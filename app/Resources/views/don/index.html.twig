@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Dons list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Address</th>
+                <th>Category</th>
+                <th>State</th>
+                <th>Phone</th>
+                <th>Ups</th>
+                <th>Creationdate</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for don in dons %}
+            <tr>
+                <td><a href="{{ path('don_show', { 'id': don.id }) }}">{{ don.id }}</a></td>
+                <td>{{ don.title }}</td>
+                <td>{{ don.description }}</td>
+                <td>{{ don.address }}</td>
+                <td>{{ don.category }}</td>
+                <td>{{ don.state }}</td>
+                <td>{{ don.phone }}</td>
+                <td>{{ don.ups }}</td>
+                <td>{% if don.creationDate %}{{ don.creationDate|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('don_show', { 'id': don.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('don_edit', { 'id': don.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('don_new') }}">Create a new don</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Don</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ don.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ don.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ don.description }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ don.address }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ don.category }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ don.state }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ don.phone }}</td>
+            </tr>
+            <tr>
+                <th>Ups</th>
+                <td>{{ don.ups }}</td>
+            </tr>
+            <tr>
+                <th>Creationdate</th>
+                <td>{% if don.creationDate %}{{ don.creationDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('don_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('don_edit', { 'id': don.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
