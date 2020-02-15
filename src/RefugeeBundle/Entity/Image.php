@@ -3,6 +3,7 @@
 namespace RefugeeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Image
@@ -64,7 +65,7 @@ class Image
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="Refugee")
+     * @ORM\ManyToOne(targetEntity="Hebergement")
      * @ORM\JoinColumn(nullable=false)
      */
     private $hebergement;

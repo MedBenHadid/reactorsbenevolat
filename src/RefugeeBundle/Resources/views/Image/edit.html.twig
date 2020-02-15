@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseback.html.twig' %}
 
 {% block body %}
     <h1>Image edit</h1>
@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('image_index') }}">Back to the list</a>
+            <a href="{{ path('refugee_image_index') }}">Back to the list</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

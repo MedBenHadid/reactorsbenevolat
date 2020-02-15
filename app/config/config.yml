@@ -17,6 +17,7 @@ parameters:
     upload_dir: '%kernel.project_dir%/web/uploads/images'
     association_directory: '%kernel.root_dir%/../web/client/images/agences'
     pieces_directory: '%kernel.root_dir%/../web/client/images/agences/pieces'
+    refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
 
 framework:
     #esi: ~
@@ -97,3 +98,5 @@ fos_user:
         #confirmation:
             #enabled: true
             #template:   '@FOSUser/Registration/email.txt.twig'
+
+

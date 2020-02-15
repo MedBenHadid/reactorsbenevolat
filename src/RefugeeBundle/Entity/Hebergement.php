@@ -240,6 +240,9 @@ class Hebergement
         $this->user = $user;
     }
 
-
+    public function __toString()
+    {
+        return strval($this->id);
+    }
 }
 
