@@ -1,0 +1,24 @@
+demande_index:
+    path:     /
+    defaults: { _controller: "DonsBundle:Demande:index" }
+    methods:  GET
+
+demande_show:
+    path:     /{id}/show
+    defaults: { _controller: "DonsBundle:Demande:show" }
+    methods:  GET
+
+demande_new:
+    path:     /new
+    defaults: { _controller: "DonsBundle:Demande:new" }
+    methods:  [GET, POST]
+
+demande_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DonsBundle:Demande:edit" }
+    methods:  [GET, POST]
+
+demande_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DonsBundle:Demande:delete" }
+    methods:  DELETE

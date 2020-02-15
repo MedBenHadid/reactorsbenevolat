@@ -1,3 +1,15 @@
+communication_forumcategory:
+    resource: "@CommunicationBundle/Resources/config/routing/forumcategory.yml"
+    prefix:   /forumcategory
+
+communication_threads:
+    resource: "@CommunicationBundle/Resources/config/routing/threads.yml"
+    prefix:   /threads
+
+communication_comments:
+    resource: "@CommunicationBundle/Resources/config/routing/comments.yml"
+    prefix:   /comments
+
 communication_homepage:
     path:     /
     defaults: { _controller: CommunicationBundle:Default:index }

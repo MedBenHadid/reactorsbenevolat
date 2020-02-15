@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Demandes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Address</th>
+                <th>Category</th>
+                <th>State</th>
+                <th>Phone</th>
+                <th>Ups</th>
+                <th>Creationdate</th>
+                <th>Rib</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demande in demandes %}
+            <tr>
+                <td><a href="{{ path('demande_show', { 'id': demande.id }) }}">{{ demande.id }}</a></td>
+                <td>{{ demande.title }}</td>
+                <td>{{ demande.description }}</td>
+                <td>{{ demande.address }}</td>
+                <td>{{ demande.category }}</td>
+                <td>{{ demande.state }}</td>
+                <td>{{ demande.phone }}</td>
+                <td>{{ demande.ups }}</td>
+                <td>{% if demande.creationDate %}{{ demande.creationDate|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ demande.rib }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('demande_show', { 'id': demande.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('demande_edit', { 'id': demande.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('demande_new') }}">Create a new demande</a>
+        </li>
+    </ul>
+{% endblock %}

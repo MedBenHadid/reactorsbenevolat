@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Forumcategory</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ forumCategory.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ forumCategory.name }}</td>
+            </tr>
+            <tr>
+                <th>Describtion</th>
+                <td>{{ forumCategory.describtion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('forumcategory_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('forumcategory_edit', { 'id': forumCategory.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
