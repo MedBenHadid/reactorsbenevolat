@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Requete</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ requete.id }}</td>
+            </tr>
+            <tr>
+                <th>Sujet</th>
+                <td>{{ requete.sujet }}</td>
+            </tr>
+            <tr>
+                <th>Derniermaj</th>
+                <td>{% if requete.dernierMAJ %}{{ requete.dernierMAJ|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ requete.statut }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ requete.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('requete_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('requete_edit', { 'id': requete.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

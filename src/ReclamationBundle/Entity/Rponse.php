@@ -35,12 +35,7 @@ class Rponse
      */
     private $rep;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IdReq", type="integer", unique=true)
-     */
-    private $idReq;
+
 
     /**
      * @var \DateTime
@@ -110,29 +105,7 @@ class Rponse
         return $this->rep;
     }
 
-    /**
-     * Set idReq
-     *
-     * @param integer $idReq
-     *
-     * @return Rponse
-     */
-    public function setIdReq($idReq)
-    {
-        $this->idReq = $idReq;
 
-        return $this;
-    }
-
-    /**
-     * Get idReq
-     *
-     * @return int
-     */
-    public function getIdReq()
-    {
-        return $this->idReq;
-    }
 
     /**
      * Set date
@@ -178,6 +151,27 @@ class Rponse
     public function setUser($user)
     {
         $this->user = $user;
+    }
+    /**
+     * @ORM\OneToOne(targetEntity="Requete")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $requete;
+
+    /**
+     * @return mixed
+     */
+    public function getRequete()
+    {
+        return $this->requete;
+    }
+
+    /**
+     * @param mixed $requete
+     */
+    public function setRequete($requete)
+    {
+        $this->requete = $requete;
     }
 }
 
