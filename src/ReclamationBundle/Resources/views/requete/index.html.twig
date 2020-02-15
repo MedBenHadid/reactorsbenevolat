@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Requetes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sujet</th>
+                <th>Derniermaj</th>
+                <th>Statut</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for requete in requetes %}
+            <tr>
+                <td><a href="{{ path('requete_show', { 'id': requete.id }) }}">{{ requete.id }}</a></td>
+                <td>{{ requete.sujet }}</td>
+                <td>{% if requete.dernierMAJ %}{{ requete.dernierMAJ|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ requete.statut }}</td>
+                <td>{{ requete.type }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('requete_show', { 'id': requete.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('requete_edit', { 'id': requete.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('requete_new') }}">Create a new requete</a>
+        </li>
+    </ul>
+{% endblock %}

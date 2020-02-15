@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Rponses list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sujet</th>
+                <th>Rep</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rponse in rponses %}
+            <tr>
+                <td><a href="{{ path('rponse_show', { 'id': rponse.id }) }}">{{ rponse.id }}</a></td>
+                <td>{{ rponse.sujet }}</td>
+                <td>{{ rponse.rep }}</td>
+                <td>{% if rponse.date %}{{ rponse.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('rponse_show', { 'id': rponse.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('rponse_edit', { 'id': rponse.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('rponse_new') }}">Create a new rponse</a>
+        </li>
+    </ul>
+{% endblock %}

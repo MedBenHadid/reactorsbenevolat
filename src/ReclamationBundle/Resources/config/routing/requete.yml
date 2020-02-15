@@ -1,0 +1,24 @@
+requete_index:
+    path:     /
+    defaults: { _controller: "ReclamationBundle:Requete:index" }
+    methods:  GET
+
+requete_show:
+    path:     /{id}/show
+    defaults: { _controller: "ReclamationBundle:Requete:show" }
+    methods:  GET
+
+requete_new:
+    path:     /new
+    defaults: { _controller: "ReclamationBundle:Requete:new" }
+    methods:  [GET, POST]
+
+requete_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ReclamationBundle:Requete:edit" }
+    methods:  [GET, POST]
+
+requete_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ReclamationBundle:Requete:delete" }
+    methods:  DELETE

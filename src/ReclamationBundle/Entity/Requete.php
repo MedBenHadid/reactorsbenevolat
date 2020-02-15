@@ -51,12 +51,7 @@ class Requete
 
 
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IdRep", type="integer", nullable=true, unique=true)
-     */
-    private $idRep;
+
 
 
     /**
@@ -167,29 +162,7 @@ class Requete
 
 
 
-    /**
-     * Set idRep
-     *
-     * @param integer $idRep
-     *
-     * @return Requete
-     */
-    public function setIdRep($idRep)
-    {
-        $this->idRep = $idRep;
 
-        return $this;
-    }
-
-    /**
-     * Get idRep
-     *
-     * @return int
-     */
-    public function getIdRep()
-    {
-        return $this->idRep;
-    }
     /**
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
@@ -210,6 +183,27 @@ class Requete
     public function setUser($user)
     {
         $this->user = $user;
+    }
+    /**
+     * @ORM\OneToOne(targetEntity="Rponse")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $rponse;
+
+    /**
+     * @return mixed
+     */
+    public function getRponse()
+    {
+        return $this->rponse;
+    }
+
+    /**
+     * @param mixed $rponse
+     */
+    public function setRponse($rponse)
+    {
+        $this->rponse = $rponse;
     }
 }
 

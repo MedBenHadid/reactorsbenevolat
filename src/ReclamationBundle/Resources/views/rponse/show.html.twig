@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Rponse</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rponse.id }}</td>
+            </tr>
+            <tr>
+                <th>Sujet</th>
+                <td>{{ rponse.sujet }}</td>
+            </tr>
+            <tr>
+                <th>Rep</th>
+                <td>{{ rponse.rep }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if rponse.date %}{{ rponse.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('rponse_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('rponse_edit', { 'id': rponse.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

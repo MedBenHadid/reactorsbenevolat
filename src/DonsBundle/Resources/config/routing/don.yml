@@ -1,0 +1,24 @@
+don_index:
+    path:     /
+    defaults: { _controller: "DonsBundle:Don:index" }
+    methods:  GET
+
+don_show:
+    path:     /{id}/show
+    defaults: { _controller: "DonsBundle:Don:show" }
+    methods:  GET
+
+don_new:
+    path:     /new
+    defaults: { _controller: "DonsBundle:Don:new" }
+    methods:  [GET, POST]
+
+don_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "DonsBundle:Don:edit" }
+    methods:  [GET, POST]
+
+don_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "DonsBundle:Don:delete" }
+    methods:  DELETE
