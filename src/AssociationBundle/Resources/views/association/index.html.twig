@@ -36,7 +36,7 @@
                             <tr class="border-0">
                                 <th class="border-0 font-14 font-weight-medium text-muted">Nom de l'association
                                 </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted px-2">ID
+                                <th class="border-0 font-14 font-weight-medium text-muted px-2">Manager
                                 </th>
                                 <th class="border-0 font-14 font-weight-medium text-muted">Team</th>
                                 <th class="border-0 font-14 font-weight-medium text-muted text-center">
@@ -50,7 +50,7 @@
                             </thead>
                             <tbody>
                             {% for association in associations %}
-                                <tr>
+                                <tr>{{ association.typeAssociation }}
                                     <td class="border-top-0 px-2 py-4">
                                         <div class="d-flex no-block align-items-center">
                                             <div class="mr-3"><img
@@ -58,8 +58,8 @@
                                                         alt="user" class="rounded-circle" width="45"
                                                         height="45" /></div>
                                             <div class="">
-                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('association_show', { 'id': association.id }) }}">{{ association.name }}</a></h5>
-                                                <span class="text-muted font-14">{{ association.description }}</span>
+                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('association_show', { 'id': association.idAssociation }) }}">{{ association.nomAssociation }}</a></h5>
+                                                <span class="text-muted font-14">{{ association.manager }}</span>
                                             </div>
                                         </div>
                                     </td>
@@ -83,7 +83,7 @@
                                             class="border-top-0 text-center font-weight-medium text-muted px-2 py-4">
                                         35
                                     </td>
-                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4"><a href="{{ path('association_edit', { 'id': association.id }) }}">edit</a>
+                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4"><a href="{{ path('association_edit', { 'id': association.idAssociation }) }}">edit</a>
                                     </td>
                                 </tr>
                             {% endfor %}

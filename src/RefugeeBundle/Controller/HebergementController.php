@@ -22,7 +22,7 @@ class HebergementController extends Controller
 
         $hebergements = $em->getRepository('RefugeeBundle:Hebergement')->findAll();
 
-        return $this->render('hebergement/index.html.twig', array(
+        return $this->render('@Refugee/Hebergement/index.html.twig', array(
             'hebergements' => $hebergements,
         ));
     }
@@ -46,7 +46,7 @@ class HebergementController extends Controller
             return $this->redirectToRoute('hebergement_show', array('id' => $hebergement->getId()));
         }
 
-        return $this->render('hebergement/new.html.twig', array(
+        return $this->render('@Refugee/Hebergement/new.html.twig', array(
             'hebergement' => $hebergement,
             'form' => $form->createView(),
         ));
@@ -60,7 +60,7 @@ class HebergementController extends Controller
     {
         $deleteForm = $this->createDeleteForm($hebergement);
 
-        return $this->render('hebergement/show.html.twig', array(
+        return $this->render('@Refugee/Hebergement/show.html.twig', array(
             'hebergement' => $hebergement,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -82,7 +82,7 @@ class HebergementController extends Controller
             return $this->redirectToRoute('hebergement_edit', array('id' => $hebergement->getId()));
         }
 
-        return $this->render('hebergement/edit.html.twig', array(
+        return $this->render('@Refugee/Hebergement/edit.html.twig', array(
             'hebergement' => $hebergement,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -122,4 +122,6 @@ class HebergementController extends Controller
             ->getForm()
         ;
     }
+
+
 }

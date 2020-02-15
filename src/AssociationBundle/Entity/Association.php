@@ -12,281 +12,473 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Association
  *
- * @ORM\Table(name="association")
+ * @ORM\Table(name="association", indexes={@ORM\Index(name="id_manager", columns={"id_manager"})})
  * @ORM\Entity(repositoryClass="AssociationBundle\Repository\AssociationRepository")
  */
 class Association
 {
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="nom_agence", type="string", length=30, nullable=false)
+     */
+    private $nomAssociation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="telephone_agence", type="integer", nullable=false)
+     */
+    private $telephoneAssociation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type_agence", type="string", length=20, nullable=false)
+     */
+    private $typeAssociation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="horaire_travail", type="string", length=20, nullable=false)
+     */
+    private $horaireTravail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo_agence", type="text", length=65535, nullable=false)
+     */
+    private $photoAssociation;
+
+    /**
+     * @var \AppBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_manager", referencedColumnName="id")
+     * })
+     */
+    private $manager;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="piece_justificatif", type="text", length=65535, nullable=false)
+     */
+    private $pieceJustificatif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="rue", type="string", length=200, nullable=true)
+     */
+    private $rue;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="code_postal", type="integer", nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ville", type="string", length=200, nullable=true)
+     */
+    private $ville;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statu", type="string", length=200, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $longitude;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="approuved", type="boolean", nullable=false)
+     */
+    private $approuved = false;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_agence", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    private $idAssociation;
+
 
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param string $image
-     */
-    public function setImage(string $image)
-    {
-        $this->image = $image;
-    }
-
-    /**
-     * @var string
+     * Set nomAssociation
      *
-     * @Assert\NotBlank(message="Veuillez choisir une image")
-     * @Assert\Image()
-     * @ORM\Column(name="image", type="string",length=255)
+     * @param string $nomAssociation
+     *
+     * @return Association
      */
-    private $image ;
-
-
-    /**
-     * @var string
-     * @ORM\Column(type="text", length=300)
-     * @Assert\NotBlank(message="Veuillez insérer une description de votre association")
-     * @Assert\Length(
-     *     max=300,
-     *     maxMessage="La description ne peut pas dépasser 300 caractéres"
-     * )
-     */
-    private $description;
-
-    /**
-     * @ORM\OneToOne(targetEntity="AssociationBundle\Entity\Category")
-     */
-    private $domaine;
-
-    /**
-     * * @ORM\Column(type="boolean")
-     */
-    private $isActivated=FALSE;
-
-    /**
-     * @return bool
-     */
-    public function isActivated(): bool
+    public function setNomAssociation($nomAssociation)
     {
-        return $this->isActivated;
+        $this->nomAssociation = $nomAssociation;
+
+        return $this;
     }
 
     /**
-     * @param bool $isActivated
-     */
-    public function setIsActivated(bool $isActivated)
-    {
-        $this->isActivated = $isActivated;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
+     * Get nomAssociation
+     *
      * @return string
      */
-    public function getDescription()
+    public function getNomAssociation()
     {
-        return $this->description;
+        return $this->nomAssociation;
     }
 
     /**
-     * @param string $description
+     * Set telephoneAssociation
+     *
+     * @param integer $telephoneAssociation
+     *
+     * @return Association
      */
-    public function setDescription(string $description)
+    public function setTelephoneAssociation($telephoneAssociation)
     {
-        $this->description = $description;
+        $this->telephoneAssociation = $telephoneAssociation;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get telephoneAssociation
+     *
+     * @return integer
      */
-    public function getDomaine()
+    public function getTelephoneAssociation()
     {
-        return $this->domaine;
+        return $this->telephoneAssociation;
     }
 
     /**
-     * @param mixed $domaine
+     * Set typeAssociation
+     *
+     * @param string $typeAssociation
+     *
+     * @return Association
      */
-    public function setDomaine($domaine)
+    public function setTypeAssociation($typeAssociation)
     {
-        $this->domaine = $domaine;
+        $this->typeAssociation = $typeAssociation;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get typeAssociation
+     *
+     * @return string
      */
-    public function getAdresse()
+    public function getTypeAssociation()
     {
-        return $this->adresse;
+        return $this->typeAssociation;
     }
 
     /**
-     * @param mixed $adresse
+     * Set horaireTravail
+     *
+     * @param string $horaireTravail
+     *
+     * @return Association
      */
-    public function setAdresse($adresse)
+    public function setHoraireTravail($horaireTravail)
     {
-        $this->adresse = $adresse;
+        $this->horaireTravail = $horaireTravail;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get horaireTravail
+     *
+     * @return string
      */
-    public function getNumTel()
+    public function getHoraireTravail()
     {
-        return $this->numTel;
+        return $this->horaireTravail;
     }
 
     /**
-     * @param mixed $numTel
+     * Set photoAssociation
+     *
+     * @param string $photoAssociation
+     *
+     * @return Association
      */
-    public function setNumTel($numTel)
+    public function setPhotoAssociation($photoAssociation)
     {
-        $this->numTel = $numTel;
+        $this->photoAssociation = $photoAssociation;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get photoAssociation
+     *
+     * @return string
      */
-    public function getEmail()
+    public function getPhotoAssociation()
     {
-        return $this->email;
+        return $this->photoAssociation;
     }
 
     /**
-     * @param mixed $email
+     * Set pieceJustificatif
+     *
+     * @param string $pieceJustificatif
+     *
+     * @return Association
      */
-    public function setEmail($email)
+    public function setPieceJustificatif($pieceJustificatif)
     {
-        $this->email = $email;
+        $this->pieceJustificatif = $pieceJustificatif;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get pieceJustificatif
+     *
+     * @return string
      */
-    public function getLocation()
+    public function getPieceJustificatif()
     {
-        return $this->location;
+        return $this->pieceJustificatif;
     }
 
     /**
-     * @param mixed $location
+     * Set rue
+     *
+     * @param string $rue
+     *
+     * @return Association
      */
-    public function setLocation($location)
+    public function setRue($rue)
     {
-        $this->location = $location;
+        $this->rue = $rue;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get rue
+     *
+     * @return string
      */
-    public function getDateDeCreation()
+    public function getRue()
     {
-        return $this->dateDeCreation;
+        return $this->rue;
     }
 
     /**
-     * @param mixed $dateDeCreation
+     * Set codePostal
+     *
+     * @param integer $codePostal
+     *
+     * @return Association
      */
-    public function setDateDeCreation($dateDeCreation)
+    public function setCodePostal($codePostal)
     {
-        $this->dateDeCreation = $dateDeCreation;
+        $this->codePostal = $codePostal;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get codePostal
+     *
+     * @return integer
      */
-    public function getAdmin()
+    public function getCodePostal()
     {
-        return $this->admin;
+        return $this->codePostal;
     }
 
     /**
-     * @param mixed $admin
+     * Set ville
+     *
+     * @param string $ville
+     *
+     * @return Association
      */
-    public function setAdmin($admin)
+    public function setVille($ville)
     {
-        $this->admin = $admin;
+        $this->ville = $ville;
+
+        return $this;
     }
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * Get ville
+     *
+     * @return string
      */
-    private $adresse;
+    public function getVille()
+    {
+        return $this->ville;
+    }
 
     /**
-     * @ORM\Column(type="string", length=12)
+     * Set statu
+     *
+     * @param string $status
+     *
+     * @return Association
      */
-    private $numTel;
-    /**
-     * @ORM\Column(type="string", length=60)
-     * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email."
-     * )
-     */
-    private $email;
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $location;
-    /**
-     * @ORM\Column(type="date", length=255)
-     */
-    private $dateDeCreation;
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
-  //  private $evenements;
-
-//    private $missions;
+        return $this;
+    }
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * Get status
+     *
+     * @return string
      */
-    private $admin;
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", inversedBy="association")
+     * Set latitude
+     *
+     * @param float $latitude
+     *
+     * @return Association
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return float
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     *
+     * @return Association
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return float
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set approuved
+     *
+     * @param boolean $approuved
+     *
+     * @return Association
+     */
+    public function setApprouved($approuved)
+    {
+        $this->approuved = $approuved;
+
+        return $this;
+    }
+
+    /**
+     * Get approuved
+     *
+     * @return boolean
+     */
+    public function getApprouved()
+    {
+        return $this->approuved;
+    }
+
+    /**
+     * Get idAssociation
+     *
+     * @return integer
+     */
+    public function getIdAssociation()
+    {
+        return $this->idAssociation;
+    }
+
+    /**
+     * Set manager
+     *
+     * @param \AppBundle\Entity\User $manager
+     *
+     * @return Association
+     */
+    public function setManager(\AppBundle\Entity\User $manager = null)
+    {
+        $this->manager = $manager;
+
+        return $this;
+    }
+
+    /**
+     * Get manager
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="association")
      */
     private $members;
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * @return Collection|User[]

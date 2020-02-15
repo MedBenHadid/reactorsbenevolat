@@ -1,0 +1,32 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <h1>Image</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ image.id }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><img width="300" height="300" src="{{ asset('uploads/refugee/images/' ~ image.image) }}" alt=""></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('refugee_image_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('refugee_image_edit', { 'id': image.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

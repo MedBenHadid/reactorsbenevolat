@@ -15,8 +15,14 @@ imports:
 parameters:
     locale: fr
     upload_dir: '%kernel.project_dir%/web/uploads/images'
+    association_directory: '%kernel.root_dir%/../web/client/images/agences'
+    pieces_directory: '%kernel.root_dir%/../web/client/images/agences/pieces'
+    refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
+
 framework:
     #esi: ~
+    templating:
+        engines: ['twig']
     translator: ~
     secret: '%secret%'
     router:
@@ -79,15 +85,18 @@ sensio_framework_extra:
         annotations: false
 
 fos_user:
-    db_driver: orm
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: AppBundle\Entity\User
-    service:
-        mailer: fos_user.mailer.twig_swift # this lines
     from_email:
-        address: '%mailer_user%'
-        sender_name: '%mailer_user%'
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationType
     #registration:
         #confirmation:
             #enabled: true
             #template:   '@FOSUser/Registration/email.txt.twig'
+
+

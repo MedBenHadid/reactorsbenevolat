@@ -1,0 +1,43 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <h1>Hebergementrequests list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Region</th>
+                <th>State</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hebergementRequest in hebergementRequests %}
+            <tr>
+                <td><a href="{{ path('hebergementrequest_show', { 'id': hebergementRequest.id }) }}">{{ hebergementRequest.id }}</a></td>
+                <td>{{ hebergementRequest.description }}</td>
+                <td>{{ hebergementRequest.region }}</td>
+                <td>{{ hebergementRequest.state }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('hebergementrequest_show', { 'id': hebergementRequest.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('hebergementrequest_edit', { 'id': hebergementRequest.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('hebergementrequest_new') }}">Create a new hebergementRequest</a>
+        </li>
+    </ul>
+{% endblock %}

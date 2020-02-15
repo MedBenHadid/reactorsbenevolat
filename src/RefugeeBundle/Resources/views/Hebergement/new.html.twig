@@ -1,0 +1,44 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <div class="container my-3">
+        <h1>Création d'un hebergement</h1>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_label(form.description, 'Description') }}
+                    {{ form_widget(form.description, {'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.governorat, 'Governorat') }}
+                    {{ form_widget(form.governorat, {'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.nbrRooms, 'Nombre des chambres') }}
+                    {{ form_widget(form.nbrRooms, {'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.duration, 'Durée (Mois)') }}
+                    {{ form_widget(form.duration, {'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.state, 'Etat') }}
+                    {{ form_widget(form.state, {'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.user, 'Utilisateur') }}
+                    {{ form_widget(form.user, {'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <button type="submit" class="btn btn-primary">Créer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        <ul>
+            <li>
+                <a href="{{ path('hebergement_index') }}">Retournez au list des hébérgements</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

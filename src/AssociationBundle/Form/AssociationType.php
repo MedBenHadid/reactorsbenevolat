@@ -18,15 +18,13 @@ class AssociationType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('image', FileType::class, array('label'=>'insert an image mother fucker la nikek b triha'))
+            ->add('image', FileType::class, array('label'=>'Logo :'))
             ->add('adresse')
             ->add('numTel')
             ->add('email')
             ->add('location')
             ->add('dateDeCreation')
-            ->add('domaine')
-            ->add('admin')
-            ->add('members');
+            ->add('domaine');
     }/**
      * {@inheritdoc}
      */

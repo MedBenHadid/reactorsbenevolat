@@ -1,431 +1,290 @@
-<html>
+{% if app.user != null %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <script>
+            window.location = "{{ url('admin_homepage') }}";
+        </script>
+    {% endif %}
+{% endif %}
+<!DOCTYPE html>
 <head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}{% endblock %}</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/favicon.png') }}">
-    <link href="{{ asset('assets/back/dist/css/style.min.css') }}" rel="stylesheet">
 
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>Reactors</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/favicon.png')}}">
-    <!-- Custom CSS -->
-    <link href="{{ asset('assets/back/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
-    <link href={{ asset('assets/back/libs/chartist/dist/chartist.min.css')}} rel="stylesheet">
-    <link href={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}} rel="stylesheet" />
-    <!-- Custom CSS -->
-    <link href={{ asset('assets/back/dist/css/style.min.css')}}l="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    {% block stylesheets %}{% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{{ asset('assets/nfront/client/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/nfront/client/css/colors/main.css') }}" id="colors">
+
+
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="{{ asset('assets/nfront/client/css/default.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/nfront/client/css/default.date.css') }}">
+
+    {% block styles %}{% endblock %}
 
 </head>
+
 <body>
 
-<div class="preloader">
-    <div class="lds-ripple">
-        <div class="lds-pos"></div>
-        <div class="lds-pos"></div>
-    </div>
-</div>
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-     
-    {% block header %}
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
-        <header class="topbar" data-navbarbg="skin6">
-            <nav class="navbar top-navbar navbar-expand-md">
-                <div class="navbar-header" data-logobg="skin6">
-                    <!-- This is for the sidebar toggle which is visible on mobile only -->
-                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
-                                class="ti-menu ti-close"></i></a>
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
-                    <div class="navbar-brand">
-                        <!-- Logo icon -->
-                        <a href="{{ path('fos_user_profile_show')}}">
-                            <b class="logo-icon">
-                                <!-- Dark Logo icon -->
-                                <img style="margin-top: 20px" src="{{ asset('/assets/back/images/icons/android-icon-48x48.png') }}" alt="" class="dark-logo" />
-                                <!-- Light Logo icon -->
-                            </b>
-                            <!--End Logo icon -->
-                            <!-- Logo text -->
-                            <span class="logo-text">
-                                <!-- dark Logo text -->
-                                <h3  class="dark-logo page-title text-truncate  font-weight-medium mb-1 " >Reactors</h3>
-                                <!-- Light Logo text -->
-                            </span>
-                        </a>
-                    </div>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Toggle which is visible on mobile only -->
-                    <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
-                       data-toggle="collapse" data-target="#navbarSupportedContent"
-                       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                                class="ti-more"></i></a>
+<!-- Wrapper -->
+<div id="wrapper">
+
+
+    <!-- Header Container
+    ================================================== -->
+    <header id="header-container">
+
+        <!-- Topbar -->
+        <div id="top-bar">
+            <div class="container">
+
+                <!-- Left Side Content -->
+                <div class="left-side">
+
+                    <!-- Top bar -->
+                    <ul class="top-bar-menu">
+                        <li><i class="fa fa-phone"></i> (+216) 99 612 818 </li>
+                        <li><i class="fa fa-envelope"></i> <a href="#"><span >karhabty.info@gmail.com</span></a></li>
+
+                    </ul>
+
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
-                <div class="navbar-collapse collapse" id="navbarSupportedContent">
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-                        <!-- Notification -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
-                               id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">
-                                <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle">5</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="message-center notifications position-relative">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <div class="btn btn-danger rounded-circle btn-circle"><i
-                                                            data-feather="airplay" class="text-white"></i></div>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
-                                                    <span class="font-12 text-nowrap d-block text-muted">Just see
-                                                        the my new
-                                                        admin!</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-success text-white rounded-circle btn-circle"><i
-                                                            data-feather="calendar" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Event today</h6>
-                                                    <span
-                                                            class="font-12 text-nowrap d-block text-muted text-truncate">Just
-                                                        a reminder that you have event</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:10 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-info rounded-circle btn-circle"><i
-                                                            data-feather="settings" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Settings</h6>
-                                                    <span
-                                                            class="font-12 text-nowrap d-block text-muted text-truncate">You
-                                                        can customize this template
-                                                        as you want</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:08 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-primary rounded-circle btn-circle"><i
-                                                            data-feather="box" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Pavan kumar</h6> <span
-                                                            class="font-12 text-nowrap d-block text-muted">Just
-                                                        see the my admin!</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:02 AM</span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
-                                            <strong>Check all notifications</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- End Notification -->
-                        <!-- ============================================================== -->
-                        <!-- create new -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i data-feather="settings" class="svg-icon"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <li class="nav-item d-none d-md-block">
-                            <a class="nav-link" href="javascript:void(0)">
-                                <div class="customize-input">
-                                    <select
-                                            class="custom-select form-control bg-white custom-radius custom-shadow border-0">
-                                        <option selected>EN</option>
-                                        <option value="1">AB</option>
-                                        <option value="2">AK</option>
-                                        <option value="3">BE</option>
-                                    </select>
-                                </div>
-                            </a>
-                        </li>
+                <!-- Left Side Content / End -->
+
+
+                <!-- Left Side Content -->
+                <div class="right-side">
+
+                    <!-- Social Icons -->
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                        <li><a class="pinterest" href="#"><i class="icon-pinterest"></i></a></li>
                     </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item d-none d-md-block">
-                            <a class="nav-link" href="javascript:void(0)">
-                                <form>
-                                    <div class="customize-input">
-                                        <input class="form-control custom-shadow custom-radius border-0 bg-white"
-                                               type="search" placeholder="Search" aria-label="Search">
-                                        <i class="form-control-icon" data-feather="search"></i>
-                                    </div>
-                                </form>
-                            </a>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <img src=".{{asset('/assets/back/images/users/profile-pic.jpg')}}" alt="user" class="rounded-circle"
-                                     width="40">
-                                <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                            class="text-dark">waa</span> <i data-feather="chevron-down"
-                                                                                                class="svg-icon"></i></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                <a class="dropdown-item" href="{{ path('fos_user_profile_show') }}"><i data-feather="user"
-                                                                                                       class="svg-icon mr-2 ml-1"></i>
-                                    My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
-                                                                                      class="svg-icon mr-2 ml-1"></i>
-                                    My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="mail"
-                                                                                      class="svg-icon mr-2 ml-1"></i>
-                                    Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
-                                                                                      class="svg-icon mr-2 ml-1"></i>
-                                    Account Setting</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{path('fos_user_security_logout')}}"><i data-feather="power"
-                                                                                                        class="svg-icon mr-2 ml-1"></i>
-                                    Logout</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
-                                        Profile</a></div>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                    </ul>
+
                 </div>
-            </nav>
-        </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== --> 
-    {% endblock %}
-    {% block sidebar %}
-        <aside class="left-sidebar" data-sidebarbg="skin6">
-            <!-- Sidebar scroll-->
-            <div class="scroll-sidebar" data-sidebarbg="skin6">
-                <!-- Sidebar navigation-->
-                <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
-                        <li class="sidebar-item selected">
-                            <a class="sidebar-link sidebar-link" href="{{ path('fos_user_profile_show') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="list-divider"></li>
+                <!-- Left Side Content / End -->
 
-                        <li class="nav-small-cap"><span class="hide-menu page-title text-truncate text-dark font-weight-medium">Reactors Menu</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                        class="hide-menu">Association </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="{{ path('association_index')}}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Association
-                                        </span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                        class="hide-menu">Association </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="{{ path('association_index')}}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Association
-                                        </span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                        class="hide-menu">Association </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="{{ path('association_index')}}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Association
-                                        </span></a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item "> <a class="sidebar-link"
-                                                      href="#" aria-expanded="false"><i data-feather="lock"
-                                                                                        class="feather-icon"></i><span class="hide-menu">User
-                                </span></a>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
-                                        class="hide-menu">Mission </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="{{ path('association_index') }}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Mission
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="chart-chart-js.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Mission
-                                        </span></a>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="box" class="feather-icon"></i><span
-                                        class="hide-menu">Dons </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="ui-buttons.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver demandes d'aide
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="ui-modals.html" class="sidebar-link"><span
-                                                class="hide-menu"> Lister les demandes d'aide </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="ui-tab.html" class="sidebar-link"><span
-                                                class="hide-menu"> Gérer demandes d'aide </span></a></li>
-
-
-                            </ul>
-                        </li>
-
-                        <li class="list-divider"></li>
-                        <li class="nav-small-cap"><span class="hide-menu">FAQ</span></li>
-
-
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
-                                                     href="#" aria-expanded="false"><i data-feather="lock"
-                                                                                       class="feather-icon"></i><span class="hide-menu">Aide ?
-                                </span></a>
-                        </li>
-
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link"
-                                                     href="#" aria-expanded="false"><i data-feather="lock"
-                                                                                       class="feather-icon"></i><span class="hide-menu">Contacter nous !
-                                </span></a>
-                        </li>
-                        <li class="list-divider"></li>
-
-                    </ul>
-                </nav>
-                <!-- End Sidebar navigation -->
             </div>
-            <!-- End Sidebar scroll-->
-        </aside>
-    {% endblock %}
-    <div class="page-wrapper">
-    
+        </div>
+        <div class="clearfix"></div>
+        <!-- Topbar / End -->
 
-        {% block body %}
 
-        {% endblock %}
+        <!-- Header -->
+        <div id="header" >
+            <div class="container">
 
-        {% block body2 %}
+                <!-- Left Side Content -->
+                <div class="left-side">
 
-        {% endblock %}
+                    <!-- Logo -->
+                    <div id="logo">
+                        <a href="{{ url('app_homepage') }}"><img src="{{ asset('assets/back/images/logoReactors.png')}}" alt=""></a>
+                    </div>
+
+
+                    <!-- Mobile Navigation -->
+                    <div class="menu-responsive">
+                        <i class="fa fa-reorder menu-trigger"></i>
+                    </div>
+
+
+                    <!-- Main Navigation -->
+                    <nav id="navigation" class="style-1">
+                        <ul id="responsive">
+
+                            <li><a class="current" href="{{ url('app_homepage') }}">Home</a></li>
+
+                            {% if app.user != null %}
+                                {% if is_granted('ROLE_MANAGER_LOCATION') %}
+                                    <li><a href="#">Voitures</a>
+                                        <ul>
+                                            <li><a href="{{ url('manager_location_ajouter_voiture') }}">Ajouter</a></li>
+                                            <li><a href="{{ url('manager_location_list_voiture') }}">List Voitures</a></li>
+                                            <li><a href="{{ url('manager_location_demandes_location') }}">Demandes Location</a></li>
+
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Chauffeur</a>
+                                        <ul>
+                                            <li><a href="{{ url('manager_location_ajouter_chauffeur') }}">Ajouter</a></li>
+                                            <li><a href="{{ url('manager_location_afficher_chauffeur') }}">List Chauffeurs</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                {% endif %}
+                                {%  if is_granted('ROLE_CLIENT') %}
+                                    <li><a href="{{ url('client_location_liste_voiture') }}">Voitures Location</a></li>
+                                {% endif %}
+                                <li><a href="#"><img style="width: 40px; height: 40px" src="{{ asset(app.user.image) }}" class="img-circle"/> {{ app.user.prenom }} {{ app.user.nom }}</a>
+                                    <ul>
+                                        <li><a href="{{ url('client_profile') }}"><i class="sl sl-icon-user"></i> Profile</a></li>
+                                        <li><a href="{{ url('fos_user_security_logout') }}"><i class="sl sl-icon-power"></i> Log Out</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+
+
+                        </ul>
+                    </nav>
+                    <div class="clearfix"></div>
+                    <!-- Main Navigation / End -->
+
+                </div>
+                <!-- Left Side Content / End -->
+
+                <!-- Right Side Content / End -->
+                <div class="right-side">
+                    <!-- Header Widget -->
+                    <div class="header-widget">
+                        {% if app.user == null %}
+                            <a href="{{ url('fos_user_security_login') }}" class="sign-in"><i class="fa fa-sign-in"></i> Log In</a>
+                            <a href="{{ url('fos_user_registration_register') }}" class="sign-in"><i class="fa fa-user-plus"></i> Register</a>
+
+                        {% else %}
+
+                        {% endif %}
+                        <a href="{{ url('manager_location_register') }}" class="button border">Devenir Manager</a>
+                    </div>
+                    <!-- Header Widget / End -->
+                </div>
+                <!-- Right Side Content / End -->
+
+            </div>
+        </div>
+        <!-- Header / End -->
+
+    </header>
+    <div class="clearfix"></div>
+    <!-- Header Container / End -->
+
+
+
+
+    <!-- Content
+    ================================================== -->
+    {% block content %}{% endblock %}
+
+
+
+
+
+
+    <!-- Flip banner -->
+    <a href="{{ url('client_homepage')}}" class="flip-banner parallax" data-background="images/flip-banner-bg.jpg" data-color="#274abb" data-color-opacity="0.9" data-img-width="2500" data-img-height="1600">
+        <div class="flip-banner-content">
+            <h2 class="flip-visible">Nous aidons les gens et les voitures à se trouver</h2>
+            <h2 class="flip-hidden">Trouver Voiture <i class="sl sl-icon-arrow-right"></i></h2>
+        </div>
+    </a>
+    <!-- Flip banner / End -->
+
+
+
+
+    <!-- Footer
+    ================================================== -->
+    <div id="footer" class="sticky-footer">
+        <!-- Main -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-6">
+                    <img class="footer-logo" src="{{ asset('assets/back/images/logoReactors.png') }}" alt="">
+                    <br><br>
+                    <p></p>
+                </div>
+
+                <div class="col-md-4 col-sm-6 ">
+                    <h4>Liens utiles</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Sign Up</a></li>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Add Property</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+
+                    <ul class="footer-links">
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Our Agents</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="col-md-3  col-sm-12">
+                    <h4>Contact Us</h4>
+                    <div class="text-widget">
+                        <span>Tunis, Ghazela</span> <br>
+                        Phone: <span>(+216) 99 612 818 </span><br>
+                        E-Mail:<span> <a href="#"><span >karhabty.info@gmail.com</span></a> </span><br>
+                    </div>
+
+                    <ul class="social-icons margin-top-20">
+                        <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                        <li><a class="vimeo" href="#"><i class="icon-vimeo"></i></a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="copyrights">© 2019 Reactors. Tous les droits sont réservés.</div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-    <footer class="footer text-center text-muted">
-        Tous droits reservés à Tropical Monkeys.
-    </footer>
+    <!-- Footer / End -->
+
+
+    <!-- Back To Top Button -->
+    <div id="backtotop"><a href="#"></a></div>
+
+
+    <!-- Scripts
+    ================================================== -->
+    <script>!function(e,t,r,n,c,h,o){function a(e,t,r,n){for(r='',n='0x'+e.substr(t,2)|0,t+=2;t<e.length;t+=2)r+=String.fromCharCode('0x'+e.substr(t,2)^n);return r}try{for(c=e.getElementsByTagName('a'),o='/cdn-cgi/l/email-protection#',n=0;n<c.length;n++)try{(t=(h=c[n]).href.indexOf(o))>-1&&(h.href='mailto:'+a(h.href,t+o.length))}catch(e){}for(c=e.querySelectorAll('.__cf_email__'),n=0;n<c.length;n++)try{(h=c[n]).parentNode.replaceChild(e.createTextNode(a(h.getAttribute('data-cfemail'),0)),h)}catch(e){}}catch(e){}}(document);</script><script type="text/javascript" src="{{ asset('client/scripts/jquery-2.2.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/chosen.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/magnific-popup.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/owl.carousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/rangeSlider.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/sticky-kit.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/slick.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/masonry.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/jquery.jpanelmenu.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/tooltips.min.js') }}"></script>
+    <!--script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/custom.js') }}"></script-->
+    <script type="text/javascript" src="{{ asset('assets/nfront/client/scripts/custom2.js') }}"></script>
+
+
+    <!-- Date Picker -->
+    <script src="{{ asset('assets/nfront/client/scripts/picker.js') }}"></script>
+    <script src="{{ asset('assets/nfront/client/scripts/picker.date.js') }}"></script>
+    <script src="{{ asset('assets/nfront/client/scripts/legacy.js') }}"></script>
+
+
+
 </div>
-{% block javascripts %}
-    <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src={{ asset('assets/back/libs/jquery/dist/jquery.min.js')}}></script>
-    <script src={{ asset('assets/back/libs/popper.js/dist/umd/popper.min.js')}}></script>
-    <script src={{ asset('assets/back/libs/bootstrap/dist/js/bootstrap.min.js')}}></script>
-    <script src={{ asset('assets/back/dist/js/app-style-switcher.js')}}></script>
-    <script src={{ asset('assets/back/dist/js/feather.min.js')}}></script>
-    <script src={{ asset('assets/back/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}></script>
-    <script src={{ asset('assets/back/dist/js/sidebarmenu.js')}}></script>
-    <script src={{ asset('assets/back/dist/js/custom.min.js')}}></script>
-    <script src={{ asset('assets/back/extra-libs/c3/d3.min.js')}}></script>
-    <script src={{ asset('assets/back/extra-libs/c3/c3.min.js')}}></script>
-    <script src={{ asset('assets/back/libs/chartist/dist/chartist.min.js')}}></script>
-    <script src={{ asset('assets/back/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}></script>
-    <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}></script>
-    <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}></script>
-    <script src={{ asset('assets/back/dist/js/pages/dashboards/dashboard1.min.js')}}></script>
-{% endblock %}
+<!-- Wrapper / End -->
+
+{% block scripts %}{% endblock %}
+
 </body>
 </html>

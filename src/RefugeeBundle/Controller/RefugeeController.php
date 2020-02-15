@@ -22,7 +22,7 @@ class RefugeeController extends Controller
 
         $refugees = $em->getRepository('RefugeeBundle:Refugee')->findAll();
 
-        return $this->render('refugee/index.html.twig', array(
+        return $this->render('@Refugee/Refugee/index.html.twig', array(
             'refugees' => $refugees,
         ));
     }
@@ -45,7 +45,7 @@ class RefugeeController extends Controller
             return $this->redirectToRoute('refugee_show', array('id' => $refugee->getId()));
         }
 
-        return $this->render('refugee/new.html.twig', array(
+        return $this->render('@Refugee/Refugee/new.html.twig', array(
             'refugee' => $refugee,
             'form' => $form->createView(),
         ));
@@ -59,7 +59,7 @@ class RefugeeController extends Controller
     {
         $deleteForm = $this->createDeleteForm($refugee);
 
-        return $this->render('refugee/show.html.twig', array(
+        return $this->render('@Refugee/Refugee/show.html.twig', array(
             'refugee' => $refugee,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -81,7 +81,7 @@ class RefugeeController extends Controller
             return $this->redirectToRoute('refugee_edit', array('id' => $refugee->getId()));
         }
 
-        return $this->render('refugee/edit.html.twig', array(
+        return $this->render('@Refugee/Refugee/edit.html.twig', array(
             'refugee' => $refugee,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

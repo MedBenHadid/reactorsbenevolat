@@ -22,7 +22,7 @@ class ImageController extends Controller
 
         $images = $em->getRepository('RefugeeBundle:Image')->findAll();
 
-        return $this->render('image/index.html.twig', array(
+        return $this->render('@Refugee/Image/index.html.twig', array(
             'images' => $images,
         ));
     }
@@ -38,14 +38,36 @@ class ImageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile)
+            {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+                try {
+                    $imageFile->move(
+                        $this->getParameter('refugee_image_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'brochureFilename' property to store the PDF file name
+                // instead of its contents
+                $image->setImage($newFilename);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
             $em->flush();
 
-            return $this->redirectToRoute('image_show', array('id' => $image->getId()));
+            return $this->redirectToRoute('refugee_image_show', array('id' => $image->getId()));
         }
 
-        return $this->render('image/new.html.twig', array(
+        return $this->render('@Refugee/Image/new.html.twig', array(
             'image' => $image,
             'form' => $form->createView(),
         ));
@@ -59,9 +81,9 @@ class ImageController extends Controller
     {
         $deleteForm = $this->createDeleteForm($image);
 
-        return $this->render('image/show.html.twig', array(
+        return $this->render('@Refugee/Image/show.html.twig', array(
             'image' => $image,
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $deleteForm->createView()
         ));
     }
 
@@ -78,10 +100,10 @@ class ImageController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('image_edit', array('id' => $image->getId()));
+            return $this->redirectToRoute('refugee_image_edit', array('id' => $image->getId()));
         }
 
-        return $this->render('image/edit.html.twig', array(
+        return $this->render('@Refugee/Image/edit.html.twig', array(
             'image' => $image,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -103,7 +125,7 @@ class ImageController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('image_index');
+        return $this->redirectToRoute('refugee_image_index');
     }
 
     /**
@@ -116,7 +138,7 @@ class ImageController extends Controller
     private function createDeleteForm(Image $image)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('image_delete', array('id' => $image->getId())))
+            ->setAction($this->generateUrl('refugee_image_delete', array('id' => $image->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

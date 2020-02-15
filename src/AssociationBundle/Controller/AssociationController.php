@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Association controller.
  *
  * @Route("/association")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class AssociationController extends Controller
 {
@@ -37,6 +38,10 @@ class AssociationController extends Controller
     public function registerAction(Request $request)
     {
         $association = new Association();
+
+        /**
+         * @var Association $ass
+         */
 
         $form = $this->createForm('AssociationBundle\Form\AssociationType', $association);
         $form->handleRequest($request);
