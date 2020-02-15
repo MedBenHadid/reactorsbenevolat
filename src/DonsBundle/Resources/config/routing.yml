@@ -1,3 +1,15 @@
+dons_demande:
+    resource: "@DonsBundle/Resources/config/routing/demande.yml"
+    prefix:   /demande
+
 dons_homepage:
     path:     /
     defaults: { _controller: DonsBundle:Default:index }
+
+dons_don:
+    resource: "@DonsBundle/Resources/config/routing/don.yml"
+    prefix:   /don
+
+dons_image:
+        resource: "@DonsBundle/Resources/config/routing/image.yml"
+        prefix:   /image
