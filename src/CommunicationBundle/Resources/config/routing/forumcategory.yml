@@ -1,0 +1,24 @@
+forumcategory_index:
+    path:     /
+    defaults: { _controller: "CommunicationBundle:ForumCategory:index" }
+    methods:  GET
+
+forumcategory_show:
+    path:     /{id}/show
+    defaults: { _controller: "CommunicationBundle:ForumCategory:show" }
+    methods:  GET
+
+forumcategory_new:
+    path:     /new
+    defaults: { _controller: "CommunicationBundle:ForumCategory:new" }
+    methods:  [GET, POST]
+
+forumcategory_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "CommunicationBundle:ForumCategory:edit" }
+    methods:  [GET, POST]
+
+forumcategory_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "CommunicationBundle:ForumCategory:delete" }
+    methods:  DELETE

@@ -20,7 +20,7 @@ refugee:
 
 communication:
     resource: "@CommunicationBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /Forum
 
 dons:
     resource: "@DonsBundle/Resources/config/routing.yml"
