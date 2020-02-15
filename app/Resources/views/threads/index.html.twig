@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Threads list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Lastmodified</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for thread in threads %}
+            <tr>
+                <td><a href="{{ path('threads_show', { 'id': thread.id }) }}">{{ thread.id }}</a></td>
+                <td>{{ thread.title }}</td>
+                <td>{{ thread.content }}</td>
+                <td>{% if thread.lastmodified %}{{ thread.lastmodified|date('Y-m-d') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('threads_show', { 'id': thread.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('threads_edit', { 'id': thread.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('threads_new') }}">Create a new thread</a>
+        </li>
+    </ul>
+{% endblock %}
