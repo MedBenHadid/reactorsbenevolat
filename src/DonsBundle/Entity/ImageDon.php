@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="imageDon")
  * @ORM\Entity(repositoryClass="DonsBundle\Repository\ImageRepository")
  */
-class Image
+class ImageDon
 {
     /**
      * @var int
@@ -117,5 +117,10 @@ class Image
         $this->demande = $demande;
     }
 
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->don;
+    }
 }
 

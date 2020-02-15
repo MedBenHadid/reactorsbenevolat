@@ -10,6 +10,6 @@ dons_don:
     resource: "@DonsBundle/Resources/config/routing/don.yml"
     prefix:   /don
 
-dons_image:
-    resource: "@DonsBundle/Resources/config/routing/image.yml"
-    prefix:   /image
+dons_imagedon:
+    resource: "@DonsBundle/Resources/config/routing/imagedon.yml"
+    prefix:   /imagedon
