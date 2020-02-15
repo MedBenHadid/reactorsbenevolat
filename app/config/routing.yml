@@ -1,3 +1,7 @@
+dons_image:
+    resource: "@DonsBundle/Controller/ImageController.php"
+    type:     annotation
+
 association_category:
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
@@ -20,7 +24,7 @@ communication:
 
 dons:
     resource: "@DonsBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /dons
 
 mission:
     resource: "@MissionBundle/Resources/config/routing.yml"
