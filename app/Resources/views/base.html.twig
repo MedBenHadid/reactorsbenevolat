@@ -34,6 +34,7 @@
 
 </head>
 <body>
+
 <div class="preloader">
     <div class="lds-ripple">
         <div class="lds-pos"></div>
@@ -42,6 +43,7 @@
 </div>
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
      data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+     
     {% block header %}
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
@@ -261,7 +263,9 @@
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
+        <!-- ============================================================== --> 
+    {% endblock %}
+    {% block sidebar %}
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar" data-sidebarbg="skin6">
@@ -391,13 +395,18 @@
         </aside>
     {% endblock %}
     <div class="page-wrapper">
+    
+
         {% block body %}
+
+        {% endblock %}
+
+        {% block body2 %}
 
         {% endblock %}
     </div>
     <footer class="footer text-center text-muted">
-        All Rights Reserved by Tropical Monkeys.
-
+        Tous droits reservés à Tropical Monkeys.
     </footer>
 </div>
 {% block javascripts %}

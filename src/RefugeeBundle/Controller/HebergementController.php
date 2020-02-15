@@ -39,6 +39,7 @@ class HebergementController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $hebergement->setCreationDate(new \DateTime());
             $em->persist($hebergement);
             $em->flush();
 

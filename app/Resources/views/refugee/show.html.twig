@@ -1,52 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Refugee</h1>
-
-    <table>
-        <tbody>
+    <div class="container my-3">
+        <h1>Refugiée</h1>
+        <table class="table table-striped">
+            <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ refugee.id }}</td>
             </tr>
             <tr>
-                <th>Nativecountry</th>
+                <th>Pays d'origine</th>
                 <td>{{ refugee.nativeCountry }}</td>
             </tr>
             <tr>
-                <th>Casedescription</th>
-                <td>{{ refugee.caseDescription }}</td>
-            </tr>
-            <tr>
-                <th>Arrivaldate</th>
+                <th>Date d'arrivée</th>
                 <td>{% if refugee.arrivalDate %}{{ refugee.arrivalDate|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Passportnumber</th>
+                <th>Numero du Passport</th>
                 <td>{{ refugee.passportNumber }}</td>
             </tr>
             <tr>
-                <th>Civilstatus</th>
+                <th>Etat Civil</th>
                 <td>{{ refugee.civilStatus }}</td>
             </tr>
             <tr>
-                <th>Childrennumber</th>
+                <th>Numbre d'enfants</th>
                 <td>{{ refugee.childrenNumber }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('refugee_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('refugee_edit', { 'id': refugee.id }) }}">Edit</a>
-        </li>
-        <li>
+        <ul>
+            <li>
+                <a href="{{ path('refugee_index') }}">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('refugee_edit', { 'id': refugee.id }) }}">Edit</a>
+            </li>
+
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        </ul>
+    </div>
+
+
 {% endblock %}
