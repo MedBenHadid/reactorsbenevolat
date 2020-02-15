@@ -11,5 +11,5 @@ dons_don:
     prefix:   /don
 
 dons_image:
-        resource: "@DonsBundle/Resources/config/routing/image.yml"
-        prefix:   /image
+    resource: "@DonsBundle/Resources/config/routing/image.yml"
+    prefix:   /image
