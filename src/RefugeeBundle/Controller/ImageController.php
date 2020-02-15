@@ -22,7 +22,7 @@ class ImageController extends Controller
 
         $images = $em->getRepository('RefugeeBundle:Image')->findAll();
 
-        return $this->render('image/index.html.twig', array(
+        return $this->render('@Refugee/Image/index.html.twig', array(
             'images' => $images,
         ));
     }
@@ -45,7 +45,7 @@ class ImageController extends Controller
             return $this->redirectToRoute('image_show', array('id' => $image->getId()));
         }
 
-        return $this->render('image/new.html.twig', array(
+        return $this->render('@Refugee/Image/new.html.twig', array(
             'image' => $image,
             'form' => $form->createView(),
         ));
@@ -59,7 +59,7 @@ class ImageController extends Controller
     {
         $deleteForm = $this->createDeleteForm($image);
 
-        return $this->render('image/show.html.twig', array(
+        return $this->render('@Refugee/Image/show.html.twig', array(
             'image' => $image,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -81,7 +81,7 @@ class ImageController extends Controller
             return $this->redirectToRoute('image_edit', array('id' => $image->getId()));
         }
 
-        return $this->render('image/edit.html.twig', array(
+        return $this->render('@Refugee/Image/edit.html.twig', array(
             'image' => $image,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
