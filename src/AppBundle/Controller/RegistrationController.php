@@ -7,6 +7,7 @@ use AssociationBundle\Entity\Association;
 use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -47,8 +48,7 @@ class RegistrationController extends BaseController
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
                 //return var_dump($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
-                $user->setRoles(array(User::USER));
-                $user->setRole(User::USER);
+                $user->addRole(User::USER);
                 $user->setApprouved(1);
                 $user->setMail($request->request->all()['fos_user_registration_form']['email']);
                 $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
@@ -98,6 +98,7 @@ class RegistrationController extends BaseController
         }
 
         $form = $formFactory->createForm();
+        $categories = $this->getDoctrine()->getRepository('AssociationBundle:Category')->findAll();
         $form->setData($user);
 
         $form->handleRequest($request);
@@ -108,8 +109,7 @@ class RegistrationController extends BaseController
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
                 //return var_dump($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
-                $user->setRoles(array(User::ASSOCIATION_ADMIN));
-                $user->setRole(User::ASSOCIATION_ADMIN);
+                $user->addRole(User::ASSOCIATION_ADMIN);
                 $user->setApprouved(0);
                 $user->setEnabled(0);
                 $user->setMail($request->request->all()['fos_user_registration_form']['email']);
@@ -117,37 +117,37 @@ class RegistrationController extends BaseController
                 $userManager->updateUser($user);
 
                 // AJOUT AGENCE
-                $agence = new Association();
-                $agence->setNomAssociation($request->request->get('nom_agence'));
-                $agence->setTelephoneAssociation($request->request->get('tel_agence'));
-                $agence->setTypeAssociation("location");
-                $agence->setHoraireTravail($request->request->get('horaire_agence'));
+                $association = new Association();
+                $association->setNomAssociation($request->request->get('nom_association'));
+                $association->setTelephoneAssociation($request->request->get('tel_association'));
+                $association->setTypeAssociation("location");
+                $association->setHoraireTravail($request->request->get('horaire_association'));
 
-                $filePh = $request->files->get('photo_agence');
-                $imgExtension = $request->files->get('photo_agence')->guessExtension();
-                $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_agence'));
+                $filePh = $request->files->get('photo_association');
+                $imgExtension = $request->files->get('photo_association')->guessExtension();
+                $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
                 $filePh->move($this->getParameter('association_directory'), $imgName);
-                $agence->setPhotoAssociation('client/images/associations/' .$imgName);
+                $association->setPhotoAssociation('client/images/associations/' .$imgName);
 
-                $agence->setManager($user);
+                $association->setManager($user);
 
-                $filePh = $request->files->get('piece_agence');
-                $imgExtension = $request->files->get('piece_agence')->guessExtension();
-                $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_agence'));
+                $filePh = $request->files->get('piece_association');
+                $imgExtension = $request->files->get('piece_association')->guessExtension();
+                $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
                 $filePh->move($this->getParameter('pieces_directory'), $imgName);
-                $agence->setPieceJustificatif('client/images/associations/pieces/' .$imgName);
+                $association->setPieceJustificatif('client/images/associations/pieces/' .$imgName);
 
-                $agence->setRue($request->request->get('rue_agence'));
-                $agence->setCodePostal($request->request->get('code_postal_agence'));
-                $agence->setVille($request->request->get('ville_agence'));
-                $agence->setLatitude($request->request->get('lat_agence'));
-                $agence->setLongitude($request->request->get('lng_agence'));
+                $association->setRue($request->request->get('rue_association'));
+                $association->setCodePostal($request->request->get('code_postal_association'));
+                $association->setVille($request->request->get('ville_association'));
+                $association->setLatitude($request->request->get('lat_association'));
+                $association->setLongitude($request->request->get('lng_association'));
 
 
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($agence);
+                $em->persist($association);
                 $em->flush();
 
                 if (null === $response = $event->getResponse()) {
@@ -160,7 +160,7 @@ class RegistrationController extends BaseController
                 //return $response;
                 $request->getSession()
                     ->getFlashBag()
-                    ->add('success', 'Votre Demande de création agence a eté envoyé avec succée');
+                    ->add('success', 'Votre Demande de création association a eté envoyé avec succée');
                 ;
                 return $this->redirectToRoute('association_default_index');
             }
@@ -175,6 +175,7 @@ class RegistrationController extends BaseController
 
         return $this->render(':default:register_manager_association.html.twig', array(
             'form' => $form->createView(),
+            'categories' => $categories
         ));
     }
 }

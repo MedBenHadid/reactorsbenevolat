@@ -164,7 +164,7 @@ class AssociationController extends Controller
     private function createDeleteForm(Association $association)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('association_delete', array('id' => $association->getId())))
+            ->setAction($this->generateUrl('association_delete', array('id' => $association->getIdAssociation())))
             ->setMethod('DELETE')
             ->getForm()
         ;

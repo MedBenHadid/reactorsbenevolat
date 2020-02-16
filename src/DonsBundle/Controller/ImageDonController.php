@@ -38,6 +38,23 @@ class ImageDonController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile=$form->get('image')->getData();
+
+            if($imageFile)
+            {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                try {
+                    $imageFile->move(
+                        $this->getParameter('dons_image_directory'),
+                        $newFilename
+                    );
+                }      catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+                $imageDon->setImage($newFilename);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($imageDon);
             $em->flush();

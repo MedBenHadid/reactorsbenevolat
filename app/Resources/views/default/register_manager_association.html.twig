@@ -95,68 +95,80 @@
 
 
                             <div>
-                                <h1>Votre Agence : </h1>
+                                <h1>Votre Association : </h1>
 
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Nom Agence:
+                                    <label for="password">Nom Association:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input type="text" name="nom_agence" placeholder="nom agence" required/>
+                                        <input type="text" name="nom_association" placeholder="nom association" required/>
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Telephone Agence:
+                                    <label for="password">Telephone Association:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input type="number" name="tel_agence" placeholder="telephone agence" required/>
+                                        <input type="number" name="tel_association" placeholder="telephone association" required/>
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Horaire Agence:
+                                    <label for="password">Horaire Association:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input type="text" name="horaire_agence" placeholder="horaire agence" required/>
+                                        <input type="text" name="horaire_association" placeholder="horaire association" required/>
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Photo Agence:
+                                    <label for="password">Photo Association:
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <input type="file" accept="image/*" name="photo_agence" id="photo_agence" placeholder="photo" onchange="onchangeImgAg()" required>
+                                                <input type="file" accept="image/*" name="photo_association" id="photo_association" placeholder="photo" onchange="onchangeImgAg()" required>
                                             </div>
                                             <div class="col-md-4">
-                                                <img id="img_ag" class="img-circle" src="{{ asset('client/images/no_image.svg') }}" style="width: 100px; height: 100px; margin-top: -20px">
+                                                <img id="img_ag" class="img-circle" src="{{ asset('assets/nfront/client/images/no_image.svg') }}" style="width: 100px; height: 100px; margin-top: -20px">
                                             </div>
                                         </div>
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
+                                    <label for="category">Domaine d'activité :
+                                        <i class="im im-icon-Lock-2"></i>
+                                        <select name="category" required>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}" >{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <!--img id="piece_ag" class="img-circle" src="{{ asset('assets/nfront/client/images/no_image.svg') }}" style="width: 100px; height: 100px"-->
+                                    </label>
+                                </p>
+
+                                <p class="form-row form-row-wide">
                                     <label for="password">Piéce Justificatif:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input type="file" accept=".pdf,.PDF,.doc,.docx" name="piece_agence" id="piece_agence" placeholder="piece" onchange="onchangePieceAg()" required>
-                                        <!--img id="piece_ag" class="img-circle" src="{{ asset('images/no_image.svg') }}" style="width: 100px; height: 100px"-->
+                                        <input type="file" accept=".pdf,.PDF,.doc,.docx" name="piece_association" id="piece_association" placeholder="piece" onchange="onchangePieceAg()" required>
+                                        <!--img id="piece_ag" class="img-circle" src="{{ asset('assets/nfront/client/images/no_image.svg') }}" style="width: 100px; height: 100px"-->
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Rue Agence:
+                                    <label for="password">Rue Association:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input type="text" name="rue_agence" placeholder="rue agence" required/>
+                                        <input type="text" name="rue_association" placeholder="rue association" required/>
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Ville Agence:
+                                    <label for="password">Ville Association:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input type="text" name="ville_agence" placeholder="ville agence" required/>
+                                        <input type="text" name="ville_association" placeholder="ville association" required/>
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Code Postale Agence:
+                                    <label for="password">Code Postale Association:
                                         <i class="im im-icon-Lock-2"></i>
-                                        <input type="number" name="code_postal_agence" placeholder="code postale agence" required/>
+                                        <input type="number" name="code_postal_association" placeholder="code postale association" required/>
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="password">Emplacement Agence:
+                                    <label for="password">Emplacement Association:
                                         <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
-                                        <input type="hidden" name="lat_agence" id="lat_agence" value="0" />
-                                        <input type="hidden" name="lng_agence" id="lng_agence" value="0" />
+                                        <input type="hidden" name="lat_association" id="lat_association" value="0" />
+                                        <input type="hidden" name="lng_association" id="lng_association" value="0" />
                                     </label>
                                 </p>
 
@@ -187,7 +199,7 @@
         <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
         <script>
             function onchangeImgAg(){
-                input = document.getElementById('photo_agence');
+                input = document.getElementById('photo_association');
                 file = input.files[0];
                 console.log(file);
 
@@ -202,7 +214,7 @@
             }
 
             function onchangePieceAg(){
-                input = document.getElementById('piece_agence');
+                input = document.getElementById('piece_association');
                 file = input.files[0];
                 console.log(file);
 
@@ -244,14 +256,14 @@
                         var marker = new google.maps.Marker({
                             position: pos,
                             map: map,
-                            title: 'Emplacement Agence',
+                            title: 'Emplacement Association',
                             draggable: true
                         });
                         google.maps.event.addListener(marker, 'dragend', function(evt){
                             //$('#emplacement_lat').val(evt.latLng.lat());
                             //$('#emplacement_lng').val(evt.latLng.lng());
-                            document.getElementById('lat_agence').value = evt.latLng.lat();
-                            document.getElementById('lng_agence').value = evt.latLng.lng();
+                            document.getElementById('lat_association').value = evt.latLng.lat();
+                            document.getElementById('lng_association').value = evt.latLng.lng();
                             //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                         });
                     }, function() {
@@ -259,12 +271,12 @@
                         var marker = new google.maps.Marker({
                             position: myLatLng,
                             map: map,
-                            title: 'Emplacement Agence',
+                            title: 'Emplacement Association',
                             draggable: true
                         });
                         google.maps.event.addListener(marker, 'dragend', function(evt){
-                            document.getElementById('lat_agence').value = evt.latLng.lat();
-                            document.getElementById('lng_agence').value = evt.latLng.lng();
+                            document.getElementById('lat_association').value = evt.latLng.lat();
+                            document.getElementById('lng_association').value = evt.latLng.lng();
                             //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                         });
                         alert('Error: The Geolocation service failed.');
@@ -275,12 +287,12 @@
                     var marker = new google.maps.Marker({
                         position: myLatLng,
                         map: map,
-                        title: 'Emplacement Agence',
+                        title: 'Emplacement Association',
                         draggable: true
                     });
                     google.maps.event.addListener(marker, 'dragend', function(evt){
-                        document.getElementById('lat_agence').value = evt.latLng.lat();
-                        document.getElementById('lng_agence').value = evt.latLng.lng();
+                        document.getElementById('lat_association').value = evt.latLng.lat();
+                        document.getElementById('lng_association').value = evt.latLng.lng();
                         //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                     });
                     alert('Error: The Geolocation service failed.');

@@ -1,9 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseback.html.twig' %}
 
 {% block body %}
-    <h1>Imagedon</h1>
+<div class="container my-3">
 
-    <table>
+<h1>Imagedon</h1>
+
+    <table class="table table-striped">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -11,7 +13,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ imageDon.image }}</td>
+                <td><img width="300" height="300" src="{{ asset('uploads/dons/images/' ~ imageDon.image) }}" alt=""></td>
             </tr>
         </tbody>
     </table>
@@ -29,4 +31,5 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+</div>
 {% endblock %}

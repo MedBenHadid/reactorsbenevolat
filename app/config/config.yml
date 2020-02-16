@@ -18,6 +18,9 @@ parameters:
     association_directory: '%kernel.root_dir%/../web/client/images/agences'
     pieces_directory: '%kernel.root_dir%/../web/client/images/agences/pieces'
     refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
+    dons_image_directory: '%kernel.project_dir%/web/uploads/dons/images'
+    mission_image_directory: '%kernel.project_dir%/web/uploads/mission/images'
+
 
 framework:
     #esi: ~
@@ -98,5 +101,10 @@ fos_user:
         #confirmation:
             #enabled: true
             #template:   '@FOSUser/Registration/email.txt.twig'
-
+# NotificationsBundle configuration
+notifications:
+    app_id:     948787
+    app_key:    988ad031a8039b900242
+    app_secret: 60cf2eea280f75b5a94e
+    cluster:    eu
 

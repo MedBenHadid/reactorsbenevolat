@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 association_category:
+=======
+Xassociation_category:
+>>>>>>> c1d7068c8cb78f7dde51e42f29e72543307a0037
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
 
@@ -23,8 +27,10 @@ dons:
     prefix:   /dons
 
 mission:
-    resource: "@MissionBundle/Resources/config/routing.yml"
+    resource: "@MissionBundle/Controller/"
+    type:     annotation
     prefix:   /
+
 
 association:
     resource: "@AssociationBundle/Controller/"

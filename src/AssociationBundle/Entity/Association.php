@@ -481,6 +481,28 @@ class Association
     private $members;
 
     /**
+     * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Category", mappedBy="association")
+     */
+    private $domaine;
+
+    /**
+     * @return mixed
+     */
+    public function getDomaine()
+    {
+        return $this->domaine;
+    }
+
+    /**
+     * @param mixed $domaine
+     */
+    public function setDomaine($domaine)
+    {
+        $this->domaine = $domaine;
+    }
+
+
+    /**
      * @return Collection|User[]
      */
     public function getMembers(): Collection
