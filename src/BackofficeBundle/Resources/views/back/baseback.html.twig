@@ -23,7 +23,8 @@
     <link href={{ asset('assets/back/libs/chartist/dist/chartist.min.css')}} rel="stylesheet">
     <link href={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}} rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href={{ asset('assets/back/dist/css/style.min.css')}}l="stylesheet">
+    <link href="{{ asset('assets/back/dist/css/style.min.css')}}" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -342,11 +343,11 @@
                                 </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="{# path('mission_index') #}" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ path('mission_index') }}" class="sidebar-link"><span
                                                 class="hide-menu"> Lister Mission
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="chart-chart-js.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="" class="sidebar-link"><span
                                                 class="hide-menu"> Update/Delete Mission
                                         </span></a>
                                 </li>
@@ -407,7 +408,7 @@
 </div>
 {% block javascripts %}
     <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src={{ asset('assets/back/libs/jquery/dist/jquery.min.js')}}></script>
+
     <script src={{ asset('assets/back/libs/popper.js/dist/umd/popper.min.js')}}></script>
     <script src={{ asset('assets/back/libs/bootstrap/dist/js/bootstrap.min.js')}}></script>
     <script src={{ asset('assets/back/dist/js/app-style-switcher.js')}}></script>
@@ -422,6 +423,11 @@
     <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}></script>
     <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}></script>
     <script src={{ asset('assets/back/dist/js/pages/dashboards/dashboard1.min.js')}}></script>
+
 {% endblock %}
+{% block bootstrap4 %}
+{% endblock %}
+
+
 </body>
 </html>

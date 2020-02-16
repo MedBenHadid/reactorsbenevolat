@@ -32,7 +32,7 @@ class Mission
     /**
      * @var string
      *
-     * @ORM\Column(name="picture", type="blob")
+     * @ORM\Column(name="picture", type="text", length=65535, nullable=false)
      */
     private $picture;
 
@@ -54,13 +54,31 @@ class Mission
      */
     private $location;
 
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="sumCollected", type="float")
+     */
+    private $sumCollected;
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="objectif", type="float")
+     */
+    private $objectif;
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="DateCreation", type="date")
      */
     private $dateCreation;
-
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="ups", type="integer")
+     */
+    private $ups;
     /**
      * @var \DateTime
      *
@@ -68,11 +86,25 @@ class Mission
      */
     private $dateFin;
 
-
+    /**
+     * @ORM\OneToOne(targetEntity="AssociationBundle\Entity\Category")
+     */
+    private $domaine;
     /**
      * Get id
      *
      * @return int
+     */
+
+    /**
+     * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Association",mappedBy="nom_agence")
+     */
+    private $CreatedBy;
+
+    /**
+     * Get string
+     *
+     * @return string
      */
     public function getId()
     {
@@ -212,7 +244,18 @@ class Mission
 
         return $this;
     }
+    public function getDomaine()
+    {
+        return $this->domaine;
+    }
 
+    /**
+     * @param mixed $domaine
+     */
+    public function setDomaine($domaine)
+    {
+        $this->domaine = $domaine;
+    }
     /**
      * Get dateFin
      *
@@ -222,5 +265,70 @@ class Mission
     {
         return $this->dateFin;
     }
+
+    /**
+     * @return float
+     */
+    public function getSumCollected(): float
+    {
+        return $this->sumCollected;
+    }
+
+    /**
+     * @param float $sumCollected
+     */
+    public function setSumCollected(float $sumCollected)
+    {
+        $this->sumCollected = $sumCollected;
+    }
+
+    /**
+     * @return float
+     */
+    public function getObjectif()
+    {
+        return $this->objectif;
+    }
+
+    /**
+     * @param float $objectif
+     */
+    public function setObjectif(float $objectif)
+    {
+        $this->objectif = $objectif;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUps(): int
+    {
+        return $this->ups;
+    }
+
+    /**
+     * @param int $ups
+     */
+    public function setUps(int $ups)
+    {
+        $this->ups = $ups;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedBy()
+    {
+        return $this->CreatedBy;
+    }
+
+    /**
+     * @param mixed $CreatedBy
+     */
+    public function setCreatedBy($CreatedBy)
+    {
+        $this->CreatedBy = $CreatedBy;
+    }
+
 }
 

@@ -18,6 +18,7 @@ parameters:
     association_directory: '%kernel.root_dir%/../web/client/images/agences'
     pieces_directory: '%kernel.root_dir%/../web/client/images/agences/pieces'
     refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
+    mission_image_directory: '%kernel.project_dir%/web/uploads/mission/images'
 
 framework:
     #esi: ~
