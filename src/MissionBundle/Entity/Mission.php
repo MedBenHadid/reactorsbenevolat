@@ -87,7 +87,7 @@ class Mission
     private $dateFin;
 
     /**
-     * @ORM\OneToOne(targetEntity="AssociationBundle\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category",inversedBy="mission")
      */
     private $domaine;
     /**
@@ -97,7 +97,10 @@ class Mission
      */
 
     /**
-     * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Association",mappedBy="nom_agence")
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+     *  @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="CreatedBy", referencedColumnName="id", nullable=true)
+     * })
      */
     private $CreatedBy;
 

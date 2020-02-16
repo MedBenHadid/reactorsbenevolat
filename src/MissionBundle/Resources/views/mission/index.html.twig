@@ -19,7 +19,7 @@
                     <div class="header">{{ mission.titleMission }}</div>
 
                     <div class="banner-img">
-                        <img src="{{ asset() }}" alt="Image 1">
+                        <img  style="width: 210px;height: 240px" src="{{ asset('uploads/mission/images/'~mission.picture) }}" alt="{{ mission.titleMission }}">
                     </div>
 
                     <div class="dates">
@@ -77,17 +77,37 @@
                 </div>
 
                 <div class="footer">
-                    <a href="{{ path('mission_edit', { 'id': mission.id }) }}" class="Cbtn Cbtn-primary">View</a>
-                    <a href="{{ path('mission_delete', { 'id': mission.id }) }}" class="Cbtn Cbtn-danger">Delete</a>
+                    <a href="{{ path('mission_show', { 'id': mission.id }) }}" class="Cbtn Cbtn-primary">View</a>
+                    <a href="" class="Cbtn Cbtn-danger"  data-toggle="modal" data-target="#myModal-{{ mission.id }}">Delete</a>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal-{{ mission.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="position: absolute;z-index: initial">
+                    <div class="modal-dialog" role="document" >
+                        <div class="modal-content" >
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">{{ mission.titleMission }}</h4>
+                            </div>
+                            <div class="modal-body">
+                                Êtes vous sûrs de supprimer cette mission ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <a href="{{ path('mission_delete', { 'id': mission.id }) }}" type="button" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END Modal -->
             </div>
         </div>
         {% endfor %}
 
     </div>
 
-    </div>
 </div>
+
+
     <ul>
         <li>
             <a href="{{ path('mission_new') }}">Create a new mission</a>
@@ -95,5 +115,6 @@
     </ul>
 {% endblock %}
 {% block bootstrap4 %}
+
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 {% endblock %}

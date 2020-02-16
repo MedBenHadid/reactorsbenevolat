@@ -33,6 +33,10 @@
                 <th>Date Fin</th>
                 <td>{% if mission.dateFin %}{{ mission.dateFin|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th>CreatedBy</th>
+                <td>{{ mission.CreatedBy.username }}</td>
+            </tr>
         </tbody>
     </table>
 
