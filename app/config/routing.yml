@@ -1,4 +1,4 @@
-association_category:
+Xassociation_category:
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
 

@@ -303,6 +303,12 @@ class Don
         $this->user = $user;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+        // TODO: Implement __toString() method.
+    }
+
 
 }
 

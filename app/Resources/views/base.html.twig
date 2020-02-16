@@ -1,7 +1,7 @@
 {% if app.user != null %}
     {% if is_granted('ROLE_ADMIN') %}
         <script>
-            window.location = "{{ url('admin_homepage') }}";
+            window.location = "{{ url() }}";
         </script>
     {% endif %}
 {% endif %}
@@ -85,7 +85,7 @@
 
                     <!-- Logo -->
                     <div id="logo">
-                        <a href="{{ url('app_homepage') }}"><img src="{{ asset('assets/back/images/logoReactors.png')}}" alt=""></a>
+                        <a href="{{ url() }}"><img src="{{ asset('assets/back/images/logoReactors.png')}}" alt=""></a>
                     </div>
 
 
@@ -99,33 +99,33 @@
                     <nav id="navigation" class="style-1">
                         <ul id="responsive">
 
-                            <li><a class="current" href="{{ url('app_homepage') }}">Home</a></li>
+                            <li><a class="current" href="{{ url() }}">Home</a></li>
 
                             {% if app.user != null %}
                                 {% if is_granted('ROLE_MANAGER_LOCATION') %}
                                     <li><a href="#">Voitures</a>
                                         <ul>
-                                            <li><a href="{{ url('manager_location_ajouter_voiture') }}">Ajouter</a></li>
-                                            <li><a href="{{ url('manager_location_list_voiture') }}">List Voitures</a></li>
-                                            <li><a href="{{ url('manager_location_demandes_location') }}">Demandes Location</a></li>
+                                            <li><a href="{{ url() }}">Ajouter</a></li>
+                                            <li><a href="{{ url() }}">List Voitures</a></li>
+                                            <li><a href="{{ url() }}">Demandes Location</a></li>
 
                                         </ul>
                                     </li>
                                     <li><a href="#">Chauffeur</a>
                                         <ul>
-                                            <li><a href="{{ url('manager_location_ajouter_chauffeur') }}">Ajouter</a></li>
-                                            <li><a href="{{ url('manager_location_afficher_chauffeur') }}">List Chauffeurs</a></li>
+                                            <li><a href="{{ url() }}">Ajouter</a></li>
+                                            <li><a href="{{ url() }}">List Chauffeurs</a></li>
 
                                         </ul>
                                     </li>
 
                                 {% endif %}
                                 {%  if is_granted('ROLE_CLIENT') %}
-                                    <li><a href="{{ url('client_location_liste_voiture') }}">Voitures Location</a></li>
+                                    <li><a href="{{ url() }}">Voitures Location</a></li>
                                 {% endif %}
                                 <li><a href="#"><img style="width: 40px; height: 40px" src="{{ asset(app.user.image) }}" class="img-circle"/> {{ app.user.prenom }} {{ app.user.nom }}</a>
                                     <ul>
-                                        <li><a href="{{ url('client_profile') }}"><i class="sl sl-icon-user"></i> Profile</a></li>
+                                        <li><a href="{{ url() }}"><i class="sl sl-icon-user"></i> Profile</a></li>
                                         <li><a href="{{ url('fos_user_security_logout') }}"><i class="sl sl-icon-power"></i> Log Out</a></li>
                                     </ul>
                                 </li>
@@ -151,7 +151,7 @@
                         {% else %}
 
                         {% endif %}
-                        <a href="{{ url('manager_location_register') }}" class="button border">Devenir Manager</a>
+                        <a href="{{ url() }}" class="button border">Devenir Manager</a>
                     </div>
                     <!-- Header Widget / End -->
                 </div>
