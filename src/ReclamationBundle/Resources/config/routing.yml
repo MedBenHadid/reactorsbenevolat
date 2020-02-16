@@ -3,7 +3,7 @@ reclamation_requete:
     prefix:   /requete
 
 reclamation_homepage:
-    path:     /
+    path:     /reclamation
     defaults: { _controller: ReclamationBundle:Default:index }
 reclamation_rponse:
     resource: "@ReclamationBundle/Resources/config/routing/rponse.yml"

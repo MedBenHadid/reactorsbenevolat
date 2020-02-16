@@ -13,7 +13,11 @@ class RponseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('sujet')->add('rep')->add('date')->add('user')->add('requete');
+        $builder->add('sujet')
+            ->add('rep')
+            ->add('date')
+            ->add('user')
+            ->add('requete');
     }/**
      * {@inheritdoc}
      */

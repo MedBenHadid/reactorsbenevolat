@@ -38,6 +38,8 @@ class RequeteController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $requete->setDernierMAJ(new \DateTime());
+            $requete->setStatut(0);
             $em = $this->getDoctrine()->getManager();
             $em->persist($requete);
             $em->flush();
