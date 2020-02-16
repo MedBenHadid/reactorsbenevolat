@@ -23,8 +23,10 @@ dons:
     prefix:   /dons
 
 mission:
-    resource: "@MissionBundle/Resources/config/routing.yml"
+    resource: "@MissionBundle/Controller/"
+    type:     annotation
     prefix:   /
+
 
 association:
     resource: "@AssociationBundle/Controller/"

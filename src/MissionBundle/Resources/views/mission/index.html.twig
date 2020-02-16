@@ -1,0 +1,99 @@
+{% extends '@Backoffice/back/baseback.html.twig' %}
+    {% block stylesheets %}
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+        <link href="{{ asset('assets/back/dist/css/MissionCards.css')}}" rel="stylesheet">
+
+    {% endblock %}
+
+{% block body %}
+
+    <h1>Missions list</h1>
+<div class="container-fluid">
+    <div class="row">
+        {% for mission in missions %}
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="tile">
+                <div class="wrapper">
+                    <div class="header">{{ mission.titleMission }}</div>
+
+                    <div class="banner-img">
+                        <img src="{{ asset() }}" alt="Image 1">
+                    </div>
+
+                    <div class="dates">
+                        <div class="start">
+                            <strong>STARTS</strong> {{ mission.dateCreation|date('Y-m-d H:i:s') }}
+                            <span></span>
+                        </div>
+                        <div class="ends">
+                            <strong>ENDS</strong> {{ mission.dateFin|date('Y-m-d H:i:s') }}
+                        </div>
+                    </div>
+
+                    <div class="statss">
+
+                        <div>
+                            <strong>INVITED</strong> 3098
+                        </div>
+
+                        <div>
+                            <strong>JOINED</strong> 562
+                        </div>
+
+                        <div>
+                            <strong>DECLINED</strong> 182
+                        </div>
+
+                    </div>
+
+                    <!--   <div class="statss">
+
+                           <div>
+                               <strong>Nbr UPs</strong> 3098
+                           </div>
+
+                           <div>
+                               <strong>SUM $</strong> 562
+                           </div>
+
+                           <div>
+                               <strong>DECLINED</strong> 182
+                           </div>
+
+                       </div>--!>
+
+                    <div class="statss">
+                        <strong>Mission Progress</strong>
+                    </div>
+
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-striped progress-bar-animated"
+                             role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                             aria-valuemax="100" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <a href="{{ path('mission_edit', { 'id': mission.id }) }}" class="Cbtn Cbtn-primary">View</a>
+                    <a href="{{ path('mission_delete', { 'id': mission.id }) }}" class="Cbtn Cbtn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    </div>
+</div>
+    <ul>
+        <li>
+            <a href="{{ path('mission_new') }}">Create a new mission</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block bootstrap4 %}
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+{% endblock %}
