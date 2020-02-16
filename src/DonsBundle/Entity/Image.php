@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="imageDon")
  * @ORM\Entity(repositoryClass="DonsBundle\Repository\ImageRepository")
  */
-class ImageDon
+class Image
 {
     /**
      * @var int

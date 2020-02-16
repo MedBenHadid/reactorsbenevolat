@@ -1,7 +1,3 @@
-dons_image:
-    resource: "@DonsBundle/Controller/ImageController.php"
-    type:     annotation
-
 association_category:
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
@@ -12,7 +8,7 @@ association_association:
 
 reclamation:
     resource: "@ReclamationBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /reclamation
 
 refugee:
     resource: "@RefugeeBundle/Resources/config/routing.yml"
@@ -43,6 +39,7 @@ backoffice:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+    prefix:   /front
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
