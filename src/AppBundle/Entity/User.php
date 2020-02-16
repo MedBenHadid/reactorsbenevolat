@@ -55,14 +55,14 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=20, nullable=false)
+     * @ORM\Column(name="nom", type="string", length=20)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=20, nullable=false)
+     * @ORM\Column(name="prenom", type="string", length=20)
      */
     private $prenom;
 
@@ -83,7 +83,7 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="telephone", type="integer", nullable=false)
+     * @ORM\Column(name="telephone", type="integer")
      */
     private $telephone;
 
@@ -111,16 +111,11 @@ class User extends BaseUser
     /**
      * @var boolean
      *
-     * @ORM\Column(name="banned", type="boolean", nullable=false)
+     * @ORM\Column(name="banned", type="boolean")
      */
     private $banned = '0';
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Role", type="string", length=100, nullable=true)
-     */
-    private $role;
+
 
     /**
      * @var string
@@ -343,30 +338,6 @@ class User extends BaseUser
     public function getBanned()
     {
         return $this->banned;
-    }
-
-    /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
     }
 
     /**
