@@ -1,9 +1,10 @@
 {% extends 'baseback.html.twig' %}
 
 {% block body %}
+<div class="container my-3">
     <h1>Demande</h1>
 
-    <table>
+    <table class="table table-striped">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -53,12 +54,14 @@
             <a href="{{ path('demande_index') }}">Back to the list</a>
         </li>
         <li>
+
             <a href="{{ path('demande_edit', { 'id': demande.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
             {{ form_end(delete_form) }}
         </li>
     </ul>
+</div>
 {% endblock %}

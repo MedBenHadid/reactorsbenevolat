@@ -1,9 +1,9 @@
 {% extends 'baseback.html.twig' %}
 
 {% block body %}
-    <h1>Don</h1>
-
-    <table>
+    <div class="container my-3">
+        <h1>Don</h1>
+            <table class="table table-striped">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -53,8 +53,9 @@
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+                {{ form_end(delete_form) }}
         </li>
     </ul>
+</div>
 {% endblock %}

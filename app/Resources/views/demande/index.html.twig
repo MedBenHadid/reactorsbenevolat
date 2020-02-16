@@ -1,9 +1,10 @@
 {% extends 'baseback.html.twig' %}
 
 {% block body %}
+<div class="container my-3">
     <h1>Demandes list</h1>
 
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -52,4 +53,5 @@
             <a href="{{ path('demande_new') }}">Create a new demande</a>
         </li>
     </ul>
+</div>
 {% endblock %}
