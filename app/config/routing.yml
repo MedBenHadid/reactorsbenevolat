@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 association_category:
-=======
-Xassociation_category:
->>>>>>> c1d7068c8cb78f7dde51e42f29e72543307a0037
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
 

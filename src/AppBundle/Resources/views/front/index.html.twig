@@ -1,3 +1,4 @@
+{% block head %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +16,7 @@
     </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="./img/core-img/favicon.png" href="{{ asset('assets/appfront/img/core-img/favicon.png') }}">
+    <link rel="icon" href="{{ asset('assets/appfront/img/core-img/favicon.png') }}">
 
 
     <!-- Stylesheet -->
@@ -23,7 +24,7 @@
         <link rel="stylesheet" href="{{ asset('assets/appfront/style.css') }}">
     {% endblock %}
 </head>
-
+{% endblock %}
 <body>
 <!-- Preloader -->
 <div id="preloader">
@@ -32,33 +33,6 @@
 
 <!-- **** Header Area Start **** -->
 <header class="header-area">
-    <!-- Top Header Area Start -->
-    {% block topHeader %}
-    <div class="top-header-area">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-6">
-                    <div class="top-header-content">
-                        <a href="#"><i class="icon_mail"></i> <span>info.colorlib@gmail.com</span></a>
-                        <a href="#"><i class="icon_phone"></i> <span>(12) 345 6789</span></a>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="top-header-content">
-                        <!-- Top Social Area -->
-                        <div class="top-social-area ml-auto">
-                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endblock %}
-    <!-- Top Header Area End -->
 
     <!-- Main Header Start -->
     {% block mainHeader %}
@@ -69,7 +43,8 @@
                 <nav class="classy-navbar justify-content-between" id="rehomesNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="./index.html"><img src="./img/core-img/logo.png" alt=""></a>
+                    <a class="nav-brand" href="./index.html">
+                        <img src="{{ asset('assets/appfront/img/core-img/logo.png') }}" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
@@ -85,13 +60,13 @@
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul id="nav">
-                                <li class="active"><a href="./index.html">Home</a></li>
+                                <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li class="active"><a href="./index.html">- Home</a></li>
                                         <li><a href="./about.html">- About</a></li>
                                         <li><a href="./agent.html">- Agent</a></li>
-                                        <li><a href="./rent.html">- Rent</a></li>
+                                        <li><a href="rent.html.twig">- Rent</a></li>
                                         <li><a href="./properties-details.html">- Property Details</a></li>
                                         <li><a href="./blog.html">- Blog</a></li>
                                         <li><a href="./single-blog.html">- Single Blog</a></li>
@@ -106,15 +81,16 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="./rent.html">Rent</a></li>
-                                <li><a href="./agent.html">Agents</a></li>
-                                <li><a href="./about.html">About</a></li>
-                                <li><a href="./blog.html">Blog</a></li>
+                                <li><a href="refugees">Refugiées</a></li>
+                                <li><a href="associations">Associations</a></li>
+                                <li><a href="missions">Missions</a></li>
+                                <li><a href="blog">Blog</a></li>
+                                <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
                             </ul>
 
                             <!-- Contact btn -->
                             <div class="contact-btn mt-3 mt-lg-0 ml-3 ml-lg-5">
-                                <a href="#">Contact Us</a>
+                                <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
                             </div>
                         </div>
                         <!-- Nav End -->
@@ -136,6 +112,9 @@
 </div>
 {% endblock %}
 <!-- **** Welcome Maps Area End **** -->
+
+{% block breadCrumb %}{% endblock %}
+{% block blog %}{% endblock %}
 
 <!-- **** Location Search Form Area **** -->
 {% block filtre %}

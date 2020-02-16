@@ -9,12 +9,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
-     */
+ * @Route("/", name="homepage")
+ */
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
         return $this->render('@App/front/index.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+        ]);
+    }
+
+    /**
+     * @Route("/blog", name="blog")
+     */
+    public function blogAction(Request $request)
+    {
+        // replace this example code with whatever you need
+        return $this->render('@App/front/blog.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
