@@ -119,11 +119,11 @@ class Association
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_agence", type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idAssociation;
+    private $id;
 
 
 
@@ -175,29 +175,7 @@ class Association
         return $this->telephoneAssociation;
     }
 
-    /**
-     * Set typeAssociation
-     *
-     * @param string $typeAssociation
-     *
-     * @return Association
-     */
-    public function setTypeAssociation($typeAssociation)
-    {
-        $this->typeAssociation = $typeAssociation;
 
-        return $this;
-    }
-
-    /**
-     * Get typeAssociation
-     *
-     * @return string
-     */
-    public function getTypeAssociation()
-    {
-        return $this->typeAssociation;
-    }
 
     /**
      * Set horaireTravail
@@ -440,13 +418,13 @@ class Association
     }
 
     /**
-     * Get idAssociation
+     * Get id
      *
      * @return integer
      */
-    public function getIdAssociation()
+    public function getId()
     {
-        return $this->idAssociation;
+        return $this->id;
     }
 
     /**
@@ -474,7 +452,10 @@ class Association
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", inversedBy="association",refe)
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", inversedBy="user")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * })
      */
     private $members;
 

@@ -11,7 +11,7 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ association.idAssociation }}</td>
+                <td>{{ association.id }}</td>
                 <td>{{ association.domaine.name }}</td>
                 <td>{{ association.nomAssociation }}</td>
                 <td>{{ association.manager }}</td>
@@ -35,7 +35,7 @@
             <a href="{{ path('association_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('association_edit', { 'id': association.idAssociation }) }}">Edit</a>
+            <a href="{{ path('association_edit', { 'id': association.id }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

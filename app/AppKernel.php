@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new RefugeeBundle\RefugeeBundle(),
             new ReclamationBundle\ReclamationBundle(),
             new BackofficeBundle\BackofficeBundle(),
+            // Bundle externe mouhamed
             new SBC\NotificationsBundle\NotificationsBundle(),
         ];
 

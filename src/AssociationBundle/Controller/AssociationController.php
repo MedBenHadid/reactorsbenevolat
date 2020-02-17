@@ -47,7 +47,7 @@ class AssociationController extends Controller
             $em->persist($association);
             $em->flush();
 
-            return $this->redirectToRoute('association_show', array('id' => $association->getIdAssociation()));
+            return $this->redirectToRoute('association_show', array('id' => $association->getId()));
         }
 
         return $this->render('@Association/association/new.html.twig', array(
@@ -81,7 +81,7 @@ class AssociationController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('association_edit', array('id' => $association->getIdAssociation()));
+            return $this->redirectToRoute('association_edit', array('id' => $association->getId()));
         }
 
         return $this->render('@Association/association/edit.html.twig', array(
@@ -118,7 +118,7 @@ class AssociationController extends Controller
     private function createDeleteForm(Association $association)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('association_delete', array('id' => $association->getIdAssociation())))
+            ->setAction($this->generateUrl('association_delete', array('id' => $association->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
