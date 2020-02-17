@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class DefaultController
- * @IsGranted("ROLE_SUPER_ADMIN")
  * @package BackofficeBundle\Controller
  */
 class DefaultController extends Controller
