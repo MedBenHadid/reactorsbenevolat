@@ -46,6 +46,15 @@
                 <th>Rib</th>
                 <td>{{ demande.rib }}</td>
             </tr>
+            <tr>
+            <td>                                <p class="form-row form-row-wide">
+                    <label for="password">Emplacement Association:
+                        <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
+                        <input type="hidden" name="lat_demande" id="lat_demande" value="{{demande.latitude }}" />
+                        <input type="hidden" name="lng_demande" id="lng_demande" value="{{demande.longitude }}" />
+                    </label>
+                </p></td>
+            </tr>
         </tbody>
     </table>
 
@@ -64,4 +73,40 @@
         </li>
     </ul>
 </div>
+
+
+
+
+
+
+
+
+
+    <script>
+
+        function initMap() {
+            var myLatLng = {lat: {{demande.latitude}}, lng: {{demande.longitude}}};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+
+            });
+
+
+
+
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD00UW-yFHi17pDyHLe19_ImRpo0ja5Q3k&callback=initMap">
+    </script>
+
+
+
 {% endblock %}

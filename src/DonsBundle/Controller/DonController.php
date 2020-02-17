@@ -38,6 +38,8 @@ class DonController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $don->setLatitude($request->request->get('lat_don'));
+            $don->setLongitude($request->request->get('lng_don'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($don);
             $em->flush();

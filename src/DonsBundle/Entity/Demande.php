@@ -94,7 +94,16 @@ class Demande
     private $user;
 
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $latitude;
 
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $longitude;
 
     /**
      * Get id
@@ -343,5 +352,56 @@ class Demande
         return $this->title;
         // TODO: Implement __toString() method.
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * @param mixed $lat
+     */
+    public function setLat($lat)
+    {
+        $this->lat = $lat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param mixed $latitude
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param mixed $longitude
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    }
+
+
+
 }
 

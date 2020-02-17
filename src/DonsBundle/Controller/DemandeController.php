@@ -33,14 +33,19 @@ class DemandeController extends Controller
      */
     public function newAction(Request $request)
     {
+
         $demande = new Demande();
         $form = $this->createForm('DonsBundle\Form\DemandeType', $demande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+        var_dump($request->request->get('lat_don'));
+            $demande->setLatitude($request->request->get('lat_demande'));
+            $demande->setLongitude($request->request->get('lng_demande'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($demande);
             $em->flush();
+
 
             return $this->redirectToRoute('demande_show', array('id' => $demande->getId()));
         }

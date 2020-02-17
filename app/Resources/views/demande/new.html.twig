@@ -6,6 +6,19 @@
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Create" />
+
+
+
+    <p class="form-row form-row-wide">
+        <label for="password">Emplacement donnation:
+            <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
+            <input type="hidden" name="lat_demande" id="lat_demande" value="0" />
+            <input type="hidden" name="lng_demande" id="lng_demande" value="0" />
+        </label>
+    </p>
+
+
+
     {{ form_end(form) }}
 
     <ul>
@@ -13,13 +26,6 @@
             <a href="{{ path('demande_index') }}">Back to the list</a>
         </li>
     </ul>
-    <p class="form-row form-row-wide">
-        <label for="password">Emplacement donnation:
-            <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
-            <input type="hidden" name="lat_association" id="lat_association" value="0" />
-            <input type="hidden" name="lng_association" id="lng_association" value="0" />
-        </label>
-    </p>
 
 
 
@@ -89,8 +95,8 @@
                     google.maps.event.addListener(marker, 'dragend', function(evt){
                         //$('#emplacement_lat').val(evt.latLng.lat());
                         //$('#emplacement_lng').val(evt.latLng.lng());
-                        document.getElementById('lat_association').value = evt.latLng.lat();
-                        document.getElementById('lng_association').value = evt.latLng.lng();
+                        document.getElementById('lat_demande').value = evt.latLng.lat();
+                        document.getElementById('lng_demande').value = evt.latLng.lng();
                         //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                     });
                 }, function() {
@@ -102,8 +108,8 @@
                         draggable: true
                     });
                     google.maps.event.addListener(marker, 'dragend', function(evt){
-                        document.getElementById('lat_association').value = evt.latLng.lat();
-                        document.getElementById('lng_association').value = evt.latLng.lng();
+                        document.getElementById('lat_demande').value = evt.latLng.lat();
+                        document.getElementById('lng_demande').value = evt.latLng.lng();
                         //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                     });
                     alert('Error: The Geolocation service failed.');
@@ -118,8 +124,8 @@
                     draggable: true
                 });
                 google.maps.event.addListener(marker, 'dragend', function(evt){
-                    document.getElementById('lat_association').value = evt.latLng.lat();
-                    document.getElementById('lng_association').value = evt.latLng.lng();
+                    document.getElementById('lat_demande').value = evt.latLng.lat();
+                    document.getElementById('lng_demande').value = evt.latLng.lng();
                     //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                 });
                 alert('Error: The Geolocation service failed.');
