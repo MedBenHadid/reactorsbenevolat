@@ -68,9 +68,11 @@ class CategoryController extends Controller
     public function showAction(Category $category)
     {
         $deleteForm = $this->createDeleteForm($category);
+        $associations = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findBy(array('domaine'=>$category));
 
         return $this->render('@Association/category/show.html.twig', array(
             'category' => $category,
+            'associations' => $associations,
             'delete_form' => $deleteForm->createView(),
         ));
     }

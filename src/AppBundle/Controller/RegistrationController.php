@@ -98,17 +98,14 @@ class RegistrationController extends BaseController
         }
 
         $form = $formFactory->createForm();
-        $categories = $this->getDoctrine()->getRepository('AssociationBundle:Category')->findAll();
         $form->setData($user);
 
         $form->handleRequest($request);
-
+        $categories=$this->getDoctrine()->getRepository('AssociationBundle:Category')->findAll();
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
-
-                //return var_dump($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $user->addRole(User::ASSOCIATION_ADMIN);
                 $user->setApprouved(0);
                 $user->setEnabled(0);
@@ -116,11 +113,14 @@ class RegistrationController extends BaseController
                 $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $userManager->updateUser($user);
 
-                // AJOUT AGENCE
+                // AJOUT association
                 $association = new Association();
                 $association->setNomAssociation($request->request->get('nom_association'));
                 $association->setTelephoneAssociation($request->request->get('tel_association'));
-                $association->setTypeAssociation("location");
+
+                $cat = $this->getDoctrine()->getRepository('AssociationBundle:Category')->find($request->request->get('domaine'));
+                $association->setDomaine($cat);
+
                 $association->setHoraireTravail($request->request->get('horaire_association'));
 
                 $filePh = $request->files->get('photo_association');
@@ -128,7 +128,8 @@ class RegistrationController extends BaseController
                 $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
                 $filePh->move($this->getParameter('association_directory'), $imgName);
-                $association->setPhotoAssociation('client/images/associations/' .$imgName);
+
+                $association->setPhotoAssociation( $imgName);
 
                 $association->setManager($user);
 
@@ -137,7 +138,8 @@ class RegistrationController extends BaseController
                 $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
                 $filePh->move($this->getParameter('pieces_directory'), $imgName);
-                $association->setPieceJustificatif('client/images/associations/pieces/' .$imgName);
+
+                $association->setPieceJustificatif( $imgName);
 
                 $association->setRue($request->request->get('rue_association'));
                 $association->setCodePostal($request->request->get('code_postal_association'));
@@ -162,7 +164,7 @@ class RegistrationController extends BaseController
                     ->getFlashBag()
                     ->add('success', 'Votre Demande de création association a eté envoyé avec succée');
                 ;
-                return $this->redirectToRoute('association_default_index');
+                return $this->redirectToRoute('association_manage');
             }
 
             $event = new FormEvent($form, $request);

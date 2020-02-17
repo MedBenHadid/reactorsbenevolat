@@ -2,11 +2,25 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends Controller
 {
+    /**
+     * @Route(path="/dashboard/association",name="association_manage")
+     * @IsGranted("ROLE_ASSOCIATION_ADMIN")
+     */
+    public function manageAssociationAction(){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+        $associations = $em->getRepository('AssociationBundle:Association')->findBy(array('manager'=>$user->getId()));
 
+        return $this->render('@Association/association/index.html.twig', array(
+            'associations' => $associations,
+        ));
+    }
 
     public function sendMailApprouve($email, $name)
     {

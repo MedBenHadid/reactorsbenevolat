@@ -3,10 +3,8 @@
 namespace AssociationBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
 
 class AssociationType extends AbstractType
 {
@@ -15,16 +13,7 @@ class AssociationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name')
-            ->add('description')
-            ->add('image', FileType::class, array('label'=>'Logo :'))
-            ->add('adresse')
-            ->add('numTel')
-            ->add('email')
-            ->add('location')
-            ->add('dateDeCreation')
-            ->add('domaine');
+        $builder->add('nomAssociation')->add('telephoneAssociation')->add('horaireTravail')->add('photoAssociation')->add('pieceJustificatif')->add('rue')->add('codePostal')->add('ville')->add('status')->add('latitude')->add('longitude')->add('approuved')->add('domaine')->add('manager')->add('members');
     }/**
      * {@inheritdoc}
      */

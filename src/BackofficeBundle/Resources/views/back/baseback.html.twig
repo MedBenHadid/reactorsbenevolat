@@ -9,7 +9,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/favicon.png') }}">
     <link href="{{ asset('assets/back/dist/css/style.min.css') }}" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -282,7 +282,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                                 <i data-feather="file-text" class="feather-icon"></i>
-                                <span class="hide-menu">Association </span>
+                                <span class="hide-menu">Gestion d'association </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item">
@@ -314,21 +314,21 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item">
-                                    <a href="{{ path('category_index') }}" class="sidebar-link">
+                                    <a href="#" class="sidebar-link">
                                         <span class="hide-menu">
                                             Gestion de domaines d'activités
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="{{ path('association_index')}}" class="sidebar-link">
+                                    <a href="#" class="sidebar-link">
                                         <span class="hide-menu">
                                             Lister Association
                                         </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="form-checkbox-radio.html" class="sidebar-link">
+                                    <a href="#" class="sidebar-link">
                                         <span class="hide-menu">
                                             Update/Delete Association
                                         </span></a>
@@ -347,7 +347,7 @@
                                                 class="hide-menu"> Lister Mission
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><span
                                                 class="hide-menu"> Update/Delete Mission
                                         </span></a>
                                 </li>
@@ -396,10 +396,35 @@
             <!-- End Sidebar scroll-->
         </aside>
     {% endblock %}
+
     <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-7 align-self-center">
+                    <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">this is in the base back, add a block to it to ovverride bread crumbs , posted by chihab</h4>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb m-0 p-0">
+                                <li class="breadcrumb-item"><a href="{{ path('backend') }}" class="text-muted">Dashboard</a></li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">{% block bread %} {% endblock %}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-5 align-self-center">
+                    <div class="customize-input float-right">
+                        <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
+                            <option selected>#</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
         {% block body %}
 
         {% endblock %}
+        </div>
     </div>
     <footer class="footer text-center text-muted">
         All Rights Reserved by Tropical Monkeys.

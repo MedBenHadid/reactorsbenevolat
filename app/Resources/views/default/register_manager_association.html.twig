@@ -128,21 +128,20 @@
                                     </label>
                                 </p>
                                 <p class="form-row form-row-wide">
-                                    <label for="category">Domaine d'activité :
-                                        <i class="im im-icon-Lock-2"></i>
-                                        <select name="category" required>
-                                            {% for category in categories %}
-                                                <option value="{{ category.id }}" >{{ category.name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                        <!--img id="piece_ag" class="img-circle" src="{{ asset('assets/nfront/client/images/no_image.svg') }}" style="width: 100px; height: 100px"-->
-                                    </label>
-                                </p>
-
-                                <p class="form-row form-row-wide">
                                     <label for="password">Piéce Justificatif:
                                         <i class="im im-icon-Lock-2"></i>
                                         <input type="file" accept=".pdf,.PDF,.doc,.docx" name="piece_association" id="piece_association" placeholder="piece" onchange="onchangePieceAg()" required>
+                                        <!--img id="piece_ag" class="img-circle" src="{{ asset('assets/nfront/client/images/no_image.svg') }}" style="width: 100px; height: 100px"-->
+                                    </label>
+                                </p>
+                                <p class="form-row form-row-wide">
+                                    <label for="category">Domaine d'activité :
+                                        <i class="im im-icon-Lock-2"></i>
+                                        <select name="domaine" required>
+                                            {% for category in categories %}
+                                                <option value="{{ category.id }}" onselect="selectCat()">{{ category.name }}</option>
+                                            {% endfor %}
+                                        </select>
                                         <!--img id="piece_ag" class="img-circle" src="{{ asset('assets/nfront/client/images/no_image.svg') }}" style="width: 100px; height: 100px"-->
                                     </label>
                                 </p>
@@ -171,16 +170,12 @@
                                         <input type="hidden" name="lng_association" id="lng_association" value="0" />
                                     </label>
                                 </p>
-
-
-
                             </div>
 
 
                             <p class="form-row">
                                 <input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
                             </p>
-
                             {{ form_end(form) }}
                         </div>
                     </div>
@@ -188,31 +183,21 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
-
         <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
         <script>
+
             function onchangeImgAg(){
                 input = document.getElementById('photo_association');
                 file = input.files[0];
                 console.log(file);
-
                 fr = new FileReader();
                 fr.onload = showImage;
                 //fr.readAsText(file);
                 fr.readAsDataURL(file);
-
                 function showImage() {
                     $("#img_ag").attr("src",fr.result);
                 }
             }
-
             function onchangePieceAg(){
                 input = document.getElementById('piece_association');
                 file = input.files[0];
@@ -238,12 +223,6 @@
                     zoom: 10,
                     center: myLatLng
                 });
-
-
-
-
-
-
                 // Try HTML5 geolocation.
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
@@ -260,11 +239,11 @@
                             draggable: true
                         });
                         google.maps.event.addListener(marker, 'dragend', function(evt){
-                            //$('#emplacement_lat').val(evt.latLng.lat());
-                            //$('#emplacement_lng').val(evt.latLng.lng());
+                            $('#emplacement_lat').val(evt.latLng.lat());
+                            $('#emplacement_lng').val(evt.latLng.lng());
                             document.getElementById('lat_association').value = evt.latLng.lat();
                             document.getElementById('lng_association').value = evt.latLng.lng();
-                            //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+                            document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                         });
                     }, function() {
                         //handleLocationError(true, infoWindow, map.getCenter());
@@ -277,7 +256,7 @@
                         google.maps.event.addListener(marker, 'dragend', function(evt){
                             document.getElementById('lat_association').value = evt.latLng.lat();
                             document.getElementById('lng_association').value = evt.latLng.lng();
-                            //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+                            document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
                         });
                         alert('Error: The Geolocation service failed.');
                     });

@@ -32,11 +32,9 @@ class Association
     private $telephoneAssociation;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type_agence", type="string", length=20, nullable=false)
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association")
      */
-    private $typeAssociation;
+    private $domaine;
 
     /**
      * @var string
@@ -476,14 +474,10 @@ class Association
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="association")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", inversedBy="association",refe)
      */
     private $members;
 
-    /**
-     * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Category", mappedBy="association")
-     */
-    private $domaine;
 
     /**
      * @return mixed

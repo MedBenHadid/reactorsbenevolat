@@ -4,6 +4,7 @@ namespace AssociationBundle\Controller;
 
 use AppBundle\Entity\User;
 use AssociationBundle\Entity\Association;
+use http\Env\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -14,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
  * Association controller.
  *
  * @Route("/association")
- * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class AssociationController extends Controller
 {
@@ -33,52 +33,6 @@ class AssociationController extends Controller
     }
 
     /**
-     * @Route("/register", name="association_register",methods={"GET","POST"})
-     */
-    public function registerAction(Request $request)
-    {
-        $association = new Association();
-
-        /**
-         * @var Association $ass
-         */
-
-        $form = $this->createForm('AssociationBundle\Form\AssociationType', $association);
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * @var UploadedFile $file
-             */
-            // Setting admin user as the one that issues the request
-            $user = $this->getUser();
-            $user->addRole(User::ASSOCIATION_ADMIN);
-            $association->setAdmin($user);
-
-            // Setting association as disabled until admin confirmation
-            $association->setIsActivated(false);
-
-            $file=$form->get('image')->getData();
-            $filename = md5(uniqid('', true)).'.'.$file->guessExtension();
-            $file->move($this->getParameter('upload_dir'),$filename);
-
-            $association->setImage($filename);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($association);
-            $em->flush();
-
-            return $this->redirectToRoute('association_show', array('id' => $association->getId()));
-        }
-
-        return $this->render('@Association/association/new.html.twig', array(
-            'association' => $association,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
      * @Route("/new", name="association_new",methods={"GET","POST"})
      */
     public function newAction(Request $request)
@@ -93,7 +47,7 @@ class AssociationController extends Controller
             $em->persist($association);
             $em->flush();
 
-            return $this->redirectToRoute('association_show', array('id' => $association->getId()));
+            return $this->redirectToRoute('association_show', array('id' => $association->getIdAssociation()));
         }
 
         return $this->render('@Association/association/new.html.twig', array(
@@ -127,10 +81,10 @@ class AssociationController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('association_edit', array('id' => $association->getId()));
+            return $this->redirectToRoute('association_edit', array('id' => $association->getIdAssociation()));
         }
 
-        return $this->render('association/edit.html.twig', array(
+        return $this->render('@Association/association/edit.html.twig', array(
             'association' => $association,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

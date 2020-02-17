@@ -55,14 +55,14 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=20)
+     * @ORM\Column(name="nom", type="string", length=20,nullable=true)
      */
     private $nom;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=20)
+     * @ORM\Column(name="prenom", type="string", length=20,nullable=true)
      */
     private $prenom;
 
@@ -83,7 +83,7 @@ class User extends BaseUser
     /**
      * @var integer
      *
-     * @ORM\Column(name="telephone", type="integer")
+     * @ORM\Column(name="telephone", type="integer",nullable=true)
      */
     private $telephone;
 
@@ -113,7 +113,7 @@ class User extends BaseUser
      *
      * @ORM\Column(name="banned", type="boolean")
      */
-    private $banned = '0';
+    private $banned = false;
 
 
 
