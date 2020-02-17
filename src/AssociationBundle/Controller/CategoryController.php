@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  * Category controller.
  *
  * @Route("category")
- * @IsGranted("ROLE_SUPER_ADMIN")
  */
 class CategoryController extends Controller
 {
