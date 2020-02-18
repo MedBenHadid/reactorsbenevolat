@@ -13,7 +13,11 @@ class DemandeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('description')->add('address')->add('category')->add('state')->add('phone')->add('ups')->add('creationDate')->add('rib')->add('user');
+        $builder->add('title')->add('description')
+            ->add('address')
+            ->add('state')->add('phone')
+            ->add('ups')->add('creationDate')->add('rib')
+            ->add('user')->add('domaine');
     }/**
      * {@inheritdoc}
      */

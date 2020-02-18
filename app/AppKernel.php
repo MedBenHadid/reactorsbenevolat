@@ -27,6 +27,8 @@ class AppKernel extends Kernel
             new BackofficeBundle\BackofficeBundle(),
             // Bundle externe mouhamed
             new SBC\NotificationsBundle\NotificationsBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

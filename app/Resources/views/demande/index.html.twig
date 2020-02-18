@@ -7,16 +7,17 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Address</th>
-                <th>Category</th>
+                <th>{{ knp_pagination_sortable(demandes,'id' , 'de.id' ) }}</th>
+                <th>{{ knp_pagination_sortable(demandes,'title' , 'de.title' ) }}</th>
+                <th>{{ knp_pagination_sortable(demandes,'Description' , 'de.description' ) }}</th>
+
+                <th>{{ knp_pagination_sortable(demandes,'Address' , 'de.address' ) }}</th>
                 <th>State</th>
                 <th>Phone</th>
                 <th>Ups</th>
                 <th>Creationdate</th>
                 <th>Rib</th>
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,12 +28,12 @@
                 <td>{{ demande.title }}</td>
                 <td>{{ demande.description }}</td>
                 <td>{{ demande.address }}</td>
-                <td>{{ demande.category }}</td>
                 <td>{{ demande.state }}</td>
                 <td>{{ demande.phone }}</td>
                 <td>{{ demande.ups }}</td>
                 <td>{% if demande.creationDate %}{{ demande.creationDate|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ demande.rib }}</td>
+                <td>{{ demande.domaine }}</td>
                 <td>
                     <ul>
                         <li>
@@ -54,4 +55,9 @@
         </li>
     </ul>
 </div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(demandes) }}
+    </div>
+    </div>
 {% endblock %}
