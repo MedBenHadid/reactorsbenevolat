@@ -29,7 +29,8 @@ class AppKernel extends Kernel
             new SBC\NotificationsBundle\NotificationsBundle(),
             // Bundle externe nasri
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new FOS\RestBundle\FOSRestBundle()
+            new FOS\RestBundle\FOSRestBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

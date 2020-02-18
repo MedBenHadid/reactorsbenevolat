@@ -42,12 +42,7 @@ class Don
      */
     private $address;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Category", type="string", length=255)
-     */
-    private $category;
+
 
     /**
      * @var int
@@ -95,6 +90,14 @@ class Don
      * @ORM\Column(type="string")
      */
     private $longitude;
+
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association")
+     */
+    private $domaine;
 
     /**
      * Get id
@@ -176,30 +179,6 @@ class Don
     public function getAddress()
     {
         return $this->address;
-    }
-
-    /**
-     * Set category
-     *
-     * @param string $category
-     *
-     * @return Don
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return string
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 
     /**
@@ -350,6 +329,22 @@ class Don
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDomaine()
+    {
+        return $this->domaine;
+    }
+
+    /**
+     * @param mixed $domaine
+     */
+    public function setDomaine($domaine)
+    {
+        $this->domaine = $domaine;
     }
 
 

@@ -16,14 +16,25 @@ class DonController extends Controller
      * Lists all don entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $dons = $em->getRepository('DonsBundle:Don')->findAll();
+    //    $dons = $em->getRepository('DonsBundle:Don')->findAll();
 
+      $dql = "SELECT do FROM DonsBundle:Don do" ;
+       $query = $em->createQuery($dql);
+        /**
+         *@var $paginator Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+        $result =  $paginator->paginate($query ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 3)
+
+        );
         return $this->render('don/index.html.twig', array(
-            'dons' => $dons,
+            'dons' => $result,
         ));
     }
 

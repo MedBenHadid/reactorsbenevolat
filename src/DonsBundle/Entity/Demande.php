@@ -42,12 +42,6 @@ class Demande
      */
     private $address;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=255)
-     */
-    private $category;
 
     /**
      * @var string
@@ -84,7 +78,10 @@ class Demande
      */
     private $rib;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association")
+     */
+    private $domaine;
 
     /**
      * @var
@@ -187,29 +184,7 @@ class Demande
         return $this->address;
     }
 
-    /**
-     * Set category
-     *
-     * @param string $category
-     *
-     * @return Demande
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
 
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return string
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
 
     /**
      * Set state
@@ -247,6 +222,22 @@ class Demande
         $this->phone = $phone;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDomaine()
+    {
+        return $this->domaine;
+    }
+
+    /**
+     * @param mixed $domaine
+     */
+    public function setDomaine($domaine)
+    {
+        $this->domaine = $domaine;
     }
 
     /**

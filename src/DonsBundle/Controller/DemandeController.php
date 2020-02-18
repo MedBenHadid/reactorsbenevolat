@@ -16,14 +16,20 @@ class DemandeController extends Controller
      * Lists all demande entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $demandes = $em->getRepository('DonsBundle:Demande')->findAll();
+       // $demandes = $em->getRepository('DonsBundle:Demande')->findAll();
+        $dql = "SELECT de FROM DonsBundle:Demande de" ;
+        $query = $em->createQuery($dql);
+        $paginator = $this->get('knp_paginator');
+        $result =  $paginator->paginate($query ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 2));
 
         return $this->render('demande/index.html.twig', array(
-            'demandes' => $demandes,
+            'demandes' => $result,
         ));
     }
 
