@@ -27,6 +27,9 @@ class AppKernel extends Kernel
             new BackofficeBundle\BackofficeBundle(),
             // Bundle externe mouhamed
             new SBC\NotificationsBundle\NotificationsBundle(),
+            // Bundle externe nasri
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new FOS\RestBundle\FOSRestBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

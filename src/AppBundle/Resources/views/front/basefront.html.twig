@@ -1,4 +1,3 @@
-{% block head %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +23,6 @@
         <link rel="stylesheet" href="{{ asset('assets/appfront/style.css') }}">
     {% endblock %}
 </head>
-{% endblock %}
 <body>
 <!-- Preloader -->
 <div id="preloader">
@@ -35,62 +33,73 @@
 <header class="header-area">
 
     <!-- Main Header Start -->
-    {% block mainHeader %}
     <div class="main-header-area animated">
+
         <div class="classy-nav-container breakpoint-off">
+
             <div class="container">
+
                 <!-- Classy Menu -->
+
                 <nav class="classy-navbar justify-content-between" id="rehomesNav">
 
                     <!-- Logo -->
-                    <a class="nav-brand" href="./index.html">
-                        <img src="{{ asset('assets/appfront/img/core-img/logo.png') }}" alt=""></a>
+                    <a class="nav-brand" href="">
+                        <img src="{{ asset('assets/back/images/icons/favicon-96x96.png') }}" alt=""></a>
 
                     <!-- Navbar Toggler -->
                     <div class="classy-navbar-toggler">
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
+
                     </div>
 
                     <!-- Menu -->
                     <div class="classy-menu">
                         <!-- Menu Close Button -->
+
                         <div class="classycloseIcon">
                             <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                         </div>
                         <!-- Nav Start -->
                         <div class="classynav">
                             <ul id="nav">
-                                <li class="active"><a href="{{ path('homepage') }}">Home</a></li>
-                                <li><a href="#">Pages</a>
+                                <li class="active"><a href="{{ path('homepage') }}">Associations</a></li>
+                                <li><a href="#">Domaines d'activité</a>
                                     <ul class="dropdown">
-                                        <li class="active"><a href="./index.html">- Home</a></li>
-                                        <li><a href="./about.html">- About</a></li>
-                                        <li><a href="./agent.html">- Agent</a></li>
-                                        <li><a href="rent.html.twig">- Rent</a></li>
+                                        <li class="active"><a href="{{ path('homepage') }}">- Page d'acceuil</a></li>
+                                        <li><a href="./about.html">- Association</a></li>
+                                        <li><a href="./agent.html">- Domaines</a></li>
+                                        <li><a href="rent.html.twig">- Missions</a></li>
                                         <li><a href="./properties-details.html">- Property Details</a></li>
                                         <li><a href="./blog.html">- Blog</a></li>
-                                        <li><a href="./single-blog.html">- Single Blog</a></li>
+                                        <li><a href="./single-blog.html">- Support</a></li>
                                         <li><a href="./contact.html">- Contact</a></li>
-                                        <li><a href="#">- Dropdown</a>
-                                            <ul class="dropdown">
-                                                <li><a href="#">- Dropdown Item</a></li>
-                                                <li><a href="#">- Dropdown Item</a></li>
-                                                <li><a href="#">- Dropdown Item</a></li>
-                                                <li><a href="#">- Dropdown Item</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a href="refugees">Missions</a></li>
+                                        <li><a href="refugees">Refugiées</a></li>
+                                        <li><a href="associations">Blog</a></li>
+                                        <li><a href="missions">Support</a></li>
+                                        <li><a href="blog">Contact</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="refugees">Refugiées</a></li>
-                                <li><a href="associations">Associations</a></li>
-                                <li><a href="missions">Missions</a></li>
-                                <li><a href="blog">Blog</a></li>
-                                <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
-                            </ul>
 
+                                {% if app.user %}
+                                    // zid taswira tinzel aleha tjik lout profile w kenek admin thizek l dashboard
+                                {% else %}
+                                    <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+                                    <li><a href="{{ path('fos_user_registration_register') }}">Association</a></li>
+                                {% endif %}
+
+                            </ul>
                             <!-- Contact btn -->
                             <div class="contact-btn mt-3 mt-lg-0 ml-3 ml-lg-5">
-                                <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+                                {% if not app.user  %}
+                                    <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
+                                {% elseif is_granted('ROLE_SUPER_ADMIN')  %}
+                                    <a href="{{ path('fos_user_security_login') }}">Dashboard</a>
+                                {% elseif is_granted('ROLE_ADMIN_ASSOCIATION')  %}
+                                    <a href="{{ path('fos_user_security_login') }}">Dashboard</a>
+                                {% endif %}
+
                             </div>
                         </div>
                         <!-- Nav End -->
@@ -99,77 +108,17 @@
             </div>
         </div>
     </div>
-    {% endblock %}
 </header>
-
-{% block breadcrumbs %}{% endblock %}
-{% block blog %}{% endblock %}
 
 <!-- **** Location Search Form Area **** -->
 <!-- **** Sale area Start **** -->
-{% block cards %}
 <section class="rehome-house-sale-area section-padding-100-60">
     <div class="container">
         {% block body %}
         {% endblock %}
     </div>
 </section>
-{% endblock %}
 <!-- **** Sale Area End **** -->
-
-<!-- **** Call to Action Area Start **** -->
-{% block callToAction %}
-<section class="rehome-call-to-action-area bg-overlay bg-img jarallax section-padding-100" style="background-image: url({{ asset('assets/appfront/img/bg-img/11.jpg') }});">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-7">
-                <!-- Call to Action Content -->
-                <div class="call-to-action-content wow fadeInUp" data-wow-delay="200ms">
-                    <h2>Download app &amp; join now!</h2>
-                    <p>Download and sign up to receive all the latest real estate news.</p>
-                    <!-- Button -->
-                    <div class="download-btn">
-                        <a class="mr-2" href="#"><img src="{{ asset('assets/appfront/img/bg-img/12.jpg') }}" alt=""></a>
-                        <a href="#"><img src="{{ asset('assets/appfront/img/bg-img/13.jpg') }}" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endblock %}
-<!-- **** Call to Action Area End **** -->
-
-<!-- **** Partner Area Start **** -->
-{% block partenariat %}
-<div class="partner-area wow fadeInUp" data-wow-delay="200ms">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="partner-logo-slide owl-carousel">
-                    <!-- Single Partner Logo -->
-                    <a href="#" class="partner-logo wow fadeInUp" data-wow-delay="100ms">
-                        <img src="{{ asset('assets/appfront/img/core-img/1.png') }}" alt="">
-                    </a>
-                    <!-- Single Partner Logo -->
-                    <a href="#" class="partner-logo wow fadeInUp" data-wow-delay="300ms">
-                        <img src="{{ asset('assets/appfront/img/core-img/2.png') }}" alt=""></a>
-                    <!-- Single Partner Logo -->
-                    <a href="#" class="partner-logo wow fadeInUp" data-wow-delay="500ms">
-                        <img src="{{ asset('assets/appfront/img/core-img/3.png') }}" alt=""></a>
-                    <!-- Single Partner Logo -->
-                    <a href="#" class="partner-logo wow fadeInUp" data-wow-delay="700ms">
-                        <img src="{{ asset('assets/appfront/img/core-img/4.png') }}" alt=""></a>
-                    <!-- Single Partner Logo -->
-                    <a href="#" class="partner-logo wow fadeInUp" data-wow-delay="900ms">
-                        <img src="{{ asset('assets/appfront/img/core-img/5.png') }}" alt=""></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-<!-- **** Partner Area End **** -->
 
 <!-- **** Footer Area Start **** -->
 {% block footer %}
@@ -293,6 +242,9 @@
 <script src="{{ asset('assets/appfront/js/rehomes.bundle.js') }}"></script>
 <!-- Active -->
 <script src="{{ asset('assets/appfront/js/default-assets/active.js') }}"></script>
+
+
+
 {% endblock %}
 
 </body>
