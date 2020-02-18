@@ -1,15 +1,27 @@
+{% if app.user != null %}
+    {% if not is_granted('ROLE_SUPER_ADMIN') %}
+        <script>
+            window.location = "{{ url('fos_user_security_login') }}";
+        </script>
+    {% endif %}
+{% else %}
+    <script>
+        window.location = "{{ url('fos_user_security_login') }}";
+    </script>
+{% endif %}
+
 <html>
 <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}{% endblock %}</title>
+    <title>Dashboard - {% block title %}{% endblock %}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/icons/favicon.ico') }}">
     <link href="{{ asset('assets/back/dist/css/style.min.css') }}" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -19,11 +31,12 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/favicon.png')}}">
     <!-- Custom CSS -->
-    <link href="{{ asset('assets/back/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
+    <link href="{{     ('assets/back/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
     <link href={{ asset('assets/back/libs/chartist/dist/chartist.min.css')}} rel="stylesheet">
     <link href={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}} rel="stylesheet" />
     <!-- Custom CSS -->
-    <link href={{ asset('assets/back/dist/css/style.min.css')}}l="stylesheet">
+    <link href="{{ asset('assets/back/dist/css/style.min.css')}}" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,7 +47,6 @@
 
 </head>
 <body>
-
 <div class="preloader">
     <div class="lds-ripple">
         <div class="lds-pos"></div>
@@ -43,8 +55,6 @@
 </div>
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
      data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-     
-    {% block header %}
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
@@ -59,7 +69,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="{{ path('fos_user_profile_show')}}">
+                        <a href="{{ path('backend')}}">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img style="margin-top: 20px" src="{{ asset('/assets/back/images/icons/android-icon-48x48.png') }}" alt="" class="dark-logo" />
@@ -69,7 +79,7 @@
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <!-- dark Logo text -->
-                                <h3  class="dark-logo page-title text-truncate  font-weight-medium mb-1 " >Reactors</h3>
+                                <h3  class="dark-logo page-title text-truncate  font-weight-medium mb-1 " >Reactors </h3>
                                 <!-- Light Logo text -->
                             </span>
                         </a>
@@ -184,49 +194,22 @@
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </li>
-                        <li class="nav-item d-none d-md-block">
-                            <a class="nav-link" href="javascript:void(0)">
-                                <div class="customize-input">
-                                    <select
-                                            class="custom-select form-control bg-white custom-radius custom-shadow border-0">
-                                        <option selected>EN</option>
-                                        <option value="1">AB</option>
-                                        <option value="2">AK</option>
-                                        <option value="3">BE</option>
-                                    </select>
-                                </div>
-                            </a>
-                        </li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
                         <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item d-none d-md-block">
-                            <a class="nav-link" href="javascript:void(0)">
-                                <form>
-                                    <div class="customize-input">
-                                        <input class="form-control custom-shadow custom-radius border-0 bg-white"
-                                               type="search" placeholder="Search" aria-label="Search">
-                                        <i class="form-control-icon" data-feather="search"></i>
-                                    </div>
-                                </form>
-                            </a>
-                        </li>
-                        <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src=".{{asset('/assets/back/images/users/profile-pic.jpg')}}" alt="user" class="rounded-circle"
+                                <img src="{{asset('/assets/back/images/users/profile-pic.jpg')}}" alt="user" class="rounded-circle"
                                      width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
-                                            class="text-dark">waa</span> <i data-feather="chevron-down"
-                                                                                                class="svg-icon"></i></span>
+                                            class="text-dark">{% if app.user %}{{   app.user.username }}{% endif %}</span> <i data-feather="chevron-down"
+                                                                                                                              class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                 <a class="dropdown-item" href="{{ path('fos_user_profile_show') }}"><i data-feather="user"
@@ -263,9 +246,7 @@
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== --> 
-    {% endblock %}
-    {% block sidebar %}
+        <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin6">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar" data-sidebarbg="skin6">
@@ -273,79 +254,84 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="sidebar-item selected">
-                            <a class="sidebar-link sidebar-link" href="{{ path('fos_user_profile_show') }}" aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span class="hide-menu">Dashboard</span></a></li>
+                            <a class="sidebar-link sidebar-link" href="{{ path('backend') }}" aria-expanded="false">
+                                <i data-feather="home" class="feather-icon"></i>
+                                <span class="hide-menu">
+                                    Dashboard
+                                </span>
+                            </a>
+                        </li>
                         <li class="list-divider"></li>
-
                         <li class="nav-small-cap"><span class="hide-menu page-title text-truncate text-dark font-weight-medium">Reactors Menu</span></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                        class="hide-menu">Association </span></a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i data-feather="file-text" class="feather-icon"></i>
+                                <span class="hide-menu">Gestion d'association </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver association
-                                        </span></a>
+                                <li class="sidebar-item">
+                                    <a href="{{ path('category_index') }}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Gestion de domaines d'activités
+                                        </span>
+                                    </a>
                                 </li>
-                                <li class="sidebar-item"><a href="{{ path('association_index')}}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Association
-                                        </span></a>
+                                <li class="sidebar-item">
+                                    <a href="{{ path('association_index')}}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Lister Association
+                                        </span>
+                                    </a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Association
+                                <li class="sidebar-item">
+                                    <a href="form-checkbox-radio.html" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Update/Delete Association
                                         </span></a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                        class="hide-menu">Association </span></a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i data-feather="file-text" class="icon-people"></i>
+                                <span class="hide-menu">Gestion des utilisateurs </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver association
-                                        </span></a>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Gestion de domaines d'activités
+                                        </span>
+                                    </a>
                                 </li>
-                                <li class="sidebar-item"><a href="{{ path('association_index')}}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Association
-                                        </span></a>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Lister Association
+                                        </span>
+                                    </a>
                                 </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Association
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Update/Delete Association
                                         </span></a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="file-text" class="feather-icon"></i><span
-                                        class="hide-menu">Association </span></a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i data-feather="bar-chart" class="feather-icon"></i>
+                                <span class="hide-menu">
+                                    Mission
+                                </span>
+                            </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="form-inputs.html" class="sidebar-link"><span
-                                                class="hide-menu"> Approuver association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="{{ path('association_index')}}" class="sidebar-link"><span
-                                                class="hide-menu"> Lister Association
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="form-checkbox-radio.html" class="sidebar-link"><span
-                                                class="hide-menu"> Update/Delete Association
-                                        </span></a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item "> <a class="sidebar-link"
-                                                      href="#" aria-expanded="false"><i data-feather="lock"
-                                                                                        class="feather-icon"></i><span class="hide-menu">User
-                                </span></a>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                                                     aria-expanded="false"><i data-feather="bar-chart" class="feather-icon"></i><span
-                                        class="hide-menu">Mission </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                <li class="sidebar-item"><a href="{{ path('association_index') }}" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="{{ path('mission_index') }}" class="sidebar-link"><span
                                                 class="hide-menu"> Lister Mission
                                         </span></a>
                                 </li>
-                                <li class="sidebar-item"><a href="chart-chart-js.html" class="sidebar-link"><span
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><span
                                                 class="hide-menu"> Update/Delete Mission
                                         </span></a>
                                 </li>
@@ -393,25 +379,41 @@
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-    {% endblock %}
+
+
     <div class="page-wrapper">
-    
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-7 align-self-center">
+                    <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">{% block info %} {% endblock %}</h4>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb m-0 p-0">
+                                <li class="breadcrumb-item"><a href="{{ path('backend') }}" class="text-muted">Dashboard</a></li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">{% block bread %}  {% endblock %}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            {% block body %}
 
-        {% block body %}
+            {% endblock %}
+            {% block content %}
 
-        {% endblock %}
-
-        {% block body2 %}
-
-        {% endblock %}
+            {% endblock %}
+        </div>
     </div>
     <footer class="footer text-center text-muted">
-        Tous droits reservés à Tropical Monkeys.
+        All Rights Reserved by Tropical Monkeys.
+
     </footer>
 </div>
-{% block javascripts %}
+
     <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src={{ asset('assets/back/libs/jquery/dist/jquery.min.js')}}></script>
+
     <script src={{ asset('assets/back/libs/popper.js/dist/umd/popper.min.js')}}></script>
     <script src={{ asset('assets/back/libs/bootstrap/dist/js/bootstrap.min.js')}}></script>
     <script src={{ asset('assets/back/dist/js/app-style-switcher.js')}}></script>
@@ -426,7 +428,9 @@
     <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}></script>
     <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}></script>
     <script src={{ asset('assets/back/dist/js/pages/dashboards/dashboard1.min.js')}}></script>
-
+{% block javascripts %}
 {% endblock %}
+
+
 </body>
 </html>

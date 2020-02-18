@@ -1,8 +1,7 @@
-{% extends '@Backoffice/back/baseback.html.twig' %}
-{% block title %}
-    Association
-{% endblock %}
-
+{% extends '::baseback.html.twig' %}
+{% block title %}Association {{ association.nomAssociation }}{% endblock %}
+{% block info %}Association {{ association.nomAssociation }} :{% endblock %}
+{% block bread %}<a href="{{ path('association_index') }}">Association</a> / {{ association.nomAssociation }} {% endblock %}
 {% block body %}
 
     <h1>Association</h1>

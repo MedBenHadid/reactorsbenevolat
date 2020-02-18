@@ -1,15 +1,9 @@
-{% extends "@FOSUser/layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
-{% block tilebar %}Register{% endblock %}
-{% block breadcrumbs %}Register{% endblock %}
+{% block title %}Register{% endblock %}
+{% block bread %}Register{% endblock %}
 
 {% block fos_user_content %}
-
-    <div class="container">
-
-
-
-
 
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -114,19 +108,5 @@
 
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-
 
 {% endblock fos_user_content %}

@@ -1,15 +1,13 @@
-{% extends "@FOSUser/layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
-{% block tilebar %}Log In{% endblock %}
-{% block breadcrumbs %}Log In{% endblock %}
+{% block title %}Log In{% endblock %}
+{% block bread %}Log In{% endblock %}
 
 {% block fos_user_content %}
 
-    <div class="container">
-
         <div class="row">
 
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-12 col-md-offset-12">
 
                 {% trans_default_domain 'FOSUserBundle' %}
 
@@ -67,10 +65,5 @@
                 </div>
             </div>
         </div>
-
-
-
-
-    </div>
 
 {% endblock fos_user_content %}

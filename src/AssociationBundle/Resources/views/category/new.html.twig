@@ -1,5 +1,7 @@
-{% extends '@Backoffice/back/baseback.html.twig' %}
-
+{% extends '::baseback.html.twig' %}
+{% block title %}Création de domaine d'activité {% endblock %}
+{% block info %}Création de domaine d'activité :{% endblock %}
+{% block bread %}<a href="{{ path('category_index') }}">Domaines</a> / Création{% endblock %}
 {% block body %}
     <h1>Category creation</h1>
 
