@@ -2,11 +2,6 @@
     <script>
         window.location = "{{ url('fos_user_security_login') }}";
     </script>
-{% elseif ((not is_granted('ROLE_MANAGER')) or (not is_granted('ROLE_MANAGER'))) %}
-        <script>
-            alert("Vous ne pouvez pas acceder au dashboard");
-            window.location = "{{ url('homepage') }}";
-        </script>
 {% endif  %}
 <html>
 <head>
@@ -67,7 +62,12 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="{{ path('backend')}}">
+                        <a {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                href="{{ path('dashboard_admin_homepage')}}"
+                           {% elseif is_granted('ROLE_ASSOCIATION_ADMIn')%}
+                                 href="{{ path('dashboard_manager_homepage') }}"
+                           {% endif %}
+                        >
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img style="margin-top: 20px" src="{{ asset('/assets/back/images/icons/android-icon-48x48.png') }}" alt="" class="dark-logo" />
@@ -231,7 +231,12 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="sidebar-item selected">
-                            <a class="sidebar-link sidebar-link" href="{{ path('backend') }}" aria-expanded="false">
+                            <a class="sidebar-link sidebar-link"
+                                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                href="{{ path('dashboard_admin_homepage')}}"
+                            {% elseif is_granted('ROLE_ASSOCIATION_ADMIn')%}
+                                href="{{ path('dashboard_manager_homepage') }}"
+                            {% endif %} aria-expanded="false">
                                 <i data-feather="home" class="feather-icon"></i>
                                 <span class="hide-menu">
                                     Dashboard
@@ -401,7 +406,12 @@
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
-                                <li class="breadcrumb-item"><a href="{{ path('backend') }}" class="text-muted">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a
+                                    {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                        href="{{ path('dashboard_admin_homepage')}}"
+                                    {% elseif is_granted('ROLE_ASSOCIATION_ADMIn')%}
+                                        href="{{ path('dashboard_manager_homepage') }}"
+                                    {% endif %} class="text-muted">Dashboard</a></li>
                                 <li class="breadcrumb-item text-muted active" aria-current="page">{% block bread %}  {% endblock %}</li>
                             </ol>
                         </nav>

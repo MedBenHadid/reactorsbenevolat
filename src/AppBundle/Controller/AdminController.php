@@ -12,12 +12,17 @@ class AdminController extends Controller
      * @Route(path="/dashboard/admin",name="dashboard_admin_homepage")
      * @IsGranted("ROLE_SUPER_ADMIN")
      */
-    public function indexAction(){
-
-        return $this->render('@Association/association/index.html.twig');
+    public function adminAction(){
+        return $this->render('@App/default/index.html.twig');
     }
 
-
+    /**
+     * @Route(path="/dashboard/manager",name="dashboard_manager_homepage")
+     * @IsGranted("ROLE_ASSOCIATION_ADMIN")
+     */
+    public function managerAction(){
+        return $this->render('@App/default/index.html.twig');
+    }
 
 
 

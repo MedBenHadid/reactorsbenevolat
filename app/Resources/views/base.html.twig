@@ -80,9 +80,9 @@
                                 {% if not app.user  %}
                                     <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
                                 {% elseif is_granted('ROLE_SUPER_ADMIN')  %}
-                                    <a href="{{ path('admin_association_index') }}">Dashboard</a>
+                                    <a href="{{ path('dashboard_admin_homepage') }}">Dashboard</a>
                                 {% elseif is_granted('ROLE_ADMIN_ASSOCIATION')  %}
-                                    <a href="{{ path('manager_association_index') }}">Dashboard</a>
+                                    <a href="{{ path('dashboard_manager_homepage') }}">Dashboard</a>
                                 {% endif %}
                             </div>
                         </div>
