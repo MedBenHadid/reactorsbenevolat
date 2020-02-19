@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::baseback.html.twig' %}
 {% block title %}Domaines d'activités {% endblock %}
 {% block bread %}<a href="{{ path('category_index') }}">Domaines</a>  {% endblock %}
 {% block info %}Domaine d'activité :{% endblock %}
@@ -24,8 +24,8 @@
                         <div class="card-footer">
                             <a href="{{ path('category_show', { 'id': category.id }) }}" class="btn btn-cyan">Découvrir plus</a>
                             {% if is_granted('ROLE_SUPER_ADMIN') %}
-                                <a href="{{ path('admin_category_edit', { 'id': category.id }) }}" class="btn btn-primary ">Modifier</a>
-                                <a href="{{ path('admin_category_edit', { 'id': category.id }) }}" class="btn btn-danger ">Supprimer</a>
+                                <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-primary ">Modifier</a>
+                                <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-danger ">Supprimer</a>
                             {% endif %}
                         </div>
                     </div>
