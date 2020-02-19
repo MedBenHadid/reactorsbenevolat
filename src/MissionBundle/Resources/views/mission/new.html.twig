@@ -1,19 +1,65 @@
-{% extends '@Backoffice/back/baseback.html.twig' %}
+{% extends '::baseback.html.twig' %}
 
 
 {% block body %}
-    <link href="{{ ('assets/front/css/MissionCards.css') }}" rel="stylesheet">
-
-    <h1>Mission creation</h1>
+   <h1>Mission creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        {{ form_widget(form, {'attr': {'id': 'member_form'}}) }}
+
+<select name="framework" id="members" class="form-control selectpicker" data-live-search="true" multiple>
+    {% for user in users %}
+        <option value="{{ user.id }}">{{ user.nom }}</option>
+    {% endfor %}
+</select>
+<input type="hidden" name="hidden_members" id="hidden_member" />
+<br><br><br><br>
+    <input type="submit" value="Create" />
     {{ form_end(form) }}
 
     <ul>
         <li>
             <a href="{{ path('mission_index') }}">Back to the list</a>
         </li>
-    </ul>
-{% endblock %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+
+        <script>
+
+            $(document).ready(function(){
+
+
+                $('#members').change(function(){
+                    $('#hidden_member').val($('#members').val());
+                    console.log($('#hidden_member').val());
+
+                });
+
+                $('#member_form').on('submit', function(event){
+                    event.preventDefault();
+
+                    if($('#members').val() != '')
+                    {
+                         form_data = $(this).serialize();
+                        $.ajax({
+                            url:"localhost:8000/mission/new",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data)
+                            {
+                               console.log(data);
+                                 $('#hidden_members').val('');
+                                 $('.selectpicker').selectpicker('val', '');
+                            }
+                        })
+                    }
+                    else
+                    {
+                        alert("Please select Members");
+                        return false;
+                    }
+                });
+            });
+        </script>
+
+
+        {% endblock %}

@@ -36,6 +36,15 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
+    <link href="{{ asset('assets/back/dist/css/MissionCards.css')}}" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+
     {% block stylesheets %}{% endblock %}
 
 </head>
@@ -107,64 +116,24 @@
                                id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
                                 <span><i data-feather="bell" class="svg-icon"></i></span>
-                                <span class="badge badge-primary notify-no rounded-circle">5</span>
+                                <span id="nbrNotif" class="badge badge-primary notify-no rounded-circle"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-left mailbox animated bounceInDown">
                                 <ul class="list-style-none">
                                     <li>
-                                        <div class="message-center notifications position-relative">
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <div class="btn btn-danger rounded-circle btn-circle"><i
-                                                            data-feather="airplay" class="text-white"></i></div>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Luanch Admin</h6>
-                                                    <span class="font-12 text-nowrap d-block text-muted">Just see
+                                        <div id="ListNotification" class="message-center notifications position-relative">
+                                            <!-- Message
+                                            <a href='javascript:void(0)'
+                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'>
+                                                <div class='w-75 d-inline-block v-middle pl-2'>
+                                                    <h6 class='message-title mb-0 mt-1'>Luanch Admin</h6>
+                                                    <span class='font-12 text-nowrap d-block text-muted'>Just see
                                                         the my new
                                                         admin!</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:30 AM</span>
+                                                    <span class='font-12 text-nowrap d-block text-muted'>9:30 AM</span>
                                                 </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-success text-white rounded-circle btn-circle"><i
-                                                            data-feather="calendar" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Event today</h6>
-                                                    <span
-                                                            class="font-12 text-nowrap d-block text-muted text-truncate">Just
-                                                        a reminder that you have event</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:10 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-info rounded-circle btn-circle"><i
-                                                            data-feather="settings" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Settings</h6>
-                                                    <span
-                                                            class="font-12 text-nowrap d-block text-muted text-truncate">You
-                                                        can customize this template
-                                                        as you want</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:08 AM</span>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)"
-                                               class="message-item d-flex align-items-center border-bottom px-3 py-2">
-                                                <span class="btn btn-primary rounded-circle btn-circle"><i
-                                                            data-feather="box" class="text-white"></i></span>
-                                                <div class="w-75 d-inline-block v-middle pl-2">
-                                                    <h6 class="message-title mb-0 mt-1">Pavan kumar</h6> <span
-                                                            class="font-12 text-nowrap d-block text-muted">Just
-                                                        see the my admin!</span>
-                                                    <span class="font-12 text-nowrap d-block text-muted">9:02 AM</span>
-                                                </div>
-                                            </a>
+                                            </a>-->
+
                                         </div>
                                     </li>
                                     <li>
@@ -465,6 +434,95 @@
     <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js')}}></script>
     <script src={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-world-mill-en.js')}}></script>
     <script src={{ asset('assets/back/dist/js/pages/dashboards/dashboard1.min.js')}}></script>
+<script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+
+{{ notifications_assets() }}
+
+<script>
+    var DataNotification=[];
+    $(document).ready(function(){
+        $.ajax({
+            url: "http://127.0.0.1:8000/mission/notification",
+            method: "POST",
+            data: {{  app.user.id }},
+            success: function (dataNotif) {
+                //console.log("Response :  " + JSON.stringify(dataNotif));
+                DataNotification.push(dataNotif);
+                console.log("MyDATANOTIFICATION"+DataNotification);
+                console.log("Count Notification "+DataNotification.length);
+
+
+                for (let i = 0; i <5 ; i++) {
+                    console.log(dataNotif[i]);
+                    document.getElementById("ListNotification").innerHTML+="  <a href='javascript:void(0)'\n" +
+                        "                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'>\n" +
+                        "                                                <div class='w-75 d-inline-block v-middle pl-2'>\n" +
+                        "                                                    <h6 class='message-title mb-0 mt-1'>"+dataNotif[i].title+"</h6>\n" +
+                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].description+"\n"+
+                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].date.date+"</span>\n" +
+                        "                                                </div>\n" +
+                        "                                            </a>";
+                }
+                document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
+            }
+        });
+
+    });
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('988ad031a8039b900242', {
+        cluster: 'eu',
+        forceTLS: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+        //alert(JSON.stringify(data));
+    });
+
+    // select the channel you want to listen to
+    var channel = pusher.subscribe("notifications");// notifications channel
+    channel.bind("my-event", function(data) {
+        // console.log('from notifications channel', data);
+        // console.log("MyData-----"+data);
+        var  DataNotification=[];
+
+        $.ajax({
+            url: "http://127.0.0.1:8000/mission/notification",
+            method: "POST",
+            data: data,
+            success: function (dataNotif) {
+                // console.log("Response :  " + JSON.stringify(dataNotif));
+
+                for (let i = 0; i <5 ; i++) {
+                    console.log(dataNotif[i]);
+                    document.getElementById("ListNotification").innerHTML+="  <a href='javascript:void(0)'\n" +
+                        "                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'>\n" +
+                        "                                                <div class='w-75 d-inline-block v-middle pl-2'>\n" +
+                        "                                                    <h6 class='message-title mb-0 mt-1'>"+dataNotif[i].title+"</h6>\n" +
+                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].description+"\n"+
+                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].data+"</span>\n" +
+                        "                                                </div>\n" +
+                        "                                            </a>";
+                }
+
+
+                document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
+
+            }
+        });
+        //showNotification(data);
+    });
+
+    var channel = pusher.subscribe("messages");// messages channel
+    channel.bind("my-event", function(data) {
+        console.log('from messages channel', data);
+    });
+    function showNotification(data) {
+
+    }
+</script>
 {% block javascripts %}
 {% endblock %}
 

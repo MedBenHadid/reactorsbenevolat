@@ -507,35 +507,7 @@
     <!-- ============================================================== -->
     <!-- End Page wrapper  -->
     <!-- ============================================================== -->
-    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
-    {{ notifications_assets() }}
 
-    <script>
-
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('988ad031a8039b900242', {
-            cluster: 'eu',
-            forceTLS: true
-        });
-
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('my-event', function(data) {
-            alert(JSON.stringify(data));
-        });
-
-        // select the channel you want to listen to
-        var channel = pusher.subscribe("notifications");// notifications channel
-        channel.bind("my-event", function(data) {
-            console.log('from notifications channel', data);
-        });
-
-        var channel = pusher.subscribe("messages");// messages channel
-        channel.bind("my-event", function(data) {
-            console.log('from messages channel', data);
-        });
-    </script>
 
 {% endblock %}
 
