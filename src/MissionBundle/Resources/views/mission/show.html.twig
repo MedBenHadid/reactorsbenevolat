@@ -1,4 +1,4 @@
-{% extends '@Backoffice/back/baseback.html.twig' %}
+{% extends '::baseback.html.twig' %}
 
 {% block body %}
     <h1>Mission</h1>
@@ -39,7 +39,6 @@
             </tr>
         </tbody>
     </table>
-
     <ul>
         <li>
             <a href="{{ path('mission_index') }}">Back to the list</a>

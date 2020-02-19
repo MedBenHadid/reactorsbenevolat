@@ -20,6 +20,9 @@ parameters:
     refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
     dons_image_directory: '%kernel.project_dir%/web/uploads/dons/images'
     mission_image_directory: '%kernel.project_dir%/web/uploads/mission/images'
+    user_image_directory: '%kernel.project_dir%/web/uploads/user/images'
+    association_image_directory: '%kernel.project_dir%/web/uploads/association/images'
+    pieces_directory: '%kernel.project_dir%/web/uploads/association/pieces'
 
 
 framework:
@@ -128,3 +131,15 @@ ewz_recaptcha:
     # Not needed as "%kernel.default_locale%" is the default value for the locale key
     locale_key:  %kernel.default_locale%
     locale_from_request: true
+
+
+fos_rest:
+    routing_loader:
+        default_format: json                            # All responses should be JSON formated
+        include_format: false                           # We do not include format in request, so that all responses
+        # will eventually be JSON formated
+    format_listener:
+        rules:
+            - { priorities: ['json', 'html'], fallback_format: json, prefer_extension: false }
+    view:
+        view_response_listener: true

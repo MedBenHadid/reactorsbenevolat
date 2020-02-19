@@ -1,3 +1,7 @@
+rest_api:
+    resource: "@RestApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 association_category:
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
@@ -33,15 +37,10 @@ association:
     type:     annotation
     prefix:   /
 
-backoffice:
-    resource: "@BackofficeBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
-    prefix:   /front
+    prefix:   /
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

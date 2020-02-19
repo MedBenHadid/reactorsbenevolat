@@ -9,6 +9,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return new Response('Hi');
+        return $this->render('@Refugee/Default/index.html.twig');
     }
 }

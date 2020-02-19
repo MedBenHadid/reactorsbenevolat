@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AssociationBundle\Entity\Association;
 use AssociationBundle\Entity\Invitation;
+use BackofficeBundle\BackofficeBundle;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,6 +29,14 @@ class User extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 /*
     /**
@@ -115,14 +124,39 @@ class User extends BaseUser
      */
     private $banned = false;
 
-
-
     /**
      * @var string
      *
      * @ORM\Column(name="image", type="text", length=65535, nullable=true)
      */
-    private $image = "client/images/user.png";
+    private $image = "user.png";
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="BackofficeBundle\Entity\Notification",inversedBy="notification")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * })
+     */
+
+    private $notifications ;
+
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param mixed $notifications
+     */
+    public function setNotifications($notifications)
+    {
+        $this->notifications = $notifications;
+    }
+
 
     /**
      * Set nom
@@ -209,7 +243,13 @@ class User extends BaseUser
 
         return $this;
     }
-
+    /**
+     * @ORM\ManyToOne(targetEntity="\AssociationBundle\Entity\Association")
+     *  @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="Association", referencedColumnName="id")
+     * })
+     */
+    private $Association;
     /**
      * Get dateNaissance
      *
@@ -377,6 +417,7 @@ class User extends BaseUser
 
         return $this;
     }
+
 
 }
 

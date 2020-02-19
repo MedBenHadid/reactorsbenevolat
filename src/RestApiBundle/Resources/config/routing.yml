@@ -1,0 +1,3 @@
+rest_api_homepage:
+    path:     /hebergements
+    defaults: { _controller: RestApiBundle:Hebergements:getHebergements }

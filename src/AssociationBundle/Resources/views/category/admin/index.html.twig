@@ -1,0 +1,59 @@
+{% extends '::baseback.html.twig' %}
+{% block title %}Domaines d'activités {% endblock %}
+{% block bread %}<a href="{{ path('category_index') }}">Domaines</a>  {% endblock %}
+{% block info %}Domaine d'activité :{% endblock %}
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-12">
+        <!-- Row -->
+        <div class="row">
+            <!-- column -->
+
+                {% for category in categories %}
+            <div class="col-lg-3 col-md-6 img-fluid">
+                    <!-- Card -->
+                    <div class="card">
+                        <img class="card-img-top img-fluid" id="{{ category.id }}" src="#"
+                             alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ category.name }}</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make
+                        </div>
+                        <div class="card-footer">
+                            <a href="{{ path('category_show', { 'id': category.id }) }}" class="btn btn-cyan">Découvrir plus</a>
+                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-primary ">Modifier</a>
+                                <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-danger ">Supprimer</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <script>
+                        fetch('https://pixabay.com/api/?key=15285439-5d49ff117660224e6a12b46ed&q={{ category.name }}&image_type=photo')
+                            .then((response) => {
+                                return response.json();
+                            })
+                            .then((myJson) => {
+
+                                $("#{{ category.id}}").attr("src",myJson.hits[Math.round(Math.random() * myJson.hits.length)]['webformatURL']);
+                            });
+
+                    </script>
+                    <!-- Card -->
+            </div>
+                {% endfor %}
+
+            <!-- column -->
+        </div>
+        <!-- Row -->
+    </div>
+    </div>
+
+</div>
+
+
+
+            <a href="{{ path('category_new') }}">Create a new category</a>
+
+{% endblock %}

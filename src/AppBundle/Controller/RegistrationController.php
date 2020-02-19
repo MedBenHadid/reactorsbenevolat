@@ -109,6 +109,7 @@ class RegistrationController extends BaseController
                 $user->addRole(User::ASSOCIATION_ADMIN);
                 $user->setApprouved(0);
                 $user->setEnabled(0);
+
                 $user->setMail($request->request->all()['fos_user_registration_form']['email']);
                 $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $userManager->updateUser($user);
@@ -117,7 +118,6 @@ class RegistrationController extends BaseController
                 $association = new Association();
                 $association->setNomAssociation($request->request->get('nom_association'));
                 $association->setTelephoneAssociation($request->request->get('tel_association'));
-
                 $cat = $this->getDoctrine()->getRepository('AssociationBundle:Category')->find($request->request->get('domaine'));
                 $association->setDomaine($cat);
 
@@ -127,7 +127,7 @@ class RegistrationController extends BaseController
                 $imgExtension = $request->files->get('photo_association')->guessExtension();
                 $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
-                $filePh->move($this->getParameter('association_directory'), $imgName);
+                $filePh->move($this->getParameter('association_image_directory'), $imgName);
 
                 $association->setPhotoAssociation( $imgName);
 
@@ -164,7 +164,7 @@ class RegistrationController extends BaseController
                     ->getFlashBag()
                     ->add('success', 'Votre Demande de création association a eté envoyé avec succée');
                 ;
-                return $this->redirectToRoute('association_manage');
+                return $this->redirectToRoute('dashboard_manager_homepage');
             }
 
             $event = new FormEvent($form, $request);

@@ -10,7 +10,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use function Sodium\add;
 
 /**
  * Mission controller.
@@ -19,6 +22,63 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class MissionController extends Controller
 {
+
+    /**
+     * @Route("/notification", name="notification")
+     * @Method("POST")
+     * @param Request $request
+     * @return Response
+     */
+    public function notificationAction(Request $request)
+    {
+      //  var_dump($request->request->get('data') );
+        $manager=$this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+      // $notification = $this->getDoctrine()->getRepository('BackofficeBundle:Notification')->findBy(array('id_user'=>$manager->getId()));
+
+        $repository= $this->getDoctrine()->getRepository("BackofficeBundle:Notification");
+       $notification=$repository->createQueryBuilder('N')
+        ->where('N.id_user > :idUser')
+        ->setParameter('idUser', $manager->getId())
+        ->orderBy('N.date', 'DESC')
+        ->getQuery();
+        //$notification->getResult();
+
+        //    $request->request->get('id')
+        return new JsonResponse($notification->getResult());
+          //  new JsonResponse($this->json($notification));
+
+    }
+
+    /**
+     *
+     * @Route("/searchMembers", name="search_member")
+     * @Method("POST")
+     */
+    public function searchAction(Request $request)
+    {
+        $searchTerm = $request->query->get('search');
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository('User')->findBy(array('username'=>$this->getUser()->getUsername()));//RETERN USER CONNECTED
+        $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(array('manager'=>$user));
+        var_dump($association->getMembers());
+        $search = $em->getRepository('Association:Classified')->findAll();
+
+        $results = $search->getResult();
+
+        $content = $this->renderView('search-result.html.twig', [
+            'results' => $results
+        ]);
+
+        $response = new JsonResponse();
+        $response->setData(array('classifiedList' => $content));
+        return $response;
+    }
+
+
+
+
+
     /**
      * Lists all mission entities.
      *
@@ -28,8 +88,15 @@ class MissionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $manager=$em->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+       //var_dump($this->getUser()->getRoles() );
+        if(in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
+            $missions = $em->getRepository('MissionBundle:Mission')->findAll();
 
-        $missions = $em->getRepository('MissionBundle:Mission')->findAll();
+        }else{
+           $missions = $em->getRepository('MissionBundle:Mission')->findBy(array('CreatedBy'=>$manager->getId()));
+
+        }
 
         return $this->render('@Mission/mission/index.html.twig', array(
             'missions' => $missions,
@@ -41,15 +108,22 @@ class MissionController extends Controller
      *
      * @Route("/new", name="mission_new")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param $member
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
         $mission = new Mission();
         $form = $this->createForm('MissionBundle\Form\MissionType', $mission);
+       // if(in_array("ROLE_SUPER_ADMIN", $this->getUser()->getRoles())){
+       // }
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            //var_dump();
 
 
             /*      $filePh = $form->getData();
@@ -89,30 +163,54 @@ class MissionController extends Controller
                 }
                   $mission->setSumCollected(0);
                   $mission->setUps(0);
-                    $mission->setCreatedBy($this->getUser());
-
+                  $mission->setCreatedBy($this->getUser());
+                  $mission->setLatitude($request->request->get('lat_mission'));
+                  $mission->setLongitude($request->request->get('lng_mission'));
                   $em = $this->getDoctrine()->getManager();
+
                   $em->persist($mission);
                   $em->flush();
 
-            //Persist Notification
-            $notification=new Notification();
-            $notification->setTitle($mission->getTitleMission())
-                ->setDescription($mission->getDescription())
-                ->setRoute('mission_show')
-                ->setParameters(array('id'=>$mission->getId()));
-            $em->persist($notification);
+                  $manager=$this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+                $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(array('manager'=>$manager->getId()));
+               //var_dump($manager->getId());
+                ///Persist Notification
+            $TabMembers = explode(",", $request->request->get('hidden_members'));
 
-            $em->flush();
-            $pusher = $this->get('mrad.pusher.notificaitons');
-            $pusher->trigger($notification);
+         //    var_dump($TabMembers);
+            for ($i = 0;$i<sizeof($TabMembers) ; $i++) {
+                $memberInv=$em->getRepository('AppBundle:User')->findOneBy(array('id'=>$TabMembers[$i]));
+             //  var_dump($memberInv);
+                $notification=new Notification();
+                $notification->setTitle($mission->getTitleMission())
+                    ->setDescription($mission->getDescription())
+                    ->setRoute('mission_show')
+                    ->setParameters(array('id'=>$mission->getId()));
+                $notification->setIdUser($memberInv);
+                $notification->setIdAssociation($association);
+                $notification->setIdMission($mission);
 
-                  return $this->redirectToRoute('mission_show', array('id' => $mission->getId()));
+                $em->persist($notification);
+
+                $em->flush();
+                //$notification->setIdUser(1);
+                $pusher = $this->get('mrad.pusher.notificaitons');
+                $pusher->trigger($notification);
+                }
+
+
+
+           return $this->redirectToRoute('mission_show', array('id' => $mission->getId()));
               }
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findBy(array('username'=>$this->getUser()->getUsername()));//RETERN USER CONNECTED
+        $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(array('manager'=>$user));
+      // var_dump($association->getMembers());
 
               return $this->render('@Mission/mission/new.html.twig', array(
                   'mission' => $mission,
                   'form' => $form->createView(),
+                  'users' =>$association->getMembers(),
+
               ));
           }
 
@@ -122,8 +220,9 @@ class MissionController extends Controller
            * @Route("/{id}", name="mission_show")
            * @Method("GET")
            */
-    public function showAction(Mission $mission)
+    public function showAction(Request $request,Mission $mission)
     {
+
         $deleteForm = $this->createDeleteForm($mission);
 
         return $this->render('@Mission/mission/show.html.twig', array(
