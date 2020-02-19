@@ -33,6 +33,8 @@ class AppKernel extends Kernel
             // Bundle externe Issam
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+            //bundle ramy
+            new blackknight467\StarRatingBundle\StarRatingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
