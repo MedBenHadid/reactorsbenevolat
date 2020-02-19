@@ -264,10 +264,17 @@ class MissionController extends Controller
      */
     public function deleteAction(Request $request, Mission $mission)
     {
+        $em = $this->getDoctrine()->getManager();
 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($mission);
-            $em->flush();
+       // $notifications=$em->getRepository('BackofficeBundle:Notification')->findOneBy(array('id_mission'=>$mission->getId()));
+        $notifications=$em->createQuery('DELETE BackofficeBundle:Notification n WHERE n.id_mission ='.$mission->getId());
+        $notifications->execute();
+
+
+        // $em = $this->getDoctrine()->getManager();
+     //   var_dump($notification);
+        $em->remove($mission);
+         $em->flush();
 
 
         return $this->redirectToRoute('mission_index');
