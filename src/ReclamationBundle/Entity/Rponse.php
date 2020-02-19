@@ -173,5 +173,34 @@ class Rponse
     {
         $this->requete = $requete;
     }
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Rating", type="integer")
+     */
+    private $rating;
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     *
+     * @return Rponse
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return int
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
 }
 
