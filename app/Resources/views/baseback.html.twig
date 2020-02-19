@@ -447,7 +447,7 @@
         $.ajax({
             url: "http://127.0.0.1:8000/mission/notification",
             method: "POST",
-            data: {{  app.user.id }},
+            data: {% if app.user %}{{  app.user.id }}{% endif %},
             success: function (dataNotif) {
                 //console.log("Response :  " + JSON.stringify(dataNotif));
                 DataNotification.push(dataNotif);

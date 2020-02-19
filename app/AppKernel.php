@@ -30,7 +30,6 @@ class AppKernel extends Kernel
             // Bundle externe nasri
             //new JMS\SerializerBundle\JMSSerializerBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
             // Bundle externe Issam
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
