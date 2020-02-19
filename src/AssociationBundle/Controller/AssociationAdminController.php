@@ -22,7 +22,7 @@ class AssociationAdminController extends Controller
      */
     public function indexAction()
     {
-        $current = $this->getDoctrine()->getRepository()->findOneBy(array('username'=>$this->getUser()->getUsername()));
+        $current = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
         $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(array('manager'=>$current));
         $em = $this->getDoctrine()->getManager();
 

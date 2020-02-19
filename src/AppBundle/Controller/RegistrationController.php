@@ -109,6 +109,7 @@ class RegistrationController extends BaseController
                 $user->addRole(User::ASSOCIATION_ADMIN);
                 $user->setApprouved(0);
                 $user->setEnabled(0);
+
                 $user->setMail($request->request->all()['fos_user_registration_form']['email']);
                 $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $userManager->updateUser($user);
@@ -163,7 +164,7 @@ class RegistrationController extends BaseController
                     ->getFlashBag()
                     ->add('success', 'Votre Demande de création association a eté envoyé avec succée');
                 ;
-                return $this->redirectToRoute('association_manage');
+                return $this->redirectToRoute('dashboard_manager_homepage');
             }
 
             $event = new FormEvent($form, $request);
