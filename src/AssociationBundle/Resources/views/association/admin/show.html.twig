@@ -75,7 +75,6 @@
         </div>
     </div>
 
-
     <!-- *************************************************************** -->
     <!-- End First Cards -->
     <!-- *************************************************************** -->
@@ -86,29 +85,22 @@
         <div class="col-lg-8 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">{{ association.nomAssociation }}</h4>
-                    <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                    <ul class="list-style-none mb-0">
-                        <li>
-                            <i class="fas fa-circle text-primary font-10 mr-2"></i>
-                            <span class="text-muted">Direct Sales</span>
-                            <span class="text-dark float-right font-weight-medium">$2346</span>
-                        </li>
-                        <li class="mt-3">
-                            <i class="fas fa-circle text-danger font-10 mr-2"></i>
-                            <span class="text-muted">Referral Sales</span>
-                            <span class="text-dark float-right font-weight-medium">$2108</span>
-                        </li>
-                        <li class="mt-3">
-                            <i class="fas fa-circle text-cyan font-10 mr-2"></i>
-                            <span class="text-muted">Affiliate Sales</span>
-                            <span class="text-dark float-right font-weight-medium">$1204</span>
-                        </li>
-                    </ul>
+                    <h5 class="card-title">{{association.nomAssociation}} </h5>
+                    <div class="media">
+                        <img class="mr-3 img-fluid w-25" src="{{ asset('uploads/association/images/'~association.photoAssociation) }}"
+                             alt="Generic placeholder image">
+                        <div class="media-body">
+                            Cras sit amet nibh libero, in
+                            gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
+                            odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
+                            condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
+                            in faucibus.
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-
         <div class="col-lg-4 col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -121,49 +113,25 @@
                 </div>
                 <div class="card-footer mb-4">
                     <div class="info-box">
-                        <a href="#">Diana Ross</a>
+                        <a href="#">{{ association.ville }}, {{ association.rue }} {{ association.codePostal }}</a>
                         <p><i class="fa fa-phone" aria-hidden="true"></i> {{ association.telephoneAssociation }}</p>
                         <p><i class="fa fa-envelope" aria-hidden="true"></i> {{ association.manager.email }}</p>
-                        <p><i class="fa fa-skype" aria-hidden="true"></i> {{ association.manager.nom }}</p>
+                        <p><i class="fa fa-ribbon" aria-hidden="true"></i> <a href="#">{{ association.manager.nom }} {{ association.manager.prenom }}</a></p>
+                    </div>
+                    <div class="box-tools">
+                        {%  if association.approuved  %}
+                        <button type="button" onclick="{{ path('association_index') }}" class="btn btn-info btn-circle-lg"><i class="fa fa-check"></i> Accepter
+                        </button>
+                        {% else %}
+                        <button type="button" onclick="{{ path('association_index') }}" class="btn btn-danger btn-circle-lg"><i class="fa fa-times"></i> Bannir
+                        </button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <table>
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-        </tr>
-            <tr>
-
-                <td>{{ association.id }}</td>
-                <td>{{ association.domaine.name }}</td>
-                <td>{{ association.nomAssociation }}</td>
-                <td>{{ association.manager }}</td>
-                <td>{{ association.codePostal }}</td>
-                <td>{{ association.ville }}</td>
-                <td>{{ association.telephoneAssociation }}</td>
-                <td>
-                    <p class="form-row form-row-wide">
-                        <label for="password">Emplacement Association:
-                            <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
-                            <input type="hidden" name="lat_association" id="lat_association" value="{{association.latitude }}" />
-                            <input type="hidden" name="lng_association" id="lng_association" value="{{association.longitude }}" />
-                        </label>
-                    </p>
-                </td>
-                <td><img height="400px" width="400px" src="{{ asset( association.photoAssociation) }}"></td>
-            </tr>
-        </tbody>
-    </table>
 
     <ul>
         <li>
