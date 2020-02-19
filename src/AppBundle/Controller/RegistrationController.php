@@ -117,7 +117,6 @@ class RegistrationController extends BaseController
                 $association = new Association();
                 $association->setNomAssociation($request->request->get('nom_association'));
                 $association->setTelephoneAssociation($request->request->get('tel_association'));
-
                 $cat = $this->getDoctrine()->getRepository('AssociationBundle:Category')->find($request->request->get('domaine'));
                 $association->setDomaine($cat);
 
@@ -127,7 +126,7 @@ class RegistrationController extends BaseController
                 $imgExtension = $request->files->get('photo_association')->guessExtension();
                 $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
-                $filePh->move($this->getParameter('association_directory'), $imgName);
+                $filePh->move($this->getParameter('association_image_directory'), $imgName);
 
                 $association->setPhotoAssociation( $imgName);
 

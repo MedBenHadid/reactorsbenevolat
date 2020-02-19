@@ -34,18 +34,24 @@
                         <table class="table no-wrap v-middle mb-0">
                             <thead>
                             <tr class="border-0">
-                                <th class="border-0 font-14 font-weight-medium text-muted">Nom de l'association
+                                <th class="border-0 font-14 font-weight-medium text-muted">
+                                    Nom de l'association
                                 </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted px-2">Manager
+                                <th class="border-0 font-14 font-weight-medium text-muted px-2">
+                                    Manager
                                 </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">Team</th>
+                                <th class="border-0 font-14 font-weight-medium text-muted">
+                                    Equipe
+                                </th>
                                 <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                    Status
+                                    Etat
                                 </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                    Weeks
+                                <th class="border-0 font-14 font-weight-medium text-muted">
+                                    Modifier
                                 </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">Budget</th>
+                                <th class="border-0 font-14 font-weight-medium text-muted">
+                                    Supprimer
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -55,46 +61,52 @@
                                         <div class="d-flex no-block align-items-center">
                                             <div class="mr-3">
                                                 <img
-                                                        src="{{ asset('client/images/association/images/'~association.photoAssociation) }}"
+                                                        src="{{ asset('uploads/association/images/'~association.photoAssociation) }}"
                                                         alt="user" class="rounded-circle" width="45"
                                                         height="45" /></div>
                                             <div class="">
                                                 <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('association_show', { 'id': association.id }) }}">{{ association.nomAssociation }}</a></h5>
-                                                <span class="text-muted font-14">{{ association.domaine }}
+                                                <span class="text-muted font-14"><a href="{{ path('category_show', {'id': association.domaine.id }) }}">{{ association.domaine }}</a>
                                                 </span>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="border-top-0 text-muted px-2 py-4 font-14">{{ association.manager }}</td>
+                                    <td class="border-top-0 text-muted px-2 py-4 font-14"><a href="#">{{ association.manager }}</a> </td>
                                     <td class="border-top-0 px-2 py-4">
                                         <div class="popover-icon">
                                             {% for member in association.members %}
-                                                {% dump(association.members) %}
-                                            <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                               href="{{ path('association_index')}}">{{ member.prenom }}</a>
+                                              <a class="btn btn-primary rounded-circle btn-circle font-12" href="{{ path('association_index')}}">{{ member.prenom }}</a>
                                             {% endfor %}
                                             <a class="btn btn-success text-white rounded-circle btn-circle font-20"
                                                href="javascript:void(0)">+</a>
                                         </div>
                                     </td>
-                                    {% if is_granted('ROLE_SUPER_ADMIN') == true %}
-                                    {% if association.status ==1 %}
-                                    <td class="border-top-0 text-center px-2 py-4"><i
-                                                class="fa fa-circle text-primary font-12" data-toggle="tooltip"
-                                                data-placement="top" title="Vérifié"></i></td>
+                                    {% if association.approuved ==1 %}
+                                    <td class="border-top-0 text-center px-2 py-4">
+                                        <div class="spinner-grow text-success" role="status">
+                                            <span class="sr-only">Verifié</span>
+                                        </div></td>
                                     {% else %}
-
-                                        <td class="border-top-0 text-center px-2 py-4"><i
-                                                    class="fa fa-circle text-primary font-12" data-toggle="tooltip"
-                                                    data-placement="top" title="Pas encore vérifié"></i></td>
-                                        {% endif %}
-
-                                    <td
-                                            class="border-top-0 text-center font-weight-medium text-muted px-2 py-4">
-                                        35
+                                     <td class="border-top-0 text-center px-2 py-4">
+                                         <div class="spinner-grow text-danger" role="status">
+                                             <span class="sr-only">Pas encore verifié</span>
+                                         </div>
+                                     </td>
+                                     {% endif %}
+                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
+                                        <a href="{{ path('association_edit', { 'id': association.id }) }}">Modifier</a>
                                     </td>
-                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4"><a href="{{ path('association_edit', { 'id': association.id }) }}">edit</a>
-                                    {% endif %}
+                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
+                                        <a onclick="myFunction()" href="">Supprimer</a>
+                                        <script>
+                                            function myFunction() {
+                                                confirm("Voulez vous vraiment supprimer  {{ association.nomAssociation }}!");
+                                                if (r === true) {
+                                                    window.location.href = {{ path('association_delete', { 'id': association.id }) }};
+                                                    return r;
+                                                }
+                                            }
+                                        </script>
                                     </td>
                                 </tr>
                             {% endfor %}

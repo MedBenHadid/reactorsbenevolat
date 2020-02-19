@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use AssociationBundle\Entity\Association;
 use AssociationBundle\Entity\Invitation;
+use BackofficeBundle\BackofficeBundle;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -115,14 +116,35 @@ class User extends BaseUser
      */
     private $banned = false;
 
-
-
     /**
      * @var string
      *
      * @ORM\Column(name="image", type="text", length=65535, nullable=true)
      */
-    private $image = "client/images/user.png";
+    private $image = "user.png";
+
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="BackofficeBundle\Entity\Notification",mappedBy="notification")
+     */
+    private $notifications ;
+
+    /**
+     * @return mixed
+     */
+    public function getNotifications()
+    {
+        return $this->notifications;
+    }
+
+    /**
+     * @param mixed $notifications
+     */
+    public function setNotifications($notifications)
+    {
+        $this->notifications = $notifications;
+    }
+
 
     /**
      * Set nom

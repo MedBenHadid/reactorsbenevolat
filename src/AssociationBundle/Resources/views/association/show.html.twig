@@ -3,13 +3,19 @@
 {% block info %}Association {{ association.nomAssociation }} :{% endblock %}
 {% block bread %}<a href="{{ path('association_index') }}">Association</a> / {{ association.nomAssociation }} {% endblock %}
 {% block body %}
-
-    <h1>Association</h1>
-
     <table>
         <tbody>
+        <tr>
+            <th>Id</th>
+            <th>Id</th>
+            <th>Id</th>
+            <th>Id</th>
+            <th>Id</th>
+            <th>Id</th>
+            <th>Id</th>
+        </tr>
             <tr>
-                <th>Id</th>
+
                 <td>{{ association.id }}</td>
                 <td>{{ association.domaine.name }}</td>
                 <td>{{ association.nomAssociation }}</td>
@@ -17,13 +23,15 @@
                 <td>{{ association.codePostal }}</td>
                 <td>{{ association.ville }}</td>
                 <td>{{ association.telephoneAssociation }}</td>
-                <td>                                <p class="form-row form-row-wide">
+                <td>
+                    <p class="form-row form-row-wide">
                         <label for="password">Emplacement Association:
                             <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
                             <input type="hidden" name="lat_association" id="lat_association" value="{{association.latitude }}" />
                             <input type="hidden" name="lng_association" id="lng_association" value="{{association.longitude }}" />
                         </label>
-                    </p></td>
+                    </p>
+                </td>
                 <td><img height="400px" width="400px" src="{{ asset( association.photoAssociation) }}"></td>
             </tr>
         </tbody>

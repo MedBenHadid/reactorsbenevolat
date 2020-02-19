@@ -30,7 +30,7 @@
                         </div>
                         <div class="classynav">
                             <ul id="nav">
-                                <li><a href="{{ path('category_index')}}">Domaines d'activités</a>
+                                <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li class="active"><a href="{{ path('homepage') }}">- Page d'acceuil</a></li>
                                         <li><a href="{{ path('association_index') }}">- Association</a></li>
@@ -86,27 +86,10 @@
     </div>
 </div>
 
-<section class="rehomes-choose-us-area section-padding-100-60">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading text-center wow fadeInUp" data-wow-delay="200ms">
-                    <h2><span>Why</span> Vous voulez nous rejoindre?</h2>
-                    <p>{% block identity %} {% endblock %}</p>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section">
-                            {% block fos_user_content %}
-                            {% endblock %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+{% block fos_user_content %}
+{% endblock %}
 
-</section>
+
 <section class="rehome-house-sale-area section-padding-100-60">
     <div class="container">
 

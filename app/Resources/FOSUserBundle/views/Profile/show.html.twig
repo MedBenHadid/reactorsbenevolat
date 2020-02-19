@@ -1,0 +1,5 @@
+{% extends is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN_ASSOCIATION') ? "::baseback.html.twig" : "::base.html.twig" %}
+{% block title %} {% endblock %}
+{% block fos_user_content %}
+{% include "@FOSUser/Profile/show_content.html.twig" %}
+{% endblock fos_user_content %}
