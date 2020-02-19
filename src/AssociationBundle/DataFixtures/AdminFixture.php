@@ -16,7 +16,7 @@ class AdminFixture extends Fixture
         $user->setEmail('admin@reactors.tn');
         $user->setEnabled(true);
         $user->setPlainPassword('1ac2620f');
-        $user->addRole(array('ROLE_SUPER_ADMIN'));
+        $user->addRole('ROLE_SUPER_ADMIN');
         $manager->persist($user);
         $manager->flush();
     }

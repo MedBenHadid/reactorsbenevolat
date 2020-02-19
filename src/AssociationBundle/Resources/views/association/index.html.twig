@@ -15,8 +15,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading text-center wow fadeInUp" data-wow-delay="200ms">
-                        <h2>Top New In <span>NewYork</span></h2>
-                        <p>These are the best deals and deals. All in New York City and nearby area</p>
+                        <h2>Nos <span>Associations</span></h2>
+                        <p>Ces associations nous font confience.</p>
                     </div>
                 </div>
                 {% for association in associations %}
@@ -35,7 +35,7 @@
                             <div class="property-title-seller d-flex justify-content-between">
                                 <!-- Title -->
                                 <div class="property-title">
-                                    <h4>{{association.nomAssociation}}</h4>
+                                    <h4><a href="{{ path('association_show', {'id': association.id}) }}">{{association.nomAssociation}}</a></h4>
                                     <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ association.rue }} {{ association.codePostal }}, {{ association.ville }}</p>
                                 </div>
                                 <!-- Seller -->

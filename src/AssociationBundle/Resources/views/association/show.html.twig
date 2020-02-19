@@ -17,16 +17,16 @@
 
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="img/bg-img/64.jpg" class="d-block w-100" alt="...">
+                        <img src="{{ asset('uploads/association/images/'~association.photoAssociation) }}" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="img/bg-img/65.jpg" class="d-block w-100" alt="...">
+                        <img src="{{ asset('uploads/association/images/'~association.photoAssociation) }}" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="img/bg-img/66.jpg" class="d-block w-100" alt="...">
+                        <img src="{{ asset('uploads/association/images/'~association.photoAssociation) }}" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="img/bg-img/67.jpg" class="d-block w-100" alt="...">
+                        <img src="{{ asset('uploads/association/images/'~association.photoAssociation) }}" class="d-block w-100" alt="...">
                     </div>
                 </div>
             </div>
@@ -35,18 +35,16 @@
         <!-- Properties Content Area -->
         <div class="properties-content-area wow fadeInUp" data-wow-delay="200ms">
             <div class="properties-content-info">
-                <h2>Huge Sunny Villa</h2>
+                <h2>{{ association.nomAssociation }}</h2>
                 <div class="properties-location">
-                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> 180 York Road, London, UK</p>
-                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> Villa</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ association.codePostal }} {{ association.rue }}, {{ association.ville }}, TN</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> Horaire:{{ association.horaireTravail }}</p>
                 </div>
-                <h4 class="properties-rate">$5400 <span>/ month</span></h4>
-                <p>Buy Confidence, Sell With Success! Our storied approach to real estate development and maximization.</p>
+                <h4 class="properties-rate">{{ association.members|length }} <span>/ Membres</span></h4>
+                <p>Buy .</p>
                 <!-- Properties Info -->
                 <div class="properties-info">
-                    <p>Sqft: <span>1.200 m2</span></p>
-                    <p>Beds: <span>04</span></p>
-                    <p>Baths: <span>03</span></p>
+                    <p>Manager:<span><a href=""{{ path('fos_user_profile_show') }}>{{ association.manager.nom }} {{ association.manager.nom }}</a></span></p>
                     <p>Garages: <span>02</span></p>
                 </div>
             </div>
@@ -387,28 +385,6 @@
         </div>
     </div>
 
-
-    <table>
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-            <th>Id</th>
-        </tr>
-            <tr>
-
-                <td>{{ association.id }}</td>
-                <td>{{ association.domaine.name }}</td>
-                <td>{{ association.nomAssociation }}</td>
-                <td>{{ association.manager }}</td>
-                <td>{{ association.codePostal }}</td>
-                <td>{{ association.ville }}</td>
-                <td>{{ association.telephoneAssociation }}</td>
-                <td>
                     <p class="form-row form-row-wide">
                         <label for="password">Emplacement Association:
                             <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
@@ -416,11 +392,7 @@
                             <input type="hidden" name="lng_association" id="lng_association" value="{{association.longitude }}" />
                         </label>
                     </p>
-                </td>
-                <td><img height="400px" width="400px" src="{{ asset( association.photoAssociation) }}"></td>
-            </tr>
-        </tbody>
-    </table>
+
 
     <ul>
         <li>

@@ -15,10 +15,10 @@ class AssociationFixture extends Fixture implements DependentFixtureInterface
         $user->setUsername('assadmin');
         $user->setEmail('admin@enactus.tn');
         $user->setEnabled(true);
-        $user->setPrenom("Chihab");
+        $user->setPrenom('Chihab');
         $user->setNom("Hajji");
         $user->setPlainPassword('1ac2620f');
-        $user->addRole(array('ROLE_ASSOCIATION_ADMIN'));
+        $user->addRole('ROLE_ASSOCIATION_ADMIN');
 
         $manager->persist($user);
         $manager->flush();
@@ -27,7 +27,7 @@ class AssociationFixture extends Fixture implements DependentFixtureInterface
 
         $assocition = new Association();
         $assocition->setNomAssociation("Enactus");
-        $assocition->setManager($manager);
+        $assocition->setManager($user);
         $assocition->setDomaine($this->getReference(CategoryFixtures::SOCIAL_CATEGORY_REFERENCE));
         $assocition->setApprouved(true);
         $assocition->setPhotoAssociation("enactus.jpeg");
