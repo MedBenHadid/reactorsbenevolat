@@ -1,1 +1,22 @@
 Hello World!
+
+<div class="ajax">
+
+</div>
+
+<script src="{{ asset('assets/appfront/js/jquery.min.js') }}"></script>
+<script>
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:8000/api',
+        success: function(hebergements) {
+
+            console.dir(hebergements);
+            $.each(hebergements, function(index, hebergement){
+                $('.ajax').append('<li>' + hebergement.description + '</li>')
+            })
+        }
+    })
+    console.log($)
+    console.log('hello world');
+</script>

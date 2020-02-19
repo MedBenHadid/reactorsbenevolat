@@ -9,6 +9,7 @@ imports:
     - { resource: "@RefugeeBundle/Resources/config/services.yml" }
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
     - { resource: "@BackofficeBundle/Resources/config/services.yml" }
+    - { resource: "@RestApiBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -122,3 +123,15 @@ knp_paginator:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig'     # sliding pagination controls template
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+
+
+fos_rest:
+    routing_loader:
+        default_format: json                            # All responses should be JSON formated
+        include_format: false                           # We do not include format in request, so that all responses
+        # will eventually be JSON formated
+    format_listener:
+        rules:
+            - { priorities: ['json', 'html'], fallback_format: json, prefer_extension: false }
+    view:
+        view_response_listener: true

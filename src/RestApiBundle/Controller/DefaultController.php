@@ -1,14 +1,13 @@
 <?php
 
-namespace RefugeeBundle\Controller;
+namespace RestApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('@Refugee/Default/index.html.twig');
+        return $this->render('RestApiBundle:Default:index.html.twig');
     }
 }
