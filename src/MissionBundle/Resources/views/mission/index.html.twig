@@ -1,10 +1,4 @@
-{% extends '@Backoffice/back/baseback.html.twig' %}
-    {% block stylesheets %}
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-        <link href="{{ asset('assets/back/dist/css/MissionCards.css')}}" rel="stylesheet">
-
-    {% endblock %}
+{% extends '::baseback.html.twig' %}
 
 {% block body %}
 
@@ -81,8 +75,8 @@
                     <a href="" class="Cbtn Cbtn-danger"  data-toggle="modal" data-target="#myModal-{{ mission.id }}">Delete</a>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="myModal-{{ mission.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="position: absolute;z-index: initial">
-                    <div class="modal-dialog" role="document" >
+                <div class="modal fade" id="myModal-{{ mission.id }}" role="" aria-labelledby="myModalLabel" >
+                    <div class="modal-dialog" role="document"  >
                         <div class="modal-content" >
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -116,5 +110,4 @@
 {% endblock %}
 {% block bootstrap4 %}
 
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 {% endblock %}

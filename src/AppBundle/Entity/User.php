@@ -30,6 +30,14 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 /*
     /**
      * @ORM\OneToOne(targetEntity="AssociationBundle\Entity\Invitation")
@@ -127,9 +135,10 @@ class User extends BaseUser
      *
      * @ORM\ManyToOne(targetEntity="BackofficeBundle\Entity\Notification",inversedBy="notification")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
      * })
      */
+
     private $notifications ;
 
     /**
@@ -234,7 +243,13 @@ class User extends BaseUser
 
         return $this;
     }
-
+    /**
+     * @ORM\ManyToOne(targetEntity="\AssociationBundle\Entity\Association")
+     *  @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="Association", referencedColumnName="id")
+     * })
+     */
+    private $Association;
     /**
      * Get dateNaissance
      *
@@ -402,6 +417,7 @@ class User extends BaseUser
 
         return $this;
     }
+
 
 }
 
