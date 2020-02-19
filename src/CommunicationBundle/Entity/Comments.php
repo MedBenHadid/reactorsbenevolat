@@ -135,5 +135,7 @@ class Comments
      * @ORM\JoinColumn(nullable=false)
      */
     private $thread;
+
+
 }
 

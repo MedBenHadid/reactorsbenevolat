@@ -1,0 +1,46 @@
+:root {
+    --teal-color: #24A9A7;
+    --purple-color: #9E41CC;
+}
+
+body {
+
+    color: var(--teal-color);
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+.topics-table {
+    margin-top: 1rem;
+    padding: 8px;
+    border: 2px solid var(--teal-color);
+    border-radius: 10px;
+}
+
+.topics-table a {
+    /*color: var(--purple-color);*/
+}
+
+ul.header-titles, li.topics-body, li.topics-body ul {
+    overflow: hidden;
+}
+
+li.topics-header, ul[class^='topic-item-'] {
+    padding: 8px;
+}
+
+ul[class^='topic-item-'] {
+    border-top: 1px solid var(--teal-color);
+}
+
+.header-titles li, ul[class^='topic-item-'] li {
+    width: 25%;
+    float: left;
+}
+
+.badge {
+    font-weight: normal;
+}

@@ -5,6 +5,7 @@ namespace CommunicationBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 
 class ForumCategoryType extends AbstractType
 {
@@ -13,7 +14,7 @@ class ForumCategoryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('describtion');
+        $builder->add('name')->add('describtion')->add('recaptcha', EWZRecaptchaType::class);
     }/**
      * {@inheritdoc}
      */
