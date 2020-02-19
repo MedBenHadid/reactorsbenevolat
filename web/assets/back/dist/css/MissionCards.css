@@ -8,7 +8,7 @@ body {
 }
 
 .tile{
-    width: 100%;
+    width: 360px;
     background:#fff;
     border-radius:5px;
     box-shadow:0px 2px 3px -1px rgba(151, 171, 187, 0.7);
@@ -19,22 +19,22 @@ body {
 }
 
 .header{
-    border-bottom:1px solid #ebeff2;
-    padding:19px 0;
+    border-bottom:2px solid #ebeff2;
     text-align:center;
     color:#59687f;
-    font-size:600;
     font-size:19px;
     position:relative;
+    padding: 19px 19px 13px;
 }
 
 .banner-img {
-    padding: 5px 5px 0;
+    padding: 120px 5px 0;
 }
 
 .banner-img img {
-    width: 100%;
     border-radius: 5px;
+    width: 200px;
+    height: 600px;
 }
 
 .dates{
@@ -88,7 +88,7 @@ body {
 .statss div:nth-of-type(3){border:none;}
 
 div.footer {
-    text-align: right;
+    text-align: center;
     position: relative;
     margin: 20px 5px;
 }

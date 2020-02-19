@@ -74,7 +74,7 @@ class CategoryController extends Controller
     /**
      * Displays a form to edit an existing category entity.
      *
-     * @Route("/category/{id}/edit", name="category_edit",methods={"GET","POST"})
+     * @Route("/dashboard/admin/category/{id}/edit", name="admin_category_edit",methods={"GET","POST"})
      * @IsGranted("ROLE_SUPER_ADMIN")
      */
     public function editAction(Request $request, Category $category)
@@ -86,10 +86,10 @@ class CategoryController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('category_edit', array('id' => $category->getId()));
+            return $this->redirectToRoute('admin_category_edit', array('id' => $category->getId()));
         }
 
-        return $this->render('@Association/category/edit.html.twig', array(
+        return $this->render('@Association/category/admin/edit.html.twig', array(
             'category' => $category,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
