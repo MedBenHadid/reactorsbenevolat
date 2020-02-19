@@ -3,10 +3,19 @@
 
 {% block body %}
    <h1>Mission creation</h1>
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
     {{ form_start(form) }}
+<div class="my-custom-class-for-errors">
+    {{ form_errors(form) }}
+</div>
         {{ form_widget(form, {'attr': {'id': 'member_form'}}) }}
+<div class="input-group">
+    {{ form_row(form.titleMission) }}
 
+    <span class="input-group-btn">
+    </span>
+</div>
 <select name="framework" id="members" class="form-control selectpicker" data-live-search="true" multiple>
     {% for user in users %}
         <option value="{{ user.id }}">{{ user.nom }}</option>

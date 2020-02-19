@@ -17,6 +17,7 @@
         "php": ">=7.0",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
+        "excelwebzone/recaptcha-bundle": "^1.5",
         "friendsofsymfony/rest-bundle": "^2.7",
         "friendsofsymfony/user-bundle": "~2.0",
         "incenteev/composer-parameter-handler": "^2.0",

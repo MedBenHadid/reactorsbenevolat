@@ -9,13 +9,14 @@ imports:
     - { resource: "@RefugeeBundle/Resources/config/services.yml" }
     - { resource: "@ReclamationBundle/Resources/config/services.yml" }
     - { resource: "@BackofficeBundle/Resources/config/services.yml" }
-    - { resource: "@RestApiBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
     upload_dir: '%kernel.project_dir%/web/uploads/images'
+    association_directory: '%kernel.root_dir%/../web/client/images/association/images'
+    pieces_directory: '%kernel.root_dir%/../web/client/images/association/pieces'
     refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
     dons_image_directory: '%kernel.project_dir%/web/uploads/dons/images'
     mission_image_directory: '%kernel.project_dir%/web/uploads/mission/images'
@@ -123,6 +124,13 @@ knp_paginator:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig'     # sliding pagination controls template
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+
+ewz_recaptcha:
+    public_key:  6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+    private_key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+    # Not needed as "%kernel.default_locale%" is the default value for the locale key
+    locale_key:  %kernel.default_locale%
+    locale_from_request: true
 
 
 fos_rest:

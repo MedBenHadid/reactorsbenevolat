@@ -1,6 +1,7 @@
 <?php
 
 namespace CommunicationBundle\Entity;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -92,6 +93,14 @@ class ForumCategory
     public function getDescribtion()
     {
         return $this->describtion;
+    }
+    /**
+     * @Recaptcha\IsTrue
+     */
+    public $recaptcha;
+
+    public function __toString() {
+        return $this->name;
     }
 }
 

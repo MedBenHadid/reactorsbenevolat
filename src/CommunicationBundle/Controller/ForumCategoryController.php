@@ -26,6 +26,16 @@ class ForumCategoryController extends Controller
             'forumCategories' => $forumCategories,
         ));
     }
+    public function homeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $forumCategories = $em->getRepository('CommunicationBundle:ForumCategory')->findAll();
+
+        return $this->render('@Communication/Default/ForumCategory.html.twig', array(
+            'forumCategories' => $forumCategories,
+        ));
+    }
 
     /**
      * Creates a new forumCategory entity.
