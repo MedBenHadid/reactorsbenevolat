@@ -14,7 +14,33 @@
 <div id="preloader">
     <div class="loader"></div>
 </div>
+
 <header class="header-area">
+    <!-- Top Header Area Start -->
+    <div class="top-header-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-6">
+                    <div class="top-header-content">
+                        <a href="#"><i class="icon_mail"></i> <span>info.reactors@esprit.tn</span></a>
+                        <a href="#"><i class="icon_phone"></i> <span>(+216) 71 111 111</span></a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="top-header-content">
+                        <!-- Top Social Area -->
+                        <div class="top-social-area ml-auto">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top Header Area End -->
     <div class="main-header-area animated">
         <div class="classy-nav-container breakpoint-off">
             <div class="container">
@@ -44,20 +70,19 @@
                                 {% if app.user %}
                                     <a href="{{ path('fos_user_profile_show') }}">Profile</a>
                                     <a href="{{ path('fos_user_security_logout') }}">Logout</a>
-                                    // zid taswira tinzel aleha tjik lout profile w kenek admin thizek l dashboard
                                 {% else %}
                                     <li><a href="{{ path('fos_user_registration_register') }}">S'inscrire</a></li>
+                                    <li><a href="{{ path('admin_association_register') }}">Association ?</a></li>
                                 {% endif %}
                             </ul>
                             <div class="contact-btn mt-3 mt-lg-0 ml-3 ml-lg-5">
-                                  <a href="{{ path('admin_association_register') }}">Association</a>
-                                  <a href="{{ path('refugee_homepage') }}">Refugié</a>
+                                    <a href="{{ path('refugee_homepage') }}">Refugié</a>
                                 {% if not app.user  %}
                                     <a href="{{ path('fos_user_security_login') }}">Se connecter</a>
                                 {% elseif is_granted('ROLE_SUPER_ADMIN')  %}
-                                    <a href="{{ path('fos_user_security_login') }}">Dashboard</a>
+                                    <a href="{{ path('admin_association_index') }}">Dashboard</a>
                                 {% elseif is_granted('ROLE_ADMIN_ASSOCIATION')  %}
-                                    <a href="{{ path('fos_user_security_login') }}">Dashboard</a>
+                                    <a href="{{ path('manager_association_index') }}">Dashboard</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -76,10 +101,10 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Reactors </a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{% block bread %} {% endblock %}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{% block bread %} Acceuil {% endblock %}</li>
                         </ol>
                     </nav>
-                    <h2 class="page-title">Reactors</h2>
+                    <h2 class="page-title">{% block info %}Acceuil {% endblock %}</h2>
                 </div>
             </div>
         </div>
@@ -92,14 +117,10 @@
 
 <section class="rehome-house-sale-area section-padding-100-60">
     <div class="container">
-
             {% block body %}
             {% endblock %}
             {% block content %}
             {% endblock %}
-
-
-
     </div>
 </section>
 <!-- **** Sale Area End **** -->

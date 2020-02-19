@@ -1,7 +1,7 @@
 {% extends '::baseback.html.twig' %}
 {% block title %}Association {{ association.nomAssociation }}{% endblock %}
 {% block info %}Association {{ association.nomAssociation }} :{% endblock %}
-{% block bread %}<a href="{{ path('association_index') }}">Association</a> / {{ association.nomAssociation }} {% endblock %}
+{% block bread %}<a href="{{ path('admin_association_index') }}">Association</a> / {{ association.nomAssociation }} {% endblock %}
 {% block body %}
     <table>
         <tbody>
@@ -39,15 +39,13 @@
 
     <ul>
         <li>
-            <a href="{{ path('association_index') }}">Back to the list</a>
+            <a href="{{ path('admin_association_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('association_edit', { 'id': association.id }) }}">Edit</a>
+            <a href="{{ path('admin_association_edit', { 'id': association.id }) }}">Modifier</a>
         </li>
         <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+            <a href="#">Supprimer</a>
         </li>
     </ul>
 

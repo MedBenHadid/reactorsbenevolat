@@ -1,14 +1,13 @@
-{% if app.user %}
-    {% if not is_granted('ROLE_SUPER_ADMIN') %}
-        <script>
-            window.location = "{{ url('fos_user_security_login') }}";
-        </script>
-    {% endif %}
-{% else %}
+{% if not app.user %}
     <script>
         window.location = "{{ url('fos_user_security_login') }}";
     </script>
-{% endif %}
+{% elseif ((not is_granted('ROLE_MANAGER')) or (not is_granted('ROLE_MANAGER'))) %}
+        <script>
+            alert("Vous ne pouvez pas acceder au dashboard");
+            window.location = "{{ url('homepage') }}";
+        </script>
+{% endif  %}
 <html>
 <head>
     <meta charset="UTF-8" />

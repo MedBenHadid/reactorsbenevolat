@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * SuperAdmin controller.
  *
  * @Route("/dashboard/admin/association")
- * @IsGranted("ROLE_SUPER_ADMIN")
+ *
  */
 class SuperAdminController extends Controller
 {
@@ -32,6 +32,7 @@ class SuperAdminController extends Controller
 
     /**
      * @Route("/new", name="admin_association_new",methods={"GET","POST"})
+     * @IsGranted("ROLE_SUPER_ADMIN")
      */
     public function newAction(Request $request)
     {
@@ -51,6 +52,18 @@ class SuperAdminController extends Controller
         return $this->render('@Association/association/new.html.twig', array(
             'association' => $association,
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/{id}", name="admin_association_show",methods={"GET"})
+     */
+    public function showAction(Association $association)
+    {
+        $deleteForm = $this->createDeleteForm($association);
+
+        return $this->render('@Association/association/admin/show.html.twig', array(
+            'association' => $association
         ));
     }
 
@@ -105,7 +118,7 @@ class SuperAdminController extends Controller
     private function createDeleteForm(Association $association)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('association_delete', array('id' => $association->getId())))
+            ->setAction($this->generateUrl('admin_association_delete', array('id' => $association->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;

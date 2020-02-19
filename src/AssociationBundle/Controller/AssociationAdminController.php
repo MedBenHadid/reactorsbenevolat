@@ -22,12 +22,12 @@ class AssociationAdminController extends Controller
      */
     public function indexAction()
     {
+        $current = $this->getDoctrine()->getRepository()->findOneBy(array('username'=>$this->getUser()->getUsername()));
+        $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(array('manager'=>$current));
         $em = $this->getDoctrine()->getManager();
 
-        $associations = $em->getRepository('AssociationBundle:Association')->findAll();
-
         return $this->render('@Association/association/manager/index.html.twig', array(
-            'associations' => $associations,
+            'association' => $association,
         ));
     }
 

@@ -9,18 +9,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends Controller
 {
     /**
-     * @Route(path="/dashboard/association",name="association_manage")
-     * @IsGranted("ROLE_ASSOCIATION_ADMIN")
+     * @Route(path="/dashboard/admin",name="dashboard_admin_homepage")
+     * @IsGranted("ROLE_SUPER_ADMIN")
      */
-    public function manageAssociationAction(){
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
-        $associations = $em->getRepository('AssociationBundle:Association')->findBy(array('manager'=>$user->getId()));
+    public function indexAction(){
 
-        return $this->render('@Association/association/index.html.twig', array(
-            'associations' => $associations,
-        ));
+        return $this->render('@Association/association/index.html.twig');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function sendMailApprouve($email, $name)
     {

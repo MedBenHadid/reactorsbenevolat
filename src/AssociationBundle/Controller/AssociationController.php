@@ -37,11 +37,9 @@ class AssociationController extends Controller
      */
     public function showAction(Association $association)
     {
-        $deleteForm = $this->createDeleteForm($association);
 
         return $this->render('@Association/association/show.html.twig', array(
-            'association' => $association,
-            'delete_form' => $deleteForm->createView(),
+            'association' => $association
         ));
     }
 }
