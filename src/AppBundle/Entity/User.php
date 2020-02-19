@@ -125,7 +125,10 @@ class User extends BaseUser
 
     /**
      *
-     * @ORM\OneToMany(targetEntity="BackofficeBundle\Entity\Notification",mappedBy="notification")
+     * @ORM\ManyToOne(targetEntity="BackofficeBundle\Entity\Notification",inversedBy="notification")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * })
      */
     private $notifications ;
 

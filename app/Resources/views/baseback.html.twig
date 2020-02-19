@@ -1,4 +1,4 @@
-{% if app.user != null %}
+{% if app.user %}
     {% if not is_granted('ROLE_SUPER_ADMIN') %}
         <script>
             window.location = "{{ url('fos_user_security_login') }}";
@@ -193,7 +193,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src="{{asset('/uploads/user/images/'~ app.user.image )}}" alt="user" class="rounded-circle"
+                                <img src="{% if app.user %}{{asset('/uploads/user/images/'~ app.user.image )}}{% endif %}" alt="user" class="rounded-circle"
                                      width="40">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                             class="text-dark">{% if app.user %}{{   app.user.username }}{% endif %}</span> <i data-feather="chevron-down"
