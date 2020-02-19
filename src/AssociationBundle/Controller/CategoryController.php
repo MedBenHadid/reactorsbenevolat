@@ -10,15 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Category controller.
- *
- * @Route("category")
  */
 class CategoryController extends Controller
 {
     /**
      * Lists all category entities.
      *
-     * @Route("/", name="category_index",methods={"GET"})
+     * @Route("/category", name="category_index",methods={"GET"})
      */
     public function indexAction()
     {
@@ -34,7 +32,7 @@ class CategoryController extends Controller
     /**
      * Creates a new category entity.
      *
-     * @Route("/dashboard/admin/new", name="category_new",methods={"GET", "POST"})
+     * @Route("/dashboard/admin/category/new", name="category_new",methods={"GET", "POST"})
      */
     public function newAction(Request $request)
     {
@@ -50,7 +48,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('category_show', array('id' => $category->getId()));
         }
 
-        return $this->render('@Association/category/new.html.twig', array(
+        return $this->render('@Association/category/admin/new.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
         ));
@@ -59,7 +57,7 @@ class CategoryController extends Controller
     /**
      * Finds and displays a category entity.
      *
-     * @Route("/{id}", name="category_show",methods={"GET"})
+     * @Route("/category/{id}", name="category_show",methods={"GET"})
      */
     public function showAction(Category $category)
     {
@@ -76,7 +74,7 @@ class CategoryController extends Controller
     /**
      * Displays a form to edit an existing category entity.
      *
-     * @Route("/{id}/edit", name="category_edit",methods={"GET","POST"})
+     * @Route("/category/{id}/edit", name="category_edit",methods={"GET","POST"})
      * @IsGranted("ROLE_SUPER_ADMIN")
      */
     public function editAction(Request $request, Category $category)
