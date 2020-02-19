@@ -132,14 +132,3 @@ ewz_recaptcha:
     locale_key:  %kernel.default_locale%
     locale_from_request: true
 
-
-fos_rest:
-    routing_loader:
-        default_format: json                            # All responses should be JSON formated
-        include_format: false                           # We do not include format in request, so that all responses
-        # will eventually be JSON formated
-    format_listener:
-        rules:
-            - { priorities: ['json', 'html'], fallback_format: json, prefer_extension: false }
-    view:
-        view_response_listener: true

@@ -1,7 +1,3 @@
-rest_api:
-    resource: "@RestApiBundle/Resources/config/routing.yml"
-    prefix:   /api
-
 association_category:
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation
