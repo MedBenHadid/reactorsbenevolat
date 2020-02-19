@@ -135,7 +135,7 @@ class User extends BaseUser
      *
      * @ORM\ManyToOne(targetEntity="BackofficeBundle\Entity\Notification",inversedBy="notification")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id_user")
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * })
      */
 

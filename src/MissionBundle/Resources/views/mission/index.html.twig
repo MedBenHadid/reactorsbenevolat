@@ -1,28 +1,29 @@
 {% extends '::baseback.html.twig' %}
+{% block title %}Mission{% endblock %}
+{% block bread %}<a href="{{ path('mission_index') }}">Mission</a>{% endblock %}
 
 {% block body %}
-
     <h1>Missions list</h1>
 <div class="container-fluid">
     <div class="row">
         {% for mission in missions %}
 
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="tile">
                 <div class="wrapper">
                     <div class="header">{{ mission.titleMission }}</div>
 
                     <div class="banner-img">
-                        <img  style="width: 210px;height: 240px" src="{{ asset('uploads/mission/images/'~mission.picture) }}" alt="{{ mission.titleMission }}">
+                        <img  style="width: 130px;height: 130px;" src="{{ asset('uploads/mission/images/'~mission.picture) }}" alt="{{ mission.titleMission }}">
                     </div>
 
                     <div class="dates">
                         <div class="start">
-                            <strong>STARTS</strong> {{ mission.dateCreation|date('Y-m-d H:i:s') }}
+                            <strong>STARTS</strong> {{ mission.dateCreation|date('Y-m-d') }}
                             <span></span>
                         </div>
                         <div class="ends">
-                            <strong>ENDS</strong> {{ mission.dateFin|date('Y-m-d H:i:s') }}
+                            <strong>ENDS</strong> {{ mission.dateFin|date('Y-m-d') }}
                         </div>
                     </div>
 
@@ -72,6 +73,8 @@
 
                 <div class="footer">
                     <a href="{{ path('mission_show', { 'id': mission.id }) }}" class="Cbtn Cbtn-primary">View</a>
+                    <a style="" href="{{ path('mission_edit', { 'id': mission.id }) }}" class="Cbtn Cbtn-success" >Update</a>
+
                     <a href="" class="Cbtn Cbtn-danger"  data-toggle="modal" data-target="#myModal-{{ mission.id }}">Delete</a>
                 </div>
                 <!-- Modal -->

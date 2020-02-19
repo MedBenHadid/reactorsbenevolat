@@ -89,8 +89,14 @@ class MissionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $manager=$em->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+       //var_dump($this->getUser()->getRoles() );
+        if(in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
+            $missions = $em->getRepository('MissionBundle:Mission')->findAll();
 
-        $missions = $em->getRepository('MissionBundle:Mission')->findBy(array('CreatedBy'=>$manager->getId()));
+        }else{
+           $missions = $em->getRepository('MissionBundle:Mission')->findBy(array('CreatedBy'=>$manager->getId()));
+
+        }
 
         return $this->render('@Mission/mission/index.html.twig', array(
             'missions' => $missions,
@@ -157,9 +163,11 @@ class MissionController extends Controller
                 }
                   $mission->setSumCollected(0);
                   $mission->setUps(0);
-                    $mission->setCreatedBy($this->getUser());
-
+                  $mission->setCreatedBy($this->getUser());
+                  $mission->setLatitude($request->request->get('lat_mission'));
+                  $mission->setLongitude($request->request->get('lng_mission'));
                   $em = $this->getDoctrine()->getManager();
+
                   $em->persist($mission);
                   $em->flush();
 
@@ -181,6 +189,7 @@ class MissionController extends Controller
                 $notification->setIdUser($memberInv);
                 $notification->setIdAssociation($association);
                 $notification->setIdMission($mission);
+
                 $em->persist($notification);
 
                 $em->flush();
