@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends '::baseback.html.twig' %}
 {% block title %}Association {{ association.nomAssociation }}{% endblock %}
 {% block info %}Association {{ association.nomAssociation }} :{% endblock %}
 {% block bread %}<a href="{{ path('association_index') }}">Association</a> / {{ association.nomAssociation }} {% endblock %}

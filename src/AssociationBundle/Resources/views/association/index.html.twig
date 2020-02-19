@@ -1,4 +1,4 @@
-{% extends '::baseback.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block title %}Association{% endblock %}
 {% block bread %}<a href="{{ path('association_index') }}">Association</a>{% endblock %}
 {% block info %}Associations :{% endblock %}
@@ -9,115 +9,62 @@
     <!-- *************************************************************** -->
     <!-- Start Top Leader Table -->
     <!-- *************************************************************** -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center mb-4">
-                        <h4 class="card-title">Les associations :</h4>
-                        <div class="ml-auto">
-                            <div class="dropdown sub-dropdown">
-                                <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                        id="dd1" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                    <i data-feather="more-vertical"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd1">
-                                    <a class="dropdown-item" href="{{ path('association_new') }}">Insert</a>
-                                    <a class="dropdown-item" href="#">Update</a>
-                                    <a class="dropdown-item" href="#">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table no-wrap v-middle mb-0">
-                            <thead>
-                            <tr class="border-0">
-                                <th class="border-0 font-14 font-weight-medium text-muted">
-                                    Nom de l'association
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted px-2">
-                                    Manager
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">
-                                    Equipe
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                    Etat
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">
-                                    Modifier
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">
-                                    Supprimer
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for association in associations %}
-                                <tr>
-                                    <td class="border-top-0 px-2 py-4">
-                                        <div class="d-flex no-block align-items-center">
-                                            <div class="mr-3">
-                                                <img
-                                                        src="{{ asset('uploads/association/images/'~association.photoAssociation) }}"
-                                                        alt="user" class="rounded-circle" width="45"
-                                                        height="45" /></div>
-                                            <div class="">
-                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('association_show', { 'id': association.id }) }}">{{ association.nomAssociation }}</a></h5>
-                                                <span class="text-muted font-14"><a href="{{ path('category_show', {'id': association.domaine.id }) }}">{{ association.domaine }}</a>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="border-top-0 text-muted px-2 py-4 font-14"><a href="#">{{ association.manager }}</a> </td>
-                                    <td class="border-top-0 px-2 py-4">
-                                        <div class="popover-icon">
-                                            {% for member in association.members %}
-                                              <a class="btn btn-primary rounded-circle btn-circle font-12" href="{{ path('association_index')}}">{{ member.prenom }}</a>
-                                            {% endfor %}
-                                            <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                               href="javascript:void(0)">+</a>
-                                        </div>
-                                    </td>
-                                    {% if association.approuved ==1 %}
-                                    <td class="border-top-0 text-center px-2 py-4">
-                                        <div class="spinner-grow text-success" role="status">
-                                            <span class="sr-only">Verifié</span>
-                                        </div></td>
-                                    {% else %}
-                                     <td class="border-top-0 text-center px-2 py-4">
-                                         <div class="spinner-grow text-danger" role="status">
-                                             <span class="sr-only">Pas encore verifié</span>
-                                         </div>
-                                     </td>
-                                     {% endif %}
-                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
-                                        <a href="{{ path('association_edit', { 'id': association.id }) }}">Modifier</a>
-                                    </td>
-                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
-                                        <a onclick="myFunction()" href="">Supprimer</a>
-                                        <script>
-                                            function myFunction() {
-                                                confirm("Voulez vous vraiment supprimer  {{ association.nomAssociation }}!");
-                                                if (r === true) {
-                                                    window.location.href = {{ path('association_delete', { 'id': association.id }) }};
-                                                    return r;
-                                                }
-                                            }
-                                        </script>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+    <!-- **** Sale area Start **** -->
+    <section class="rehome-house-sale-area section-padding-100-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="200ms">
+                        <h2>Top New In <span>NewYork</span></h2>
+                        <p>These are the best deals and deals. All in New York City and nearby area</p>
                     </div>
                 </div>
+                {% for association in associations %}
+                    {% if association.approuved %}
+                <!-- Single Property Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
+                        <!-- Property Thumb -->
+                        <div class="property-thumb">
+                            <img src="{{ asset('uploads/association/images/'~association.photoAssociation)}}" alt="">
+                        </div>
+
+                        <!-- Property Description -->
+                        <div class="property-desc-area">
+                            <!-- Property Title & Seller -->
+                            <div class="property-title-seller d-flex justify-content-between">
+                                <!-- Title -->
+                                <div class="property-title">
+                                    <h4>{{association.nomAssociation}}</h4>
+                                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ association.rue }} {{ association.codePostal }}, {{ association.ville }}</p>
+                                </div>
+                                <!-- Seller -->
+                                <div class="property-seller">
+                                    <p>Telephone:</p>
+                                    <h6>{{ association.telephoneAssociation }}</h6>
+                                </div>
+                            </div>
+                            <!-- Property Info -->
+                            <div class="property-info-area d-flex flex-wrap">
+                                <p> <span></span></p>
+                                <p> <span></span></p>
+                                <p><span></span></p>
+                                <p>Membres: <span>{{ association.members|length }}</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Property Price -->
+                        <div class="property-price">
+                            <p class="badge-rent">Domaine d'activité</p>
+                            <p class="price"><a href="{{ path('category_show', { 'id': association.domaine.id }) }}">{{ association.domaine}} </a></p>
+                        </div>
+                    </div>
+                </div>
+                    {% endif %}
+                {% endfor %}
+
             </div>
         </div>
-    </div>
-    <!-- *************************************************************** -->
-    <!-- End Top Leader Table -->
-    <!-- *************************************************************** -->
+    </section>
+
 {% endblock %}
