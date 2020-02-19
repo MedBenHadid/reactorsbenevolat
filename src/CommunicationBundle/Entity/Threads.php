@@ -166,6 +166,11 @@ class Threads
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+    public function __toString() {
+        return "this comment will be displayed in the according thread";
+}
+
+
 
 }
 
