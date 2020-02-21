@@ -58,14 +58,17 @@
                         </div>
                         <div class="classynav">
                             <ul id="nav">
+                                <li>
+                                <li class="active"><a href="{{ path('homepage') }}">Page d'acceuil</a></li>
+                                <li><a href="{{ path('association_index') }}">Association</a></li>
+                                </li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
-                                        <li class="active"><a href="{{ path('homepage') }}">- Page d'acceuil</a></li>
-                                        <li><a href="{{ path('association_index') }}">- Association</a></li>
+
                                         <li><a href="{{ path('category_index')}}">- Domaines</a></li>
                                         <li><a href="{{ path('mission_index')}}">- Missions</a></li>
                                         <li><a href="{{ path('communication_homepage')}}">- Blog</a></li>
-                                        <li><a href="{{path('reclamation_homepage')}}">- Support</a></li>
+                                        {% if app.user %}<li><a href="{{path('reclamation_homepage')}}">- Support</a></li>{% endif %}
                                         <li><a href="blog">- Contact</a></li>
                                     </ul>
                                 </li>

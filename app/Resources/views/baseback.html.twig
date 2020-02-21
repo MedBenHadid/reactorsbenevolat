@@ -38,6 +38,11 @@
     <![endif]-->
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!--ramy stuff don't touch-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/rating/css/rating.css') }}" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ asset('assets/rating/js/rating.js') }}"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     <link href="{{ asset('assets/back/dist/css/MissionCards.css')}}" rel="stylesheet">
@@ -174,6 +179,9 @@
                                     <i data-feather="mail" class="svg-icon mr-2 ml-1"></i>Inbox
                                 </a>
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('homepage') }}">
+                                    <i data-feather="home" class="svg-icon mr-2 ml-1"></i>Acceuil
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{path('fos_user_security_logout')}}">
                                     <i data-feather="power" class="svg-icon mr-2 ml-1"></i>Logout
@@ -444,7 +452,7 @@
         $.ajax({
             url: "http://127.0.0.1:8000/mission/notification",
             method: "POST",
-            data: {{  app.user.id }},
+            data: {% if app.user %}{{  app.user.id }}{% endif %},
             success: function (dataNotif) {
                 //console.log("Response :  " + JSON.stringify(dataNotif));
                 DataNotification.push(dataNotif);

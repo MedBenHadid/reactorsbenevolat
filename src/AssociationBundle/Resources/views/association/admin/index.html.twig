@@ -75,7 +75,7 @@
                                     <td class="border-top-0 px-2 py-4">
                                         <div class="popover-icon">
                                             {% for member in association.members %}
-                                              <a class="btn btn-primary rounded-circle btn-circle font-12" href="{{ path('association_index')}}">{{ member.prenom }}</a>
+                                              <a class="btn btn-primary rounded-circle btn-circle font-12" href="{{ path('association_index')}}">{{ member.prenom|first|capitalize }}{{ member.nom|first }}</a>
                                             {% endfor %}
                                             <a class="btn btn-success text-white rounded-circle btn-circle font-20"
                                                href="javascript:void(0)">+</a>

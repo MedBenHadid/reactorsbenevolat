@@ -13,3 +13,8 @@ communication_comments:
 communication_homepage:
     path:     /
     defaults: { _controller: CommunicationBundle:Default:index }
+forum_homepage:
+    path:     /home
+    defaults: { _controller: CommunicationBundle:ForumCategory:home }
+
+

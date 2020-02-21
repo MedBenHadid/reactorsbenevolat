@@ -1,23 +1,24 @@
+# Front
 rponse_index:
     path:     /
     defaults: { _controller: "ReclamationBundle:Rponse:index" }
     methods:  GET
-
+# Front
 rponse_show:
     path:     /{id}/show
     defaults: { _controller: "ReclamationBundle:Rponse:show" }
     methods:  GET
-
+# Back { admin or technicien }
 rponse_new:
     path:     /new
     defaults: { _controller: "ReclamationBundle:Rponse:new" }
     methods:  [GET, POST]
-
+# Back { admin or technicien }
 rponse_edit:
     path:     /{id}/edit
     defaults: { _controller: "ReclamationBundle:Rponse:edit" }
     methods:  [GET, POST]
-
+# Back { admin }
 rponse_delete:
     path:     /{id}/delete
     defaults: { _controller: "ReclamationBundle:Rponse:delete" }

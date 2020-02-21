@@ -28,11 +28,13 @@ class AppKernel extends Kernel
             // Bundle externe mouhamed
             new SBC\NotificationsBundle\NotificationsBundle(),
             // Bundle externe nasri
+            //new JMS\SerializerBundle\JMSSerializerBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new FOS\RestBundle\FOSRestBundle(),
             // Bundle externe Issam
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new RestApiBundle\RestApiBundle(),
+            new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+            //bundle ramy
+            new blackknight467\StarRatingBundle\StarRatingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -77,3 +79,4 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 }
+

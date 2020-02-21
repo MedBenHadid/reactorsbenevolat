@@ -63,10 +63,11 @@ class CategoryController extends Controller
     {
         $deleteForm = $this->createDeleteForm($category);
         $associations = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findBy(array('domaine'=>$category));
-
+        // Add top missions
+        //
         return $this->render('@Association/category/show.html.twig', array(
-            'category' => $category,
             'associations' => $associations,
+            'category' => $category,
             'delete_form' => $deleteForm->createView(),
         ));
     }
