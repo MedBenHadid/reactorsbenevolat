@@ -1,22 +1,85 @@
-Hello World!
+{% extends 'base.html.twig' %}
+{% block breadcrumbs %}
+    <div class="breadcrumb-area bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms"
+         style="background-image: url({{ asset('assets/appfront/img/refugees.jpg') }});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Accueil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Refugiées</li>
+                            </ol>
+                        </nav>
+                        <h2 class="page-title">Espace Refugiées et Hébérgements</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block hero %}
+    <div class="jumbotron bg-light text-right mb-0">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 text-right">
+                <p>Effectuer une demande d'hébérgement</p>
+                <p class="lead">
+                    <a class="btn rehomes-btn btn-lg" href="{{ path('hebergementrequest_new') }}" role="button">Demander un hébérgement</a>
+                </p>
+            </div>
+            <div class="col-lg-6 col-sm-12 text-left">
+                <p>Effectuer une offre d'hébérgement</p>
+                <p class="lead">
+                    <a class="btn rehomes-btn btn-lg" href="{{ path('hebergement_new') }}" role="button">Offrire un hébérgement</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr class="m-0">
+{% endblock %}
+{% block choose %}
+    <section class="rehomes-choose-us-area section-padding-100-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="200ms">
+                        <h2><span>Que Cherchez-vous</span>?</h2>
+                    </div>
+                </div>
 
-<div class="ajax">
+                <!-- Single choose us content -->
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="single-choose-us-content wow fadeInUp" data-wow-delay="200ms">
+                        <!-- Choose us Icon -->
+                        <div class="choose-us-icon">
+                            <a href="{{ path('hebergement_index') }}"><i class="icon_search"></i></a>
+                        </div>
+                        <h5>Trouvez un hébérgement</h5>
+                        <p>
+                            Si vous êtes actuellement réfugié et que vous cherchez un endroit où séjourner, veuillez jeter un coup d'œil à notre vaste collection d'hébergements offerts par la communauté
+                        </p>
+                    </div>
+                </div>
 
-</div>
+                <!-- Single choose us content -->
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="single-choose-us-content wow fadeInUp" data-wow-delay="200ms">
+                        <!-- Choose us Icon -->
+                        <div class="choose-us-icon">
+                            <a href="{{ path('hebergementrequest_index') }}"><i class="icon_building"></i></a>
+                        </div>
+                        <h5>List des demandes d'hébérgement</h5>
+                        <p>
+                            Il y a beaucoup de demandes d'hébergement dans les réacteurs, vous pouvez les parcourir et choisir le réfugié que vous souhaitez soutenir
+                        </p>
+                    </div>
+                </div>
 
-<script src="{{ asset('assets/appfront/js/jquery.min.js') }}"></script>
-<script>
-    $.ajax({
-        type: 'GET',
-        url: 'http://localhost:8000/api',
-        success: function(hebergements) {
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block body %}
 
-            console.dir(hebergements);
-            $.each(hebergements, function(index, hebergement){
-                $('.ajax').append('<li>' + hebergement.description + '</li>')
-            })
-        }
-    })
-    console.log($)
-    console.log('hello world');
-</script>
+{% endblock %}

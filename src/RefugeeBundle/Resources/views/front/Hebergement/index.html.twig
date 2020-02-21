@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+{% block search %}
+    <div class="rehomes-search-form-area">
+        <div class="container">
+            <div class="rehomes-search-form">
+                <form action="{{ path('hebergement_search') }}" method="get">
+                    <div class="row">
+                        <div class="col-12 col-lg-10 ">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <select name="governorat" id="location" class="form-control">
+                                        <option value="" selected disabled hidden>Governorat</option>
+                                        <option value="Ariana">Ariana</option>
+                                        <option value="Béja">Béja</option>
+                                        <option value="Ben Arous">Ben Arous</option>
+                                        <option value="Bizerte">Bizerte</option>
+                                        <option value="Gabes">Gabes</option>
+                                        <option value="Jendouba">Jendouba</option>
+                                        <option value="Kairouan">Kairouan</option>
+                                        <option value="Kasserine">Kasserine</option>
+                                        <option value="Kebili">Kebili</option>
+                                        <option value="Kef">Kef</option>
+                                        <option value="Mahdia">Mahdia</option>
+                                        <option value="Manouba">Manouba</option>
+                                        <option value="Medenine">Medenine</option>
+                                        <option value="Monastir">Monastir</option>
+                                        <option value="Nabeul">Nabeul</option>
+                                        <option value="Sfax">Sfax</option>
+                                        <option value="Sidi Bouzid">Sidi Bouzid</option>
+                                        <option value="Siliana">Siliana</option>
+                                        <option value="Sousse">Sousse</option>
+                                        <option value="Tataouine">Tataouine</option>
+                                        <option value="Tozeur">Tozeur</option>
+                                        <option value="Tunis">Tunis</option>
+                                        <option value="Zaghouan">Zaghouan</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <select name="nbrRooms" id="types" class="form-control">
+                                        <option value="" selected disabled hidden>Chambres</option>
+                                        <option value="1">S+1</option>
+                                        <option value="2">S+2</option>
+                                        <option value="3">S+3</option>
+                                        <option value="4">S+4</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <select name="duration" id="city" class="form-control">
+                                        <option value="" selected disabled hidden>Durée (mois)</option>
+                                        <option value="1">Un mois</option>
+                                        <option value="2">Deux mois</option>
+                                        <option value="3">Trois mois</option>
+                                        <option value="4">Quatre mois</option>
+                                        <option value="5">Cinq mois</option>
+                                        <option value="6">Six mois</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-2">
+                            <button type="submit" class="btn rehomes-search-btn">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumb-area-two mt-50 wow fadeInUp" data-wow-delay="200ms">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content-two">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Hébérgements</li>
+                            </ol>
+                        </nav>
+                        <h2 class="page-title">Liste des hébérgements</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {% if hebergements|length != 0%}
+    <section class="rehome-house-sale-area section-padding-80">
+        <div class="container">
+            <div class="row">
+                {% for hebergement in hebergements %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
+                            <!-- Property Thumb -->
+                            <div class="property-thumb">
+                                <img src="{{ asset('uploads/images/hebergementsImages/' ~ hebergement.image) }}" alt="">
+                            </div>
+
+                            <!-- Property Description -->
+                            <div class="property-desc-area">
+                                <!-- Property Title & Seller -->
+                                <div class="property-title-seller d-flex justify-content-between">
+                                    <!-- Title -->
+                                    <div class="property-title">
+                                        <h4></h4>
+                                        <p><i class="fa fa-phone"></i>:  {{ hebergement.telephone }}</p>
+                                    </div>
+                                    <!-- Seller -->
+                                    <div class="property-seller">
+                                        <p>Offreur:</p>
+                                        <h6>Nasri</h6>
+                                    </div>
+                                </div>
+                                <!-- Property Info -->
+                                <div class="property-info-area d-flex flex-wrap">
+                                    <p>{{ hebergement.description }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Property Price -->
+                            <div class="property-price">
+                                <p class="badge-rent">{{ hebergement.governorat }}</p>
+                                <p class="price">{{ hebergement.creationDate|date('d-m-Y') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </section>
+    {% endif %}
+{% endblock %}

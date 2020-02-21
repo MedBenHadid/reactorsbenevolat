@@ -95,29 +95,21 @@
     </div>
 </header>
 <body>
-<div class="breadcrumb-area bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms" style="background-image: url({{ asset('assets/appfront/img/bg-img/30.jpg') }});">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12">
-                <div class="breadcrumb-content">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Reactors </a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{% block bread %} Acceuil {% endblock %}</li>
-                        </ol>
-                    </nav>
-                    <h2 class="page-title">{% block info %}Acceuil {% endblock %}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% block breadcrumbs %}
+{% endblock %}
+{% block hero %}
+{% endblock %}
+{% block choose %}
+{% endblock %}
+{% block search %}
+{% endblock %}
+
 
 {% block fos_user_content %}
 {% endblock %}
 
 
-<section class="rehome-house-sale-area section-padding-100-60">
+<section class="rehome-house-sale-area section-padding-100-20">
     <div class="container">
             {% block body %}
             {% endblock %}
@@ -247,6 +239,8 @@
     <script src="{{ asset('assets/appfront/js/rehomes.bundle.js') }}"></script>
     <!-- Active -->
     <script src="{{ asset('assets/appfront/js/default-assets/active.js') }}"></script>
+
+
 
 {% block javascript %}
 

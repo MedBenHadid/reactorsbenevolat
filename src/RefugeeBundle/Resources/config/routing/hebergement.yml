@@ -1,7 +1,12 @@
 hebergement_index:
     path:     /
     defaults: { _controller: "RefugeeBundle:Hebergement:index" }
-    methods:  GET
+    methods:  [GET, POST]
+
+hebergement_search:
+    path:     /search
+    defaults: { _controller: "RefugeeBundle:Hebergement:search" }
+    methods:  [GET]
 
 hebergement_show:
     path:     /{id}/show

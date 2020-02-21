@@ -23,12 +23,10 @@
                     {{ form_widget(form.duration, {'attr': { 'class' : 'form-control'}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_label(form.state, 'Etat') }}
-                    {{ form_widget(form.state, {'attr': { 'class' : 'form-control'}}) }}
+                    {{ form_widget(form.telephone, {'attr': { 'class' : 'form-control', 'placeholder': 'Numero Téléphone'}}) }}
                 </div>
                 <div class="form-group">
-                    {{ form_label(form.user, 'Utilisateur') }}
-                    {{ form_widget(form.state, {'attr': { 'class' : 'form-control'}}) }}
+                    {{ form_widget(form.image, {'attr': { 'class' : 'form-control'}}) }}
                 </div>
                 <button type="submit" class="btn btn-primary">Créer</button>
                 {{ form_end(form) }}
