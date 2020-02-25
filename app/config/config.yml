@@ -22,7 +22,6 @@ parameters:
     mission_image_directory: '%kernel.project_dir%/web/uploads/mission/images'
     user_image_directory: '%kernel.project_dir%/web/uploads/user/images'
     association_image_directory: '%kernel.project_dir%/web/uploads/association/images'
-    pieces_directory: '%kernel.project_dir%/web/uploads/association/pieces'
     hebergementImages_directory: '%kernel.project_dir%/web/uploads/images/hebergementsImages'
 
 

@@ -32,7 +32,7 @@ class HebergementController extends Controller
      * Lists all hebergement entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -44,6 +44,11 @@ class HebergementController extends Controller
         {
             $route = '@Refugee/front/Hebergement/index.html.twig';
         }
+
+        $paginator = $this->get('knp_paginator');
+        $hebergements =  $paginator->paginate($hebergements ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
 
         return $this->render($route, array(
             'hebergements' => $hebergements
@@ -89,6 +94,7 @@ class HebergementController extends Controller
             $user = $em->getRepository('AppBundle:User')->find($userId);
             $hebergement->setUser($user);
 
+
             //image upload
             $imageFile = $form->get('image')->getData();
             $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -109,8 +115,11 @@ class HebergementController extends Controller
             $em->persist($hebergement);
             $em->flush();
 
-            return $this->redirectToRoute('hebergement_index', array('id' => $hebergement->getId()));
+            return $this->redirectToRoute('hebergement_index');
         }
+
+
+
         return $this->render($twig, array(
             'hebergement' => $hebergement,
             'form' => $form->createView(),

@@ -29,7 +29,7 @@ class AppKernel extends Kernel
             new SBC\NotificationsBundle\NotificationsBundle(),
             // Bundle externe nasri
             //new JMS\SerializerBundle\JMSSerializerBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
+            //new JMS\SerializerBundle\JMSSerializerBundle(),
             // Bundle externe Issam
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
