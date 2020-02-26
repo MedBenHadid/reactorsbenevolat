@@ -24,9 +24,16 @@ class Requete
     /**
      * @var string
      *
-     * @ORM\Column(name="Sujet", type="text")
+     * @ORM\Column(name="Sujet", type="string")
      */
     private $sujet;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Description", type="text")
+     */
+    private $description;
+
 
     /**
      * @var \DateTime
@@ -86,6 +93,29 @@ class Requete
     public function getSujet()
     {
         return $this->sujet;
+    }
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Requete
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
