@@ -2,6 +2,7 @@
 
 namespace ReclamationBundle\Form;
 
+use blackknight467\StarRatingBundle\Form\RatingType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +16,9 @@ class RponseType extends AbstractType
     {
         $builder->add('sujet')
             ->add('rep')
-            ->add('date')
+            ->add('rating', RatingType::class, [
+                'label' => 'Rating'
+            ])
             ->add('user')
             ->add('requete');
     }/**

@@ -81,10 +81,10 @@ class SuperAdminController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('association_edit', array('id' => $association->getId()));
+            return $this->redirectToRoute('admin_association_edit', array('id' => $association->getId()));
         }
 
-        return $this->render('@Association/association/edit.html.twig', array(
+        return $this->render('@Association/association/admin/edit.html.twig', array(
             'association' => $association,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -96,16 +96,10 @@ class SuperAdminController extends Controller
      */
     public function deleteAction(Request $request, Association $association)
     {
-        $form = $this->createDeleteForm($association);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($association);
             $em->flush();
-        }
-
-        return $this->redirectToRoute('association_index');
+        return $this->redirectToRoute('admin_association_index');
     }
 
     /**

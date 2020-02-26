@@ -38,6 +38,7 @@ class RponseController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $rponse->setDate(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($rponse);
             $em->flush();

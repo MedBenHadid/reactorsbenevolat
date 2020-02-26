@@ -16,15 +16,17 @@ class RequeteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('sujet')
-                ->add('type', ChoiceType::class, [
-                    'choices'=> [
-                        'Besoin de renseignement sur le site' => '1',
-                        'Je veux reporter un spam' => '2',
-                        'J ai des problem technique' => '3',
-                        'Le livreur n est pas venu' => '4'
-                    ]
-                ])
+        $builder->add('type', ChoiceType::class, [
+            'choices'=> [
+                'Besoin de renseignement sur le site' => '1',
+                'Je veux reporter un spam' => '2',
+                'J ai des problem technique' => '3',
+                'Le livreur n est pas venu' => '4'
+            ]
+        ])
+                ->add('sujet')
+                ->add('description')
+                ->add('rponse')
                 ->add('user');
 
     }/**

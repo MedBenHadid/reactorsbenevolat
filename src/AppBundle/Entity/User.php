@@ -51,15 +51,7 @@ class User extends BaseUser
         parent::__construct();
     }
 
-    public function setInvitation(Invitation $invitation)
-    {
-        $this->invitation = $invitation;
-    }
 
-    public function getInvitation()
-    {
-        return $this->invitation;
-    }
 
     /**
      * @var string

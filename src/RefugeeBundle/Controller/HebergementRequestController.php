@@ -16,13 +16,31 @@ class HebergementRequestController extends Controller
      * Lists all hebergementRequest entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $twig = '@Refugee/HebergementRequest/index.html.twig';
+
+        if (!in_array("ROLE_SUPER_ADMIN", $this->getUser()->getRoles()))
+        {
+            $twig = '@Refugee/front/HebergementRequest/index.html.twig';
+        }
+
+        $governorat = $request->request->get('governorat') ? $request->request->get('governorat') : null;
+        $nbrRooms = $request->request->get('nbrRooms') ? $request->request->get('nbrRooms') : null;
+        $duration = $request->request->get('duration') ? $request->request->get('duration') : null;
+
+        //die(var_dump($governorat));
+
         $hebergementRequests = $em->getRepository('RefugeeBundle:HebergementRequest')->findAll();
 
-        return $this->render('@Refugee/HebergementRequest/index.html.twig', array(
+        $paginator = $this->get('knp_paginator');
+        $hebergementRequests =  $paginator->paginate($hebergementRequests ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
+
+        return $this->render($twig, array(
             'hebergementRequests' => $hebergementRequests,
         ));
     }
@@ -34,20 +52,49 @@ class HebergementRequestController extends Controller
     public function newAction(Request $request)
     {
         $hebergementRequest = new Hebergementrequest();
+        $twig = '@Refugee/HebergementRequest/new.html.twig';
+
+        if (!in_array("ROLE_SUPER_ADMIN", $this->getUser()->getRoles()))
+        {
+            $twig = '@Refugee/front/HebergementRequest/new.html.twig';
+        }
+
+
         $form = $this->createForm('RefugeeBundle\Form\HebergementRequestType', $hebergementRequest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $childrenNumber = $form->get('childrenNumber')->getData();
+            $passportNumber = $form->get('passportNumber')->getData();
+
+            if ($childrenNumber <= 0 || $passportNumber <= 0)
+            {
+                return $this->render($twig, array(
+                    'hebergement' => $hebergementRequest,
+                    'form' => $form->createView(),
+                    'error' => 'valeurs invalides'
+                ));
+            }
+
+
             $em = $this->getDoctrine()->getManager();
+
+            $hebergementRequest->setCreationDate(new \DateTime());
+            $hebergementRequest->setState(0);
+            $userId = $this->getUser()->getId();
+            $user = $em->getRepository('AppBundle:User')->find($userId);
+            $hebergementRequest->setUser($user);
+
             $em->persist($hebergementRequest);
             $em->flush();
 
-            return $this->redirectToRoute('hebergementrequest_show', array('id' => $hebergementRequest->getId()));
+            return $this->redirectToRoute('hebergementrequest_index');
         }
 
-        return $this->render('@Refugee/HebergementRequest/new.html.twig', array(
+        return $this->render($twig, array(
             'hebergementRequest' => $hebergementRequest,
             'form' => $form->createView(),
+            'error' => null
         ));
     }
 
@@ -60,7 +107,7 @@ class HebergementRequestController extends Controller
         $deleteForm = $this->createDeleteForm($hebergementRequest);
 
         return $this->render('Refugee/HebergementRequest/show.html.twig', array(
-            'hebergementRequest' => $hebergementRequest,
+            'hebergementRequests' => $hebergementRequest,
             'delete_form' => $deleteForm->createView(),
         ));
     }

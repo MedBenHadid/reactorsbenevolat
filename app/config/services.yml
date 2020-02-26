@@ -4,6 +4,9 @@ parameters:
     #parameter_name: value
 
 services:
+    AssociationBundle\DataFixtures\:
+        resource: '../../src/AssociationBundle/DataFixtures'
+        tags: ['doctrine.fixture.orm']
 
     app.form.registration:
         class: AppBundle\Form\RegistrationType

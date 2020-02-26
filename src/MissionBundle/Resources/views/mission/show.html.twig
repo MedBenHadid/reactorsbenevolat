@@ -1,55 +1,299 @@
 {% extends '::baseback.html.twig' %}
+   {% block stylesheets %}    <style class="cp-pen-styles">.wrapper { position: absolute; top: 0; right: 0; bottom: 0; left: 0; background: url(http://c.boylett.uk/images/wallpapers/002.jpg); background-size: 100% 100% }
+       .food { position: absolute !important; top: 50%; left: 50%; margin: -197px 0 0 -310px }
 
+       .food
+       {
+           position: relative;
+           width: 620px;
+           height: 394px;
+           background: #FFF;
+           border-radius: 2px;
+           box-shadow: 0 2px 15px rgba(0, 0, 0, .5);
+       }
+
+       .food > .cover
+       {
+           position: relative;
+           height: 260px;
+           background: transparent center no-repeat;
+           background-size: 100% auto;
+           border-radius: 2px 2px 0 0;
+       }
+
+       .food > .cover > label
+       {
+           position: absolute;
+           top: 22px;
+           left: -33px;
+           height: 33px;
+           padding: 0 30px 0 63px;
+           line-height: 33px;
+           vertical-align: middle;
+           font-family: sans-serif;
+           font-size: 13px;
+           text-transform: uppercase;
+           color: #FFF;
+           text-shadow: 0 1px 2px #000;
+           background: rgba(136, 86, 168, .6);
+       }
+
+       .food > .cover > label > i
+       {
+           position: absolute;
+           top: 0;
+           left: 0;
+       }
+
+       .food > .cover > label > i > svg
+       {
+           margin: 8px;
+       }
+
+       .food > .cover > .download
+       {
+           display: block;
+           position: absolute;
+           bottom: 20px;
+           right: 20px;
+           width: 47px;
+           height: 47px;
+           background: rgba(51, 193, 210, .6);
+           border-radius: 100%;
+       }
+
+       .food > .cover > .download:hover { background: #33C1D2 }
+
+       .food > .cover > .download > svg
+       {
+           margin: 12px 10px 0;
+       }
+
+       .food > .info
+       {
+           position: relative;
+           height: 134px;
+           overflow: hidden;
+           border-radius: 0 0 2px 2px;
+       }
+
+       .food > .info > .recipe
+       {
+           display: block;
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 134px;
+           height: 134px;
+           background: #8856A8;
+           font-family: sans-serif;
+           font-size: 14px;
+           color: #FFF;
+           text-transform: uppercase;
+           text-decoration: none;
+           text-align: center;
+           border-radius: 0 0 0 2px;
+       }
+
+       .food > .info > .recipe:hover { background: #9967B9 }
+
+       .food > .info > .recipe > i
+       {
+           display: block;
+           margin: 38px 0 15px;
+       }
+
+       .food > .info > .content
+       {
+           position: absolute;
+           top: 20px;
+           right: 20px;
+           bottom: 20px;
+           left: 154px;
+           font-family: sans-serif;
+           font-size: 14px;
+           color: #888;
+       }
+
+       .food > .info > .content strong { font-weight: normal; color: #333 }
+       .food > .info > .content .pad-right { padding-right: 20px }
+       .food > .info > .content .border-right { border-right: 1px solid #D9D9D9 }
+       .food > .info > .content .consumers img, .food > .info > .content .consumers span { display: inline-block; width: 32px; height: 32px; margin: 0 2px 0 0; line-height: 32px; vertical-align: middle; border-radius: 100% }
+       .food > .info > .content .consumers span { margin: 0 }
+
+       .food > .info > .content h1
+       {
+           margin: 0 0 10px;
+           font-size: 26px;
+           font-weight: normal;
+           color: #333;
+       }
+
+       .food > .info > .content .stars, .food > .info > .content .stars > em
+       {
+           display: block;
+           width: 99px;
+           height: 18px;
+           margin: 0 auto 7px;
+           text-align: left;
+           background: url(http://c.boylett.uk/generic/image_png_00004.png);
+       }
+
+       .food > .info > .content .stars > em
+       {
+           width: 99px;
+           height: 18px;
+           margin: 0;
+           background: url(http://c.boylett.uk/generic/image_png_00004.png);
+           background-position: 0 -18px;
+       }</style>
+   {% endblock %}
 {% block body %}
-    <h1>Mission</h1>
+    <div class="wrapper">
+        <div class="food">
+            <div class="cover" style="background-size :650px;background-image: url({{asset('uploads/mission/images/'~ mission.picture )}})">
+            </div>
+            <div class="info">
+                <a href="#" class="recipe " data-toggle="modal" data-target="#myModal">
+                    <i>
+                        <svg x="0px" y="0px" width="26px" height="28px"
+                        >
+                            <g>
+                                <path d="M 8.5 20 L 8.5 21 L 17.5 21 L 17.5 20 L 8.5 20 ZM 8.5 16 L 8.5 17 L 17.5 17 L 17.5 16 L 8.5 16 ZM 8.5 12 L 8.5 13 L 17.5 13 L 17.5 12 L 8.5 12 ZM 20 0 C 19.4477 0 19 0.4477 19 1 L 19 6 C 19 6.5523 19.4477 7 20 7 C 20.5523 7 21 6.5523 21 6 L 21 1 C 21 0.4477 20.5523 0 20 0 ZM 13 0 C 12.4477 0 12 0.4477 12 1 L 12 6 C 12 6.5523 12.4477 7 13 7 C 13.5523 7 14 6.5523 14 6 L 14 1 C 14 0.4477 13.5523 0 13 0 ZM 6 0 C 5.4477 0 5 0.4477 5 1 L 5 6 C 5 6.5523 5.4477 7 6 7 C 6.5523 7 7 6.5523 7 6 L 7 1 C 7 0.4477 6.5523 0 6 0 ZM 15 4 L 18 4 L 18 3 L 15 3 L 15 4 ZM 8 4 L 11 4 L 11 3 L 8 3 L 8 4 ZM 3 4 L 4 4 L 4 3 L 3 3 C 1.3431 3 0 4.3431 0 6 L 0 25 C 0 26.6569 1.3431 28 3 28 L 23 28 C 24.6569 28 26 26.6569 26 25 L 26 6 C 26 4.3431 24.6569 3 23 3 L 22 3 L 22 4 L 23 4 C 24.1046 4 25 4.8954 25 6 L 25 25 C 25 26.1046 24.1046 27 23 27 L 3 27 C 1.8954 27 1 26.1046 1 25 L 1 6 C 1 4.8954 1.8954 4 3 4 Z" fill="#ffffff"/>
+                            </g>
+                        </svg>
+                    </i>
+                    <font>Details</font>
+                </a>
+                <div class="content">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left" valign="middle" class="pad-right"><strong>Titre mission:</strong></td>
+                                <td align="left" valign="middle">{{ mission.titleMission }}</td>
+                            <td width="20" rowspan="2" class="border-right"> </td>
+                            <td width="140" rowspan="2" align="center" valign="middle">
+                                <h2>UPs</h2>
+                                <h4>429</h4>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ mission.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ mission.titleMission }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ mission.picture }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ mission.description }}</td>
-            </tr>
-            <tr>
-                <th>Location</th>
-                <td>{{ mission.location }}</td>
-            </tr>
-            <tr>
-                <th>Date Creation</th>
-                <td>{% if mission.dateCreation %}{{ mission.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Date Fin</th>
-                <td>{% if mission.dateFin %}{{ mission.dateFin|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>CreatedBy</th>
-                <td>{{ mission.CreatedBy.username }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <ul>
-        <li>
-            <a href="{{ path('mission_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('mission_edit', { 'id': mission.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+              </span><br />
+                                <small>(320 ratings)</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" valign="middle" class="pad-right"><strong>Members:</strong></td>
+                            <td align="left" valign="middle" class="consumers">
+                                {% for member in members %}
+                           <a href="{{ path('fos_user_profile_show',{'id':member.idUser.id}) }}"   > <img style="margin-top: 20px" src="{{asset('uploads/user/images/'~ member.idUser.image )}}" alt="sssss" class="dark-logo" /></a>
+                                {% endfor %}
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-center">
+                            <div class="modal-dialog .modal-align-center">
+                                <div class="modal-content" style="text-align: center;">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel">{{ mission.titleMission }}</h4>
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+
+                                        </button>
+
+
+                                    </div>
+                                    <div class="modal-body" >
+
+                                        <table>
+                                            <tbody>
+
+
+
+                                            <tr>
+                                                <th>Description : </th>
+                                                <td>{{ mission.description }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Date Creation : </th>
+                                                <td>{% if mission.dateCreation %}{{ mission.dateCreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Date Fin : </th>
+                                                <td>{% if mission.dateFin %}{{ mission.dateFin|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>CreatedBy : </th>
+                                                <td>{{ mission.CreatedBy.username }}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <br>
+                                        <br>
+                                        <p class="form-row form-row-wide">
+                                            <label for="password">Emplacement Mission:
+                                                <div id="map" style="width: 400px; height: 300px; background-color: red"></div>
+                                                <input type="hidden" name="lat_association" id="lat_association" value="{{mission.latitude }}" />
+                                                <input type="hidden" name="lng_association" id="lng_association" value="{{mission.longitude }}" />
+                                            </label>
+                                        </p>
+
+
+                                        <script>
+
+                                            function initMap() {
+                                                var myLatLng = {lat: {{mission.latitude}}, lng: {{mission.longitude}}};
+
+                                                var map = new google.maps.Map(document.getElementById('map'), {
+                                                    zoom: 10,
+                                                    center: myLatLng
+                                                });
+
+                                                var marker = new google.maps.Marker({
+                                                    position: myLatLng,
+                                                    map: map,
+
+                                                });
+
+
+
+
+                                            }
+                                        </script>
+                                        <script async defer
+                                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD00UW-yFHi17pDyHLe19_ImRpo0ja5Q3k&callback=initMap">
+                                        </script>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script >$(function()
+        {
+            $('.food > .info > .content .stars')
+                .bind('mousemove', function(e)
+                {
+                    var pct = e.pageX - $(this).offset().left;
+                    pct = pct / $(this).width() * 100;
+                    $(this).find('> em').css('width', pct + '%');
+                })
+                .bind('mouseleave', function()
+                {
+                    $(this).find('> em').animate({ width: '91%' }, 250);
+                });
+        });
+        //# sourceURL=pen.js
+    </script>
+
 {% endblock %}

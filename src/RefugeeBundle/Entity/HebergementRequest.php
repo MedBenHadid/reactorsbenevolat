@@ -28,12 +28,175 @@ class HebergementRequest
      */
     private $description;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="native_country", type="string", length=255)
+     */
+    private $nativeCountry;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="arrival_date", type="date")
+     */
+    private $arrivalDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="passport_number", type="string", length=255)
+     */
+    private $passportNumber;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="civil_status", type="integer")
+     */
+    private $civilStatus;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="children_number", type="integer")
+     */
+    private $childrenNumber;
+
+    /**
+     * @return string
+     */
+    public function getNativeCountry()
+    {
+        return $this->nativeCountry;
+    }
+
+    /**
+     * @param string $nativeCountry
+     */
+    public function setNativeCountry($nativeCountry)
+    {
+        $this->nativeCountry = $nativeCountry;
+    }
+
+
+    public function getArrivalDate()
+    {
+        return $this->arrivalDate;
+    }
+
+    /**
+     * @param \DateTime $arrivalDate
+     */
+    public function setArrivalDate($arrivalDate)
+    {
+        $this->arrivalDate = $arrivalDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassportNumber()
+    {
+        return $this->passportNumber;
+    }
+
+    /**
+     * @param string $passportNumber
+     */
+    public function setPassportNumber($passportNumber)
+    {
+        $this->passportNumber = $passportNumber;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCivilStatus()
+    {
+        return $this->civilStatus;
+    }
+
+    /**
+     * @param int $civilStatus
+     */
+    public function setCivilStatus($civilStatus)
+    {
+        $this->civilStatus = $civilStatus;
+    }
+
+    /**
+     * @return int
+     */
+    public function getChildrenNumber()
+    {
+        return $this->childrenNumber;
+    }
+
+    /**
+     * @param int $childrenNumber
+     */
+    public function setChildrenNumber($childrenNumber)
+    {
+        $this->childrenNumber = $childrenNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+
+
     /**
      * @var string
      *
      * @ORM\Column(name="region", type="string", length=255)
      */
     private $region;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=255)
+     */
+    private $telephone;
 
     /**
      * @var int
@@ -42,6 +205,36 @@ class HebergementRequest
      */
     private $state;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_date", type="date")
+     */
+    private $creationDate;
+
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     *
+     * @return Hebergement
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
 
     /**
      * Get id
@@ -146,5 +339,30 @@ class HebergementRequest
     {
         $this->user = $user;
     }
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="is_anonymous", type="integer")
+     */
+    private $isAnonymous;
+
+    /**
+     * @return int
+     */
+    public function getIsAnonymous()
+    {
+        return $this->isAnonymous;
+    }
+
+    /**
+     * @param int $isAnonymous
+     */
+    public function setIsAnonymous($isAnonymous)
+    {
+        $this->isAnonymous = $isAnonymous;
+    }
+
+
 }
 
