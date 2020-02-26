@@ -10,4 +10,19 @@ namespace CommunicationBundle\Repository;
  */
 class ForumCategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByName($category_name)
+    {
+        $query = $this->getEntityManager()->createQueryBuilder();
+
+        $query->select('categ.name')
+            ->from('CommunicationBundle:ForumCategory', 'categ')
+            ->where('categ.name = ' . ':name')
+            ->setParameters(
+                [
+                    'name' => $category_name
+                ]
+            );
+
+        return $query->getQuery()->getResult();
+    }
 }

@@ -13,6 +13,11 @@ comments_new:
     defaults: { _controller: "CommunicationBundle:Comments:new" }
     methods:  [GET, POST]
 
+comments_newfront:
+    path:     /newfront
+    defaults: { _controller: "CommunicationBundle:Comments:newFront" }
+    methods:  POST
+
 comments_edit:
     path:     /{id}/edit
     defaults: { _controller: "CommunicationBundle:Comments:edit" }
