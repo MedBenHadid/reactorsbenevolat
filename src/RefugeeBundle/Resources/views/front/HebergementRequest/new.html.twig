@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
     <div class="container my-3">
         <h1 class="text-center">Création d'une demande d'hébérgement</h1>
@@ -41,7 +42,7 @@
                     </div>
                     <div class="col-12 mb-1">
                         <label for="">Demander d'une facon anonyme ?  </label>
-                        {{ form_widget(form.isAnonymous) }}
+                        {{ form_widget(form.isAnonymous, {'attr': { 'id' : 'date'}}) }}
                     </div>
                     <div class="col-12 my-2">
                         <button type="submit" class="btn rehomes-btn">Créer</button>
