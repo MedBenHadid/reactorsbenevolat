@@ -17,7 +17,7 @@ class HebergementRequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('isAnonymous', CheckboxType::class)
+            ->add('isAnonymous', CheckboxType::class , ['required' => false])
             ->add('name')
             ->add('telephone')
             ->add('description')

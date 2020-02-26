@@ -16,6 +16,33 @@
 </div>
 
 <header class="header-area">
+    <!-- Top Header Area Start -->
+    {#
+    <div class="top-header-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-6">
+                    <div class="top-header-content">
+                        <a href="#"><i class="icon_mail"></i> <span>info.reactors@esprit.tn</span></a>
+                        <a href="#"><i class="icon_phone"></i> <span>(+216) 71 111 111</span></a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="top-header-content">
+                        <!-- Top Social Area -->
+                        <div class="top-social-area ml-auto">
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    #}
+    <!-- Top Header Area End -->
     <div class="main-header-area animated">
         <div class="classy-nav-container breakpoint-off">
             <div class="container">
@@ -37,7 +64,7 @@
                                         <li><a href="{{ path('association_index') }}">- Association</a></li>
                                         <li><a href="{{ path('category_index')}}">- Domaines</a></li>
                                         <li><a href="{{ path('mission_index')}}">- Missions</a></li>
-                                        <li><a href="{{ path('forum_homepage')}}">- Forum</a></li>
+                                        <li><a href="{{ path('communication_homepage')}}">- Blog</a></li>
                                         <li><a href="{{path('reclamation_homepage')}}">- Support</a></li>
                                         <li><a href="blog">- Contact</a></li>
                                     </ul>
@@ -68,31 +95,21 @@
     </div>
 </header>
 <body>
+{% block breadcrumbs %}
+{% endblock %}
+{% block hero %}
+{% endblock %}
+{% block choose %}
+{% endblock %}
+{% block search %}
+{% endblock %}
 
-
-<div class="breadcrumb-area bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms" style="background-image: url({{ asset('assets/appfront/img/bg-img/30.jpg') }});">
-    <div class="container h-100">
-        <div class="row h-100 align-items-center">
-            <div class="col-12">
-                <div class="breadcrumb-content">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Reactors </a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{% block bread %} Acceuil {% endblock %}</li>
-                        </ol>
-                    </nav>
-                    <h2 class="page-title">{% block info %}Acceuil {% endblock %}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 {% block fos_user_content %}
 {% endblock %}
 
 
-<section class="rehome-house-sale-area section-padding-100-60">
+<section class="rehome-house-sale-area section-padding-100-20">
     <div class="container">
             {% block body %}
             {% endblock %}
@@ -222,6 +239,8 @@
     <script src="{{ asset('assets/appfront/js/rehomes.bundle.js') }}"></script>
     <!-- Active -->
     <script src="{{ asset('assets/appfront/js/default-assets/active.js') }}"></script>
+
+
 
 {% block javascript %}
 
