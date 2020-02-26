@@ -275,17 +275,15 @@ class MissionController extends Controller
 
         $deleteForm = $this->createDeleteForm($mission);
 
-        $members = $this->getDoctrine()->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$mission,'etat'=>'accepter'));
-        foreach ($members as $member){
-            var_dump($member->getIdUser()->getUsername());
-        }
+        $members = $this->getDoctrine()->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$mission->getId(),'etat'=>'accepter'));
 
 
 
-        var_dump($members);
+       // var_dump($members);
         return $this->render('@Mission/mission/show.html.twig', array(
             'mission' => $mission,
             'delete_form' => $deleteForm->createView(),
+            'members'=>$members
         ));
     }
 

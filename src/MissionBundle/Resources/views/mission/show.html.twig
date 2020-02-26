@@ -182,14 +182,16 @@
                         <tr>
                             <td align="left" valign="middle" class="pad-right"><strong>Members:</strong></td>
                             <td align="left" valign="middle" class="consumers">
-                                <img style="margin-top: 20px" src="{{asset('/uploads/user/images/'~ app.user.image )}}" alt="" class="dark-logo" />
-                                <img style="margin-top: 20px" src="{{asset('/uploads/user/images/'~ app.user.image )}}" alt="" class="dark-logo" />
-                                <img style="margin-top: 20px" src="{{asset('/uploads/user/images/'~ app.user.image )}}" alt="" class="dark-logo" />
+                                {% for member in members %}
+                           <a href="{{ path('fos_user_profile_show',{'id':member.idUser.id}) }}"   > <img style="margin-top: 20px" src="{{asset('uploads/user/images/'~ member.idUser.image )}}" alt="sssss" class="dark-logo" /></a>
+                                {% endfor %}
 
                             </td>
                         </tr>
 
                     </table>
+
+
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-center">
                             <div class="modal-dialog .modal-align-center">
