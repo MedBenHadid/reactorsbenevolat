@@ -8,6 +8,11 @@ threads_show:
     defaults: { _controller: "CommunicationBundle:Threads:show" }
     methods:  GET
 
+threads_front:
+    path:     /comments
+    defaults: { _controller: "CommunicationBundle:Threads:showFront" }
+    methods:  GET
+
 threads_new:
     path:     /new
     defaults: { _controller: "CommunicationBundle:Threads:new" }

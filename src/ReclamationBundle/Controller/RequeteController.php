@@ -55,6 +55,33 @@ class RequeteController extends Controller
     }
 
     /**
+     * Creates a new requete entity.
+     *
+     */
+    public function addAction(Request $request){
+        $req= new Requete();
+        $current = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+        if($request->isMethod('POST')){
+            if($request->get('type')){
+                $req->setType($request->get('type'));
+            }
+            if($request->get('sujet')){
+                $req->setSujet($request->get('sujet'));
+            }if($request->get('description')){
+                $req->setDescription($request->get('description'));
+            }
+            $req->setUser($current);
+            $req->setDernierMAJ(new \DateTime());
+            $req->setStatut(0);
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($req);
+            $em->flush();
+            return $this->redirectToRoute('reaclamation_homepage');
+        }
+        return $this->render('@Reclamation/requete/requetefront.html.twig');
+    }
+
+    /**
      * Finds and displays a requete entity.
      *
      */
@@ -124,4 +151,26 @@ class RequeteController extends Controller
             ->getForm()
         ;
     }
+    public function affichAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $requet = $em->getRepository('ReclamationBundle:Requete')->findAll();
+
+        return $this->render('@Reclamation/requetefront/rquetefronts.html.twig', array(
+            'requet' => $requet,
+        ));
+    }
+
+    public function ticketaction(){
+            return $this->render('@Reclamation/requetefront/requetefront.html.twig');
+    }
+
+    public function filtrestatutAction(Request $request,$statut){
+        $em = $this->getDoctrine()->getManager();
+        $findbystatut=$em->getRepository('ReclamationBundle:Requete')->findBy(array("statut" => $statut));
+            return $this->render('@Reclamation/requetefront/rquetefronts.html.twig', array(
+                'requet' => $findbystatut,));
+
+        }
 }

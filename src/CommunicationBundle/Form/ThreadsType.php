@@ -13,7 +13,8 @@ class ThreadsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('title')->add('content')->add('lastmodified')->add('user')->add('category');
+        $builder->add('title')->add('content')
+            ->add('category');
     }/**
      * {@inheritdoc}
      */

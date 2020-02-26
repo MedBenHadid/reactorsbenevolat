@@ -16,5 +16,17 @@ communication_homepage:
 forum_homepage:
     path:     /home
     defaults: { _controller: CommunicationBundle:ForumCategory:home }
+thread_homepage:
+    path:     /thread
+    defaults: { _controller: CommunicationBundle:Threads:home }
+thread_add:
+    path:     /thread/add
+    defaults: { _controller: CommunicationBundle:Threads:add }
+thread_comments:
+    path:     /thread/comment
+    defaults: { _controller: CommunicationBundle:Threads:show }
+
+
+
 
 

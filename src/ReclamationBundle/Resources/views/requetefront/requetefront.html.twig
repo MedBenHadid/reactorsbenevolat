@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="{{ asset('assets/ramyfront/css/first.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <form action="{{ path('add_requete') }}" method="post" class="smart-green">
+            <h1>Support Ticket
+                <span>Please fill all the texts in the fields.</span>
+            </h1>
+
+
+            <label>
+                <span>Choisir un type de la reclamation :</span>
+            </label>
+                {#<input type = "text" list = "types" name="type">
+                <datalist id = "types" >
+                        <option value = "1">'Besoin de renseignement sur le site'</option>
+                    <option value = "2">Je veux reporter un spam</option>
+                    <option value = "3">J ai des problem technique</option>
+                    <option value = "4">Le livreur n est pas venu</option>
+                </datalist>
+#}
+            <select name="type" id="">
+                <option value = "1">'Besoin de renseignement sur le site'</option>
+                <option value = "2">Je veux reporter un spam</option>
+                <option value = "3">J ai des problem technique</option>
+                <option value = "4">Le livreur n est pas venu</option>
+            </select>
+
+            <label>
+                <span>Sujet :</span><input id="Subject" type="text" name="sujet" placeholder="Votre sujet" />
+            </label>
+
+            <label>
+                <span>Description :</span>
+                <textarea id="message" name="description" placeholder="Description"></textarea>
+            </label>
+
+            <label>
+                <span> </span>
+                <input type="submit" class="button" value="Send" />
+            </label>
+        </form>
+    </div>
+</div>
+{% endblock %}

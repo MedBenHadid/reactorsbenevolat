@@ -1,3 +1,11 @@
+mission_invitation:
+    resource: "@MissionBundle/Controller/InvitationController.php"
+    type:     annotation
+
+backoffice_notification:
+    resource: "@BackofficeBundle/Controller/NotificationController.php"
+    type:     annotation
+
 association_category:
     resource: "@AssociationBundle/Controller/CategoryController.php"
     type:     annotation

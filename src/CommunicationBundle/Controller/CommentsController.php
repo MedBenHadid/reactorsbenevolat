@@ -5,6 +5,7 @@ namespace CommunicationBundle\Controller;
 use CommunicationBundle\Entity\Comments;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Comment controller.
@@ -26,6 +27,49 @@ class CommentsController extends Controller
             'comments' => $comments,
         ));
     }
+    public function commentFrontAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $comments = $em->getRepository('CommunicationBundle:Comments')->findAll();
+
+        return $this->render('@Communication/Default/ThreadComments.html.twig', array(
+            'comment' => $comments,
+        ));
+    }
+
+    public function newFrontAction(Request $request)
+    {
+       $content = $request->request->get('comment') ? $request->request->get('comment') : null;
+        $threadId = $request->request->get('thread_id') ? $request->request->get('thread_id') : null;
+
+        $em = $this->getDoctrine()->getManager();
+
+        $comment = new Comments();
+
+        $comment->setContent($content);
+        $comment->setDate(new \DateTime());
+
+
+        $thread = $em->getRepository('CommunicationBundle:Threads')->find($threadId);
+
+
+
+        $comment->setThread($thread);
+        $userId = $this->getUser()->getId();
+        $user = $em->getRepository('AppBundle:User')->find($userId);
+        $comment->setUser($user);
+
+        $em->persist($comment);
+        $em->flush();
+
+
+
+        $threads = $em->getRepository('CommunicationBundle:Threads')->findAll();
+
+        return $this->render('@Communication/Default/Threads.html.twig', array('threads' => $threads));
+    }
+
 
     /**
      * Creates a new comment entity.
@@ -33,6 +77,7 @@ class CommentsController extends Controller
      */
     public function newAction(Request $request)
     {
+
         $comment = new Comments();
         $form = $this->createForm('CommunicationBundle\Form\CommentsType', $comment);
         $form->handleRequest($request);

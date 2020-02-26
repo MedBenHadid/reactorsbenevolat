@@ -1,3 +1,5 @@
+{% extends '::base.html.twig' %}
+{% block body  %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -30,8 +32,10 @@
                 <li class="topics-body">
                     <ul class="topic-item-1">
                         <li>
-                            <a class="badge badge-primary" href="">{{ i.Name }}</a>
+                            <a class="badge badge-primary" href="{{ path('thread_homepage', { 'categorie' : i.Name}) }}">{{ i.Name }}</a>
+                            <br> {{ i.describtion }}
                         </li>
+
 
                         <li>4</li>
                         <li>5</li>
@@ -51,24 +55,12 @@
                             </p>
                         </li>
                     </ul>
-                    <ul class="topic-item-2">
-                        <li>
-                            <a class="badge badge-primary" href="">Skating Events</a>
-                        </li>
-                        <li>2</li>
-                        <li>4</li>
+
+
                         <li>
 
-                            <a class="badge badge-info" href="http://skatingbuzz.test/forums/topic/random-4/" title="Random 4">1 day ago</a>
-                            <p class="bbp-topic-meta">
-		                        <span class="bbp-topic-freshness-author">
-	                                <a
-                                            href="http://skatingbuzz.test/forums/user/admin/"
-                                            title="View admin's profile"
-                                            class="bbp-author-name badge badge-info"
-                                            rel="nofollow">
-	                                    leslie
-                                    </a>
+
+                                    {% endfor %}
 	                            </span>
                             </p>
                         </li>
@@ -78,4 +70,5 @@
         </div>
     </div>
 </div>
-{% endfor %}
+
+{% endblock %}
