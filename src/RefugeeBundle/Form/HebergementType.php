@@ -5,9 +5,11 @@ namespace RefugeeBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class HebergementType extends AbstractType
 {
@@ -48,16 +50,23 @@ class HebergementType extends AbstractType
             ])
             ->add('nbrRooms')
             ->add('duration')
-            ->add('state')
-            ->add('state', ChoiceType::class,
+            ->add('telephone')
+            ->add('image', FileType::class,
                 [
-                    'label' => 'Etat: ',
-                    'choices' => [
-                        'En Cours' => 0,
-                        'Terminée' => 1
+                    'mapped' => false,
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '8m',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png',
+                                'image/svg+xml'
+                            ],
+                            'mimeTypesMessage' => 'Please upload a valid Image file',
+                        ])
                     ]
-                ])
-            ->add('user');
+                ]);
+            //->add('user');
     }/**
      * {@inheritdoc}
      */

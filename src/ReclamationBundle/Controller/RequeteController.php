@@ -3,6 +3,7 @@
 namespace ReclamationBundle\Controller;
 
 use ReclamationBundle\Entity\Requete;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -29,7 +30,7 @@ class RequeteController extends Controller
 
     /**
      * Creates a new requete entity.
-     *
+     * @IsGranted("ROLE_USER")
      */
     public function newAction(Request $request)
     {

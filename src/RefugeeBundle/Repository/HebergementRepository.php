@@ -10,4 +10,21 @@ namespace RefugeeBundle\Repository;
  */
 class HebergementRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function search($governorat, $nbrRooms, $duration)
+    {
+        $query = $this->createQueryBuilder('h')
+            ->where('h.governorat = ' . ':governorat')
+            ->orWhere('h.nbrRooms = ' . ':nbrRooms')
+            ->orWhere('h.duration = ' . ':duration')
+            ->setParameters(
+                [
+                    'governorat' => $governorat,
+                    'nbrRooms' => $nbrRooms,
+                    'duration' => $duration
+                ]
+            )
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

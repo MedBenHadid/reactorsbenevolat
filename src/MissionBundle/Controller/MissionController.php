@@ -3,7 +3,9 @@
 namespace MissionBundle\Controller;
 
 use BackofficeBundle\Entity\Notification;
+use MissionBundle\Entity\Invitation;
 use MissionBundle\Entity\Mission;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,6 +21,8 @@ use function Sodium\add;
  * Mission controller.
  *
  * @Route("/mission")
+ *
+
  */
 class MissionController extends Controller
 {
@@ -88,24 +92,36 @@ class MissionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
         $manager=$em->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
        //var_dump($this->getUser()->getRoles() );
         if(in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
             $missions = $em->getRepository('MissionBundle:Mission')->findAll();
-
         }else{
            $missions = $em->getRepository('MissionBundle:Mission')->findBy(array('CreatedBy'=>$manager->getId()));
-
+        //   var_dump($missions[0]->getId());
+            foreach ($missions as &$value) {
+                //select COUNT invitation
+                $invi = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId()));
+                $value->invitation =count($invi,COUNT_NORMAL);
+                //select COUNT invitation Accepter
+                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'accepter'));
+                $value->accpter =count($inviAccpter,COUNT_NORMAL);
+                //select COUNT invitation refuser
+                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'réfuser'));
+                $value->refuser =count($inviAccpter,COUNT_NORMAL);
+            }
         }
 
-        return $this->render('@Mission/mission/index.html.twig', array(
-            'missions' => $missions,
-        ));
+
+
+     return $this->render('@Mission/mission/index.html.twig', array(
+           'missions' => $missions,
+      ));
     }
 
     /**
      * Creates a new mission entity.
-     *
      * @Route("/new", name="mission_new")
      * @Method({"GET", "POST"})
      * @param Request $request
@@ -180,17 +196,29 @@ class MissionController extends Controller
          //    var_dump($TabMembers);
             for ($i = 0;$i<sizeof($TabMembers) ; $i++) {
                 $memberInv=$em->getRepository('AppBundle:User')->findOneBy(array('id'=>$TabMembers[$i]));
-             //  var_dump($memberInv);
                 $notification=new Notification();
                 $notification->setTitle($mission->getTitleMission())
                     ->setDescription($mission->getDescription())
-                    ->setRoute('mission_show')
+                    ->setRoute('notification_show')
                     ->setParameters(array('id'=>$mission->getId()));
                 $notification->setIdUser($memberInv);
                 $notification->setIdAssociation($association);
                 $notification->setIdMission($mission);
 
+
+
+
+                $invitation=new Invitation();
+                $invitation->setIdMission($mission);
+                $invitation->setIdNotification($notification);
+                $invitation->setIdUser($memberInv);
+                $notification->setIdInvitation($invitation);
                 $em->persist($notification);
+
+                $em->persist($invitation);
+
+
+
 
                 $em->flush();
                 //$notification->setIdUser(1);

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container my-3">
+        <h1 class="text-center">Création d'une demande d'hébérgement</h1>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                {% if error is not empty %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endif %}
+                {{ form_start(form, {'attr': {'class': 'support-form'}}) }}
+                <div class="row my-2">
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.name, {'attr': { 'class' : 'form-control', 'placeholder': 'Votre Nom'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.description, {'attr': { 'class' : 'form-control', 'placeholder': 'Description'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.region, {'attr': { 'class' : 'form-control', 'placeholder': 'Region'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.telephone, {'attr': { 'class' : 'form-control', 'placeholder': 'Numero Telephone'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.nativeCountry, {'attr': { 'class' : 'form-control', 'placeholder': 'Pays d\'origine'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.passportNumber, {'attr': { 'class' : 'form-control', 'placeholder': 'Numero Passport'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        <label for="">Data d'arrivée:</label>
+                        <br>{{ form_widget(form.arrivalDate) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        <label for="">Etat civile:</label>
+                        <br>{{ form_widget(form.civilStatus, {'attr': { 'class' : 'form-control', 'placeholder': 'Pays d\'origine'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        <br>{{ form_widget(form.childrenNumber, {'attr': { 'class' : 'form-control', 'placeholder': 'Nombre d\'enfants'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        <label for="">Demander d'une facon anonyme ?  </label>
+                        {{ form_widget(form.isAnonymous) }}
+                    </div>
+                    <div class="col-12 my-2">
+                        <button type="submit" class="btn rehomes-btn">Créer</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+                <ul>
+                    <li>
+                        <a href="{{ path('hebergementrequest_index') }}">Retournez au list des demandes d'hébérgements</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+                <img src="{{ asset('assets/appfront/help.jpg') }}" class="img-fluid" alt="Responsive image">
+            </div>
+        </div>
+    </div
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+        <div class="container my-3">
+        <h1 class="text-center">Création d'un hebergement</h1>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                {{ form_start(form, {'attr': {'class': 'support-form'}}) }}
+                <div class="row my-2">
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.description, {'attr': { 'class' : 'form-control', 'placeholder': 'Description'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+
+                        {{ form_label(form.governorat, 'Governorat') }} <br>
+                        {{ form_widget(form.governorat, {'attr': { 'class' : 'form-control'}}) }} <br>
+                    </div>
+                    <div class="col-12 mb-1">
+
+                        {{ form_label(form.nbrRooms, 'Nombre des chambres') }} <br>
+                        {{ form_widget(form.nbrRooms, {'attr': { 'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        {{ form_label(form.duration, 'Durée (Mois)') }}
+                        {{ form_widget(form.duration, {'attr': { 'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-12 mb-1">
+                        {{ form_widget(form.telephone, {'attr': { 'class' : 'form-control', 'placeholder': 'Numero Téléphone'}}) }}
+                    </div>
+                    <div class="col-12 mb-1 my-2">
+                        {{ form_widget(form.image, {'attr': { 'class' : 'form-control'}}) }}
+                    </div>
+                    <div class="col-12 my-2">
+                        <button type="submit" class="btn rehomes-btn">Créer</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+                <ul>
+                    <li>
+                        <a href="{{ path('hebergement_index') }}">Retournez au list des hébérgements</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        imageId = 0;
+        $('.addImageBtn').click(function(){
+            $('form').append('<input type="file" class="form-control" name="' + imageId + '">');
+            imageId++;
+        });
+    </script>
+{% endblock %}
