@@ -96,10 +96,17 @@ class MissionController extends Controller
         $manager=$em->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
        //var_dump($this->getUser()->getRoles() );
         if(in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
-            $missions = $em->getRepository('MissionBundle:Mission')->findAll();
+            $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
+            $missions=$repository->createQueryBuilder('M')
+                ->orderBy('M.id', 'DESC')
+                ->getQuery()->getResult();
         }else{
-           $missions = $em->getRepository('MissionBundle:Mission')->findBy(array('CreatedBy'=>$manager->getId()));
-        //   var_dump($missions[0]->getId());
+            $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
+            $missions=$repository->createQueryBuilder('M')
+                ->where('M.CreatedBy = :idUser')
+                ->setParameter('idUser', $manager->getId())
+                ->orderBy('M.id', 'DESC')
+                ->getQuery()->getResult();        //   var_dump($missions[0]->getId());
             foreach ($missions as &$value) {
                 //select COUNT invitation
                 $invi = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId()));
@@ -251,8 +258,31 @@ class MissionController extends Controller
     public function showAction(Request $request,Mission $mission)
     {
 
+        //$repository= $this->getDoctrine()->getRepository("MissionBundle:Invitation");
+        // $members=$repository->createQueryBuilder('M')
+            //->where('M.id_mission = :id_mission')
+            //->where('M.etat = accepter')
+           // ->setParameter('id_mission', $mission)
+          //  ->getQuery()->getResult();
+
+
+
+        // $em = $this->getDoctrine()->getManager();
+
+        //   $query = $em->createQuery('SELECT u FROM MissionBundle:Invitation u WHERE u.age > 20');
+     //   $members = $query->getResult();
+
+
         $deleteForm = $this->createDeleteForm($mission);
 
+        $members = $this->getDoctrine()->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$mission,'etat'=>'accepter'));
+        foreach ($members as $member){
+            var_dump($member->getIdUser()->getUsername());
+        }
+
+
+
+        var_dump($members);
         return $this->render('@Mission/mission/show.html.twig', array(
             'mission' => $mission,
             'delete_form' => $deleteForm->createView(),

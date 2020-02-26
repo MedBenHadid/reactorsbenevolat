@@ -8,6 +8,7 @@
     <title>{% block title %}Reactors - Votre plateforme de bénévolat{% endblock %}</title>
     <link rel="icon" href="{{ asset('assets/back/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/appfront/style.css') }}">
+
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -66,7 +67,7 @@
                                     <ul class="dropdown">
 
                                         <li><a href="{{ path('category_index')}}">- Domaines</a></li>
-                                        <li><a href="{{ path('mission_index')}}">- Missions</a></li>
+                                        <li><a href="{{ path('mission_indexFront')}}">- Missions</a></li>
                                         <li><a href="{{ path('communication_homepage')}}">- Blog</a></li>
                                         {% if app.user %}<li><a href="{{path('reclamation_homepage')}}">- Support</a></li>{% endif %}
                                         <li><a href="blog">- Contact</a></li>

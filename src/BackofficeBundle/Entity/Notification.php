@@ -49,9 +49,9 @@ class Notification extends  BaseNotification implements \JsonSerializable
     /**
      * @var Association
      *
-     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Association")
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Association", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_association", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_association", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * })
      */
     private $id_association;
@@ -60,7 +60,7 @@ class Notification extends  BaseNotification implements \JsonSerializable
     /**
      *@var Invitation
      * @OneToOne(targetEntity="MissionBundle\Entity\Invitation")
-     * @JoinColumn(name="id_invitation", referencedColumnName="id",nullable=true)
+     * @JoinColumn(name="id_invitation", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $id_invitation;
     /**

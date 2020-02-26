@@ -3,6 +3,7 @@
 {% block bread %}<a href="{{ path('mission_index') }}"> / Mission</a>{% endblock %}
 
 {% block body %}
+    <a  href="{{ path('mission_new') }}" class="btn btn-success pull-right" style="margin-right: 900px">Create a new mission</a>
 
     <h1>Missions list</h1>
 <div class="container-fluid">
@@ -106,11 +107,6 @@
 </div>
 
 
-    <ul>
-        <li>
-            <a href="{{ path('mission_new') }}">Create a new mission</a>
-        </li>
-    </ul>
 {% endblock %}
 {% block bootstrap4 %}
 {% endblock %}
