@@ -1,20 +1,15 @@
-
-
 refugee_hebergement:
     resource: "@RefugeeBundle/Resources/config/routing/hebergement.yml"
     prefix:   /hebergement
-
-refugee_refugee:
-    resource: "@RefugeeBundle/Resources/config/routing/refugee.yml"
-    prefix:   /refugee
 
 refugee_hebergementrequest:
     resource: "@RefugeeBundle/Resources/config/routing/hebergementrequest.yml"
     prefix:   /hebergementrequest
 
-refugee_image:
-    resource: "@RefugeeBundle/Resources/config/routing/image.yml"
-    prefix:   /image
+
+refugee_comment:
+    resource: "@RefugeeBundle/Resources/config/routing/comment.yml"
+    prefix:   /hebergement/comment
 
 refugee_homepage:
     path:     /

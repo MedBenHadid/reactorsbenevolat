@@ -21,6 +21,10 @@
                 <th>Date</th>
                 <td>{% if rponse.date %}{{ rponse.date|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>
+            <tr>
+                <th>Rating</th>
+                <td>{{ rponse.rating }}</td>
+            </tr>
         </tbody>
     </table>
 
@@ -37,4 +41,5 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+    {{ rponse.rating|rating }}
 {% endblock %}

@@ -1,7 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_nasri.html.twig' %}
 
 {% block body %}
-    <h1>Image creation</h1>
+    <h1>Comment creation</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -10,7 +10,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('refugee_image_index') }}">Back to the list</a>
+            <a href="{{ path('comment_index') }}">Back to the list</a>
         </li>
     </ul>
 {% endblock %}

@@ -6,6 +6,28 @@
 <!------ Include the above in your HEAD tag ---------->
 {% endblock %}
 {% block body %}
+<<<<<<< HEAD
+=======
+    <style type="text/css">
+        .my_content_container a {
+            border-bottom: 1px solid #777777;
+            border-left: 1px solid #000000;
+            border-right: 1px solid #333333;
+            border-top: 1px solid #000000;
+            color: #000000;
+            display: block;
+            height: 3.5em;
+            padding: 0 1em;
+            width: 10em;
+            text-decoration: none;
+        }
+        // :hover and :active styles left as an exercise for the reader.
+    </style>
+
+    <div class="my_content_container">
+        <a href="{{ path('reclamation_homepage') }}">Nouveau Ticket</a>
+    </div>
+>>>>>>> cb56f420a8b89a2243a857d6305aaba285b48730
 <div class="container">
     <div class="row">
         <div class="span5">
@@ -31,10 +53,18 @@
                             {% if ((i.statut==0)) %} <span class="label label-warning">en attente</span>{% endif %}
                     </td>
                     <td>
+<<<<<<< HEAD
                         {% if i.rponse is null %}
                             pas de reponse
                         {% else %}
                             {{ i.rponse }}
+=======
+                        {% if not i.rponse %}
+                            pas de reponse
+                        {% else %}
+                            <button type="button">   <a href="{{ path('reclamation_rep', { 'id' : i.id } ) }};">Reponse </a></button>
+
+>>>>>>> cb56f420a8b89a2243a857d6305aaba285b48730
 
                             {% endif %}
                     </td>
@@ -58,4 +88,8 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> cb56f420a8b89a2243a857d6305aaba285b48730
 {% endblock %}

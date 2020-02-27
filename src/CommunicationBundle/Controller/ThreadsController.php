@@ -5,6 +5,7 @@ namespace CommunicationBundle\Controller;
 use CommunicationBundle\Entity\Threads;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Thread controller.
@@ -25,6 +26,39 @@ class ThreadsController extends Controller
         return $this->render('threads/index.html.twig', array(
             'threads' => $threads,
         ));
+    }
+    public function rechercheAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $threads = $em->getRepository('CommunicationBundle:Threads')->findAll();
+        if ($request->isMethod("POST")) {
+            $title = $request->get('title');
+            $threads = $em->getRepository('CommunicationBundle:Threads')->findBy(array('title'=>$title));
+        }
+
+
+        return $this->render('@Communication/Default/Recherche.html.twig', array(
+            'threads' => $threads,
+        ));
+    }
+    public function homeAction(Request $request)
+    {
+        $categoryName = $request->query->get('categorie');
+
+        $em = $this->getDoctrine()->getManager();
+
+
+        $threads = $em->getRepository('CommunicationBundle:Threads')->findByCategoryName($categoryName);
+        $paginator = $this->get('knp_paginator');
+        $threads=  $paginator->paginate($threads ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
+
+        $nthreads = count($threads);
+
+
+        return $this->render('@Communication/Default/Threads.html.twig', array('threads' => $threads,'nthreads' => $nthreads));
     }
 
     /**
@@ -50,6 +84,29 @@ class ThreadsController extends Controller
             'form' => $form->createView(),
         ));
     }
+    public function addAction(Request $request)
+    {
+        $thread = new Threads();
+        $form = $this->createForm('CommunicationBundle\Form\ThreadsType', $thread);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $thread->setLastmodified(new \DateTime());
+            $userId = $this->getUser()->getId();
+            $user = $em->getRepository('AppBundle:User')->find($userId);
+            $thread->setUser($user);
+            $em->persist($thread);
+            $em->flush();
+
+
+        }
+
+        return $this->render('threads/thread.html.twig', array(
+            'thread' => $thread,
+            'form' => $form->createView(),
+        ));
+    }
 
     /**
      * Finds and displays a thread entity.
@@ -63,6 +120,27 @@ class ThreadsController extends Controller
             'thread' => $thread,
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+    public function showFrontAction(Request $request)
+    {
+
+
+        $thread_id = $request->query->get('id');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $comments = $em->getRepository('CommunicationBundle:Comments')->findByThread($thread_id);
+
+        $thread = $em->getRepository('CommunicationBundle:Threads')->find($thread_id);
+
+        $deleteForm = $this->createDeleteForm($thread);
+
+        return $this->render('@Communication/Default/ThreadComments.html.twig', array(
+            'thread' => $thread,
+            'delete_form' => $deleteForm->createView(),
+            'comment' => $comments
+        ));
+
     }
 
     /**

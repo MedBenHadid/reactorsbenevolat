@@ -3,8 +3,20 @@ reclamation_requete:
     prefix:   /requete
 
 reclamation_homepage:
-    path:     /reclamation
+    path:     /
     defaults: { _controller: ReclamationBundle:Default:index }
+reclamation_filter:
+    path:     /reclamation_filter/{statut}
+    defaults: { _controller: ReclamationBundle:Requete:filtrestatut }
+reaclamation_homepage:
+    path:     /a
+    defaults: { _controller: ReclamationBundle:Requete:affich }
 reclamation_rponse:
     resource: "@ReclamationBundle/Resources/config/routing/rponse.yml"
     prefix:   /rponse
+reclamation_ticket:
+    path:     /ticket
+    defaults: { _controller: ReclamationBundle:Requete:ticket }
+reclamation_rep:
+    path:     /rep
+    defaults: { _controller: ReclamationBundle:Rponse:rep }

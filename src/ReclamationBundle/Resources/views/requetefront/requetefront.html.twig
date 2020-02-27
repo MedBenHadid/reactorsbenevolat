@@ -7,6 +7,28 @@
 <link href="{{ asset('assets/ramyfront/css/first.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
+<<<<<<< HEAD
+=======
+    <style type="text/css">
+        .my_content_container a {
+            border-bottom: 1px solid #777777;
+            border-left: 1px solid #000000;
+            border-right: 1px solid #333333;
+            border-top: 1px solid #000000;
+            color: #000000;
+            display: block;
+            height: 3.5em;
+            padding: 0 1em;
+            width: 10em;
+            text-decoration: none;
+        }
+        // :hover and :active styles left as an exercise for the reader.
+    </style>
+
+    <div class="my_content_container">
+        <a href="{{ path('reaclamation_homepage') }}">Mes tickets</a>
+    </div>
+>>>>>>> cb56f420a8b89a2243a857d6305aaba285b48730
 <div class="container">
     <div class="row">
         <form action="{{ path('add_requete') }}" method="post" class="smart-green">
@@ -49,4 +71,8 @@
         </form>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> cb56f420a8b89a2243a857d6305aaba285b48730
 {% endblock %}

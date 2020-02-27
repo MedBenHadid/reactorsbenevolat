@@ -11,6 +11,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <!-- please don't touch my shit :'( -->
+    <!--ramy stuff don't touch-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/rating/css/rating.css') }}" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ asset('assets/rating/js/rating.js') }}"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/icons/favicon.ico') }}">
     <link href="{{ asset('assets/back/dist/css/style.min.css') }}" rel="stylesheet">
@@ -24,7 +31,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/back/images/favicon.png')}}">
     <!-- Custom CSS -->
-    <link href="{{     ('assets/back/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/back/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
     <link href={{ asset('assets/back/libs/chartist/dist/chartist.min.css')}} rel="stylesheet">
     <link href={{ asset('assets/back/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}} rel="stylesheet" />
     <!-- Custom CSS -->
@@ -38,11 +45,6 @@
     <![endif]-->
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <!--ramy stuff don't touch-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/rating/css/rating.css') }}" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="{{ asset('assets/rating/js/rating.js') }}"></script>
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     <link href="{{ asset('assets/back/dist/css/MissionCards.css')}}" rel="stylesheet">
@@ -91,7 +93,8 @@
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <!-- dark Logo text -->
-                                <h3  class="dark-logo page-title text-truncate  font-weight-medium mb-1 " >Reactors </h3>
+                                <h3  class="dark-logo page-title text-truncate  font-weight-medium mb-1 " >Reactors
+</h3>
                                 <!-- Light Logo text -->
                             </span>
                         </a>
@@ -142,7 +145,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="nav-link pt-3 text-center text-dark" href="javascript:void(0);">
+                                        <a class="nav-link pt-3 text-center text-dark" href="{{ path('notification_index') }}">
                                             <strong>Check all notifications</strong>
                                             <i class="fa fa-angle-right"></i>
                                         </a>
@@ -179,9 +182,6 @@
                                     <i data-feather="mail" class="svg-icon mr-2 ml-1"></i>Inbox
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('homepage') }}">
-                                    <i data-feather="home" class="svg-icon mr-2 ml-1"></i>Acceuil
-                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{path('fos_user_security_logout')}}">
                                     <i data-feather="power" class="svg-icon mr-2 ml-1"></i>Logout
@@ -275,6 +275,8 @@
                                 </li>
                             </ul>
                         </li>
+
+
                         <!--  Section issam-->
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
@@ -399,13 +401,29 @@
                                 <li class="breadcrumb-item"><a
                                     {% if is_granted('ROLE_SUPER_ADMIN') %}
                                         href="{{ path('dashboard_admin_homepage')}}"
-                                    {% elseif is_granted('ROLE_ASSOCIATION_ADMIn')%}
+                                    {% elseif is_granted('ROLE_ASSOCIATION_ADMIN')%}
                                         href="{{ path('dashboard_manager_homepage') }}"
                                     {% endif %} class="text-muted">Dashboard</a></li>
                                 <li class="breadcrumb-item text-muted active" aria-current="page">{% block bread %}  {% endblock %}</li>
                             </ol>
                         </nav>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div aria-live="polite" aria-atomic="true" style="position: relative; z-index: 2">
+            <div class="toast fade hide" id="toast" data-autohide="false" style="position: absolute; top: 0; right: 0;">
+                <div class="toast-header">
+                    <div class="spinner-grow text-success" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <strong class="mr-auto">Notification</strong>
+*                    <button type="button" class="ml-2 mb-1 close" onclick="f()" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="toast-body">
+                    New notification ! please check it :)
                 </div>
             </div>
         </div>
@@ -420,10 +438,12 @@
             {% endblock %}
         </div>
     </div>
+
     <footer class="footer text-center text-muted">
         All Rights Reserved by Tropical Monkeys.
 
     </footer>
+
 </div>
 
     <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
@@ -447,29 +467,95 @@
 {{ notifications_assets() }}
 
 <script>
+    function f() {document.getElementById('toast').classList.replace('show','hide') ; }
+    function sendAccepter(id_notification,this1)
+    {
+        document.getElementById("btn_notif"+id_notification).style.display="none";
+        document.getElementById("spinner_notif"+id_notification).innerHTML='<div style="text-align: center;"><i class="fa fa-spinner fa-spin"></i></div> ';
+        $.ajax({
+            url:  "{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/notification/AcceptInvi/"+id_notification,
+            method: "POST",
+            data: id_notification,
+            success: function (response) {
+                console.log(response);
+
+                document.getElementById("spinner_notif"+id_notification).style.color ="green";
+                setTimeout(function(){
+                    document.getElementById("spinner_notif"+id_notification).innerHTML='<div style="text-align: center;"><i class="fa fa-check"></i></div> ';
+                }, 4000);
+            }
+        });
+
+
+
+    }
+
+
+
+    function sendRefuser(id_notification,this1)
+    {
+        document.getElementById("btn_notif"+id_notification).style.display="none";
+        document.getElementById("spinner_notif"+id_notification).innerHTML='<div style="text-align: center;"><i class="fa fa-spinner fa-spin"></i>\n' +
+            '                                    <span class="sr-only">Loading...</span>\n' +
+            '                                </div></div> ';
+        $.ajax({
+            url:  "{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/notification/RefuserInvi/"+id_notification,
+            method: "POST",
+            data: id_notification,
+            success: function (response) {
+
+                setTimeout(function(){
+                    document.getElementById("spinner_notif"+id_notification).innerHTML='<div style="text-align: center;color:red"><i class="fas fa-times"></i></div> ';
+                }, 4000);
+            }
+        });
+
+
+
+    }
+
     var DataNotification=[];
     $(document).ready(function(){
         $.ajax({
-            url: "http://127.0.0.1:8000/mission/notification",
+            url:  "{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/notification/list",
             method: "POST",
-            data: {% if app.user %}{{  app.user.id }}{% endif %},
+            data: {{  app.user.id }},
             success: function (dataNotif) {
                 //console.log("Response :  " + JSON.stringify(dataNotif));
                 DataNotification.push(dataNotif);
                 console.log("MyDATANOTIFICATION"+DataNotification);
                 console.log("Count Notification "+DataNotification.length);
-                for (let i = 0; i <5 ; i++) {
-                    console.log(dataNotif[i]);
-                    document.getElementById("ListNotification").innerHTML+="  <a href='javascript:void(0)'\n" +
-                        "                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'>\n" +
+                document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
+
+
+             for (let i = 0; i <5 ; i++) {
+                    var url = '{{ path("notification_show", {'id': 'notif_id'}) }}';
+                    url = url.replace("notif_id", dataNotif[i].id);
+                    console.log("Invi----"+JSON.stringify(dataNotif[i].seen));
+
+                    document.getElementById("ListNotification").innerHTML+="  <a href="+url+"\n" +
+                        "                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'><span id='spinner_notif"+dataNotif[i].id+"' ></span>\n" +
                         "                                                <div class='w-75 d-inline-block v-middle pl-2'>\n" +
                         "                                                    <h6 class='message-title mb-0 mt-1'>"+dataNotif[i].title+"</h6>\n" +
-                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].description+"\n"+
+                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].description+"</span>\n"+
                         "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].date.date+"</span>\n" +
                         "                                                </div>\n" +
-                        "                                            </a>";
+                        "                                            </a>" +
+                    "                                                    <span style='margin-left: 10px' id='btn_notif"+dataNotif[i].id+"' ></span>"
+
+                    ;
+                    if(dataNotif[i].id_invitation!=null){
+                        document.getElementById("btn_notif"+dataNotif[i].id).innerHTML="<button type=\"button\" class=\"btn btn-success\" onclick=\"sendAccepter("+dataNotif[i].id+",this)\">Accepter</button>\n" +
+                            "<button type=\"button\" class=\"btn btn-danger\" onclick=\"sendRefuser("+dataNotif[i].id+",this)\">Refuser</button>     "
+
+                    }
+                    if(dataNotif[i].seen==true){
+                    document.getElementById("btn_notif"+dataNotif[i].id).style.display="none";
+                 document.getElementById("spinner_notif"+dataNotif[i].id).innerHTML='<div style="text-align: center;color:green"><i class="fa fa-check"></i></div> ';
+
+                    }
                 }
-                document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
+
             }
         });
 
@@ -492,29 +578,43 @@
     channel.bind("my-event", function(data) {
         // console.log('from notifications channel', data);
         // console.log("MyData-----"+data);
-        var  DataNotification=[];
 
         $.ajax({
-            url: "http://127.0.0.1:8000/mission/notification",
+            url:  "{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/mission/notification",
             method: "POST",
             data: data,
             success: function (dataNotif) {
-                // console.log("Response :  " + JSON.stringify(dataNotif));
+             console.log("Response -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+                document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
+                document.getElementById("ListNotification").innerHTML="";
+                $("#toast").removeClass("hide");
 
+                $("#toast").addClass("show");
                 for (let i = 0; i <5 ; i++) {
-                    console.log(dataNotif[i]);
-                    document.getElementById("ListNotification").innerHTML+="  <a href='javascript:void(0)'\n" +
-                        "                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'>\n" +
+                    var url = '{{ path("notification_show", {'id': 'notif_id'}) }}';
+                    url = url.replace("notif_id", dataNotif[i].id);
+                    console.log("Invi----"+JSON.stringify(dataNotif[i].seen));
+
+
+                    document.getElementById("ListNotification").innerHTML+="  <a href='"+url+"' class='message-item d-flex align-items-center border-bottom px-3 py-2'><span id='spinner_notif"+dataNotif[i].id+"' ></span>\n" +
                         "                                                <div class='w-75 d-inline-block v-middle pl-2'>\n" +
                         "                                                    <h6 class='message-title mb-0 mt-1'>"+dataNotif[i].title+"</h6>\n" +
-                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].description+"\n"+
-                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].data+"</span>\n" +
+                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].description+"</span>\n"+
+                        "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].date.date+"</span>\n" +
                         "                                                </div>\n" +
-                        "                                            </a>";
+                        "                                            </a>" +
+                        "                                                    <span style='margin-left: 10px' id='btn_notif"+dataNotif[i].id+"' ></span>";
+                    if(dataNotif[i].id_invitation!=null){
+                        document.getElementById("btn_notif"+dataNotif[i].id).innerHTML="<button type=\"button\" class=\"btn btn-success\" onclick=\"sendAccepter("+dataNotif[i].id+",this)\">Accepter</button>\n" +
+                            "<button type=\"button\" class=\"btn btn-danger\" onclick=\"sendRefuser("+dataNotif[i].id+",this)\">Refuser</button>     "
+
+                    }
+                    if(dataNotif[i].seen===true){
+                        document.getElementById("btn_notif"+dataNotif[i].id).style.display="none";
+                        document.getElementById("spinner_notif"+dataNotif[i].id).innerHTML='<div style="text-align: center;color:green"><i class="fa fa-check"></i></div> ';
+
+                    }
                 }
-
-
-                document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
 
             }
         });

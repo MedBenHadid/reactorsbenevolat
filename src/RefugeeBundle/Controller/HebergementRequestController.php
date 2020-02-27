@@ -35,6 +35,11 @@ class HebergementRequestController extends Controller
 
         $hebergementRequests = $em->getRepository('RefugeeBundle:HebergementRequest')->findAll();
 
+        $paginator = $this->get('knp_paginator');
+        $hebergementRequests =  $paginator->paginate($hebergementRequests ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
+
         return $this->render($twig, array(
             'hebergementRequests' => $hebergementRequests,
         ));
