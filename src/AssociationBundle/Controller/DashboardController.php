@@ -108,8 +108,27 @@ class DashboardController extends Controller
      */
     public function newAction(Request $request)
     {
+
         $adherance = new Adherance();
+
         $form = $this->createForm('AssociationBundle\Form\AdheranceType', $adherance);
+        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
+
+        $adherances = $this->getDoctrine()->getRepository('AssociationBundle:Adherance')->findAll();
+
+        $notusers = array();
+        foreach ($adherances as $adherance){
+            if(in_array($adherance->getUser(), $users, true)){
+                $notusers[] = $adherance->getUser();
+            }
+        }
+        $form->add('user', EntityType::class, [
+            'class' => 'AppBundle\Entity\User',
+            'empty_data' => true,
+            'choice_label' => 'username',
+            'mapped' => false,
+        ]);
+        $form->get('user')->setData($notusers);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
@@ -127,22 +146,7 @@ class DashboardController extends Controller
         }
 
 
-        $users = $this->getDoctrine()->getRepository('AppBundle:User')->findAll();
-        $adherances = $this->getDoctrine()->getRepository('AssociationBundle:Adherance')->findAll();
-        $notusers = array();
-        foreach ($adherances as $adherance){
-            if(in_array($adherance->getUser(), $users, true)){
-                $notusers[] = $adherance->getUser();
-            }
-        }
-var_dump(sizeof($notusers));
-        $form->add('user', EntityType::class, [
-            'class' => 'AppBundle\Entity\User',
-            'empty_data' => true,
-            'choice_label' => 'username',
-            'mapped' => false,
-        ]);
-           $form->get('user')->setData($notusers);
+
 
         return $this->render('@Association/dashboard/adherance/new.html.twig', array(
             'adherance' => $adherance,

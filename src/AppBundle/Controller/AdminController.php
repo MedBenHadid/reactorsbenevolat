@@ -24,4 +24,13 @@ class AdminController extends Controller
         return $this->render('@App/default/index.html.twig');
     }
 
+    /**
+     * @Route(path="/dashboard/member",name="dashboard_member_homepage")
+     * @IsGranted("ROLE_MEMBER")
+     */
+    public function memberAction(){
+
+        return $this->render('@App/default/index.html.twig');
+    }
+
 }

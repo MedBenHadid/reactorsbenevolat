@@ -242,9 +242,16 @@
                             {% elseif is_granted('ROLE_ASSOCIATION_ADMIN')%}
                                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                     <li class="sidebar-item">
-                                        <a href="{{ path('manager_association_index') }}" class="sidebar-link">
+                                        <a href="{{ path('manager_association_show') }}" class="sidebar-link">
                                         <span class="hide-menu">
                                             Votre association
+                                        </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ path('dashboard_manager_adherance_index') }}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Vos adhérances
                                         </span>
                                         </a>
                                     </li>

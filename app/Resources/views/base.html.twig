@@ -66,6 +66,8 @@
                                     <a href="{{ path('dashboard_admin_homepage') }}">Dashboard</a>
                                 {% elseif is_granted('ROLE_ASSOCIATION_ADMIN')  %}
                                     <a href="{{ path('dashboard_manager_homepage') }}">Dashboard</a>
+                                {% elseif is_granted('ROLE_MEMBER')  %}
+                                    <a href="{{ path('dashboard_member_homepage') }}">Dashboard</a>
                                 {% endif %}
                             </div>
                         </div>
