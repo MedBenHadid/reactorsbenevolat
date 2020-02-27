@@ -1,12 +1,13 @@
 {% extends '::baseback.html.twig' %}
 {% block title %}Modification:{{ association.nom }} {% endblock %}
 {% block info %}Modification de l'association <b>{{ association.nom }}</b>:{% endblock %}
-{% block bread %}<a href="{{ path('association_index') }}">Association</a> /{{ association.nom }} {% endblock %}
+{% block bread %}<a href="{{ path('association_index') }}">Association</a> / {{ association.nom }} {% endblock %}
 {% block body %}
     <h1>Association edit</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
+
         <input type="submit" value="Edit" />
     {{ form_end(edit_form) }}
 

@@ -7,7 +7,6 @@ use AssociationBundle\Entity\Association;
 use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -48,10 +47,10 @@ class RegistrationController extends BaseController
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
                 //return var_dump($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
-                $user->addRole(User::USER);
+                $user->setRoles(array("ROLE_CLIENT"));
                 $user->setApprouved(1);
-                $user->setMail($request->request->all()['fos_user_registration_form']['email']);
-                $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
+                $user->setEmail($request->request->all()['fos_user_registration_form']['email']);
+                $user->setPlainPassword($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
@@ -76,6 +75,7 @@ class RegistrationController extends BaseController
             'form' => $form->createView(),
         ));
     }
+
 
 
     public function registerAdminAssociationAction(Request $request)
@@ -107,47 +107,38 @@ class RegistrationController extends BaseController
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
                 $user->addRole(User::ASSOCIATION_ADMIN);
-                $user->setApprouved(0);
-                $user->setEnabled(0);
+                $user->setApprouved(false);
+                $user->setEnabled(false);
 
-                $user->setMail($request->request->all()['fos_user_registration_form']['email']);
-                $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
+                $user->setCin($request->request->all()['fos_user_registration_form']['id']);
+
+                $user->setPlainPassword($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $userManager->updateUser($user);
-
                 // AJOUT association
                 $association = new Association();
-                $association->setNomAssociation($request->request->get('nom_association'));
-                $association->setTelephoneAssociation($request->request->get('tel_association'));
+                $association->setNom($request->request->get('nom_association'));
+                $association->setTelephone($request->request->get('tel_association'));
                 $cat = $this->getDoctrine()->getRepository('AssociationBundle:Category')->find($request->request->get('domaine'));
                 $association->setDomaine($cat);
-
                 $association->setHoraireTravail($request->request->get('horaire_association'));
-
                 $filePh = $request->files->get('photo_association');
                 $imgExtension = $request->files->get('photo_association')->guessExtension();
                 $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
                 $filePh->move($this->getParameter('association_image_directory'), $imgName);
-
-                $association->setPhotoAssociation( $imgName);
-
+                $association->setPhoto( $imgName);
                 $association->setManager($user);
-
                 $filePh = $request->files->get('piece_association');
                 $imgExtension = $request->files->get('piece_association')->guessExtension();
                 $imgNameWithoutSpace = str_replace(' ', '', $request->request->get('nom_association'));
                 $imgName = $imgNameWithoutSpace . "." . $imgExtension;
                 $filePh->move($this->getParameter('pieces_directory'), $imgName);
-
                 $association->setPieceJustificatif( $imgName);
-
                 $association->setRue($request->request->get('rue_association'));
                 $association->setCodePostal($request->request->get('code_postal_association'));
                 $association->setVille($request->request->get('ville_association'));
                 $association->setLatitude($request->request->get('lat_association'));
                 $association->setLongitude($request->request->get('lng_association'));
-
-
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($association);
                 $em->flush();
@@ -157,14 +148,11 @@ class RegistrationController extends BaseController
                     $response = new RedirectResponse($url);
                 }
 
-                //$dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                //return $response;
                 $request->getSession()
                     ->getFlashBag()
                     ->add('success', 'Votre Demande de création association a eté envoyé avec succée');
-                ;
-                return $this->redirectToRoute('dashboard_manager_homepage');
+
+                return $this->redirectToRoute('homepage');
             }
 
             $event = new FormEvent($form, $request);
