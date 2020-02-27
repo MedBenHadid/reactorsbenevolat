@@ -1,6 +1,7 @@
 <?php
 namespace AssociationBundle\DataFixtures;
 
+use AssociationBundle\Entity\Adherance;
 use AssociationBundle\Entity\Association;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -18,7 +19,7 @@ class AssociationFixture extends Fixture implements DependentFixtureInterface
         $user->setPrenom('Chihab');
         $user->setNom("Hajji");
         $user->setPlainPassword('1ac2620f');
-        $user->addRole('ROLE_ASSOCIATION_ADMIN');
+        $user->addRole(User::ASSOCIATION_ADMIN);
 
         $manager->persist($user);
         $manager->flush();
@@ -26,16 +27,23 @@ class AssociationFixture extends Fixture implements DependentFixtureInterface
 
 
         $assocition = new Association();
-        $assocition->setNomAssociation("Enactus");
+        $assocition->setNom("Enactus");
         $assocition->setManager($user);
         $assocition->setDomaine($this->getReference(CategoryFixtures::SOCIAL_CATEGORY_REFERENCE));
         $assocition->setApprouved(true);
-        $assocition->setPhotoAssociation("enactus.jpeg");
-        $assocition->setTelephoneAssociation("71268147");
+        $assocition->setPhoto("enactus.jpeg");
+        $assocition->setTelephone("71268147");
         $assocition->setHoraireTravail("8 vers 17");
         $assocition->setPieceJustificatif("enactus.docx");
         $assocition->setCodePostal("2000");
 
+        $adherance = new Adherance();
+        $adherance->setAssociation($assocition);
+        $adherance->setUser($user);
+        $adherance->setFonction('Fondateur');
+        $adherance->setDescription('Fondée lassociation');
+
+        $manager->persist($adherance);
         $manager->persist($assocition);
         $manager->flush();
     }

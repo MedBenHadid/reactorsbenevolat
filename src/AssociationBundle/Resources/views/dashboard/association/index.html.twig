@@ -33,6 +33,12 @@
                     <div class="table-responsive">
                         <table class="table no-wrap v-middle mb-0">
                             <thead>
+                            <th>{{ knp_pagination_sortable(associations,'nom' , 'a.nom' ) }}</th>
+                            <th>{{ knp_pagination_sortable(associations,'manager' , 'a.manager' ) }}</th>
+                            <th></th>
+                            <th>{{ knp_pagination_sortable(associations,'approuved' , 'a.approuved' ) }}</th>
+                            <th></th>
+                            <th></th>
                             <tr class="border-0">
                                 <th class="border-0 font-14 font-weight-medium text-muted">
                                     Nom de l'association
@@ -49,9 +55,13 @@
                                 <th class="border-0 font-14 font-weight-medium text-muted">
                                     Modifier
                                 </th>
+                                <th class="border-0 font-14 font-weight-medium text-muted">
+                                    Supprimer
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
+                            {% for association in associations %}
                                 <tr>
                                     <td class="border-top-0 px-2 py-4">
                                         <div class="d-flex no-block align-items-center">
@@ -61,7 +71,7 @@
                                                         alt="user" class="rounded-circle" width="45"
                                                         height="45" /></div>
                                             <div class="">
-                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('manager_association_show', { 'id': association.id }) }}">{{ association.nom }}</a></h5>
+                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('admin_association_show', { 'id': association.id }) }}">{{ association.nom }}</a></h5>
                                                 <span class="text-muted font-14"><a href="{{ path('category_show', {'id': association.domaine.id }) }}">{{ association.domaine }}</a>
                                                 </span>
                                             </div>
@@ -70,10 +80,9 @@
                                     <td class="border-top-0 text-muted px-2 py-4 font-14"><a href="#">{{ association.manager }}</a> </td>
                                     <td class="border-top-0 px-2 py-4">
                                         <div class="popover-icon">
-                                            {% for member in association.memberships %}
-                                                <a class="btn btn-primary rounded-circle btn-circle font-12 popover-item" href="{{ path('association_index')}}">{{ member.user.prenom|first|capitalize }}{{ member.user.nom|first|capitalize }}</a>
+                                            {% for membership in association.memberships %}
+                                                <a class="btn btn-primary rounded-circle btn-circle font-12 popover-item" href="{{ path('association_index')}}">{{ membership.user.prenom|first|capitalize }}{{ membership.user.nom|first|capitalize }}</a>
                                             {% endfor %}
-
                                         </div>
                                     </td>
                                     {% if association.approuved ==1 %}
@@ -89,14 +98,32 @@
                                      </td>
                                      {% endif %}
                                     <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
-                                        <a href="{{ path('manager_association_edit', { 'id': association.id }) }}">Modifier</a>
+                                        <a href="{{ path('admin_association_edit', { 'id': association.id }) }}">Modifier</a>
+                                    </td>
+                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
+                                        <a href="javascript:confModal();">Supprimer</a>
+                                        <script>
+                                            function confModal() {
+                                                r = confirm("Voulez vous vraiment supprimer  {{ association.nom }}! Le compte du manager sera bloqué et l'association sera supprimé!");
+                                                if (r === true) {
+                                                    window.location.href = "{{ path('admin_association_ban', { 'id': association.id }) }}";
+                                                }
+                                            }
+                                        </script>
                                     </td>
                                 </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
+                    </div>
+                    <div class="navigation">
+                        {{ knp_pagination_render(associations) }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- *************************************************************** -->
+    <!-- End Top Leader Table -->
+    <!-- *************************************************************** -->
 {% endblock %}

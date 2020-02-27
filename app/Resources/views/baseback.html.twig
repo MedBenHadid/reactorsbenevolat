@@ -38,6 +38,11 @@
     <![endif]-->
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <!--ramy stuff don't touch-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/rating/css/rating.css') }}" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="{{ asset('assets/rating/js/rating.js') }}"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
     <link href="{{ asset('assets/back/dist/css/MissionCards.css')}}" rel="stylesheet">
@@ -86,8 +91,7 @@
                             <!-- Logo text -->
                             <span class="logo-text">
                                 <!-- dark Logo text -->
-                                <h3  class="dark-logo page-title text-truncate  font-weight-medium mb-1 " >Reactors
-</h3>
+                                Reactors
                                 <!-- Light Logo text -->
                             </span>
                         </a>
@@ -175,6 +179,9 @@
                                     <i data-feather="mail" class="svg-icon mr-2 ml-1"></i>Inbox
                                 </a>
                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('homepage') }}">
+                                    <i data-feather="home" class="svg-icon mr-2 ml-1"></i>Acceuil
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{path('fos_user_security_logout')}}">
                                     <i data-feather="power" class="svg-icon mr-2 ml-1"></i>Logout
@@ -235,7 +242,7 @@
                             {% elseif is_granted('ROLE_ASSOCIATION_ADMIN')%}
                                 <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                     <li class="sidebar-item">
-                                        <a href="{{ path('manager_association_index') }}" class="sidebar-link">
+                                        <a href="{{ path('manager_association_show') }}" class="sidebar-link">
                                         <span class="hide-menu">
                                             Votre association
                                         </span>
@@ -246,6 +253,7 @@
 
                         </li>
                         <!-- Domaine section -->
+                        {% if is_granted('ROLE_SUPER_ADMIN') %}
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                                 <i data-feather="file-text" class="feather-icon"></i>
@@ -253,7 +261,7 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item">
-                                    <a href="{{ path('category_index') }}" class="sidebar-link">
+                                    <a href="{{ path('admin_category_index') }}" class="sidebar-link">
                                         <span class="hide-menu">
                                             Liste des domaine d'activité
                                         </span>
@@ -268,6 +276,33 @@
                                 </li>
                             </ul>
                         </li>
+                        {% endif %}
+
+                        <!-- Adherance section -->
+                        {% if is_granted('ROLE_ASSOCIATION_ADMIN')%}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <i data-feather="file-text" class="feather-icon"></i>
+                                <span class="hide-menu">Gestion des adhérances : </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                <li class="sidebar-item">
+                                    <a href="{{ path('dashboard_manager_adherance_index') }}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Liste des adhérances
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="{{ path('dashboard_manager_adherance_new') }}" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Créer une nouvelle adhérance
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% endif %}
                         <!--  Section issam-->
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
@@ -429,12 +464,10 @@
             {% endblock %}
         </div>
     </div>
-
     <footer class="footer text-center text-muted">
         All Rights Reserved by Tropical Monkeys.
 
     </footer>
-
 </div>
 
     <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
@@ -565,6 +598,7 @@
     channel.bind("my-event", function(data) {
         // console.log('from notifications channel', data);
         // console.log("MyData-----"+data);
+        var  DataNotification=[];
 
         $.ajax({
             url:  "{{ app.request.schemeAndHttpHost ~ app.request.baseUrl }}/mission/notification",

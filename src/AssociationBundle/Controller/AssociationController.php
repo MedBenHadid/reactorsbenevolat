@@ -2,14 +2,9 @@
 
 namespace AssociationBundle\Controller;
 
-use AppBundle\Entity\User;
 use AssociationBundle\Entity\Association;
-use http\Env\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Association controller.
@@ -19,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AssociationController extends Controller
 {
     /**
-     * @Route("/", name="association_index",methods={"GET"})
+     * @Route(path="/", name="association_index",methods={"GET"})
      */
     public function indexAction()
     {
@@ -27,18 +22,18 @@ class AssociationController extends Controller
 
         $associations = $em->getRepository('AssociationBundle:Association')->findAll();
 
-        return $this->render('@Association/association/index.html.twig', array(
+        return $this->render('@Association/front/association/index.html.twig', array(
             'associations' => $associations,
         ));
     }
 
     /**
-     * @Route("/{id}", name="association_show",methods={"GET"})
+     * @Route(path="/{id}", name="association_show",methods={"GET"})
      */
     public function showAction(Association $association)
     {
 
-        return $this->render('@Association/association/show.html.twig', array(
+        return $this->render('@Association/front/association/show.html.twig', array(
             'association' => $association
         ));
     }
