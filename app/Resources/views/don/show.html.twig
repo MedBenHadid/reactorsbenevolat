@@ -1,0 +1,102 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <div class="container my-3">
+        <h1>Don</h1>
+            <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ don.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ don.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ don.description }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ don.address }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ don.domaine }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ don.state }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ don.phone }}</td>
+            </tr>
+            <tr>
+                <th>Ups</th>
+                <td>{{ don.ups }}</td>
+            </tr>
+            <tr>
+                <th>Creationdate</th>
+                <td>{% if don.creationDate %}{{ don.creationDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+
+            <tr>
+                <td>                                <p class="form-row form-row-wide">
+                        <label for="password">Emplacement Association:
+                            <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
+                            <input type="hidden" name="lat_don" id="lat_demande" value="{{don.latitude }}" />
+                            <input type="hidden" name="lng_demande" id="lng_doné" value="{{don.longitude }}" />
+                        </label>
+                    </p></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('don_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('don_edit', { 'id': don.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+                {{ form_end(delete_form) }}
+        </li>
+    </ul>
+</div>
+
+
+
+
+    <script>
+
+        function initMap() {
+            var myLatLng = {lat: {{don.latitude}}, lng: {{don.longitude}}};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+
+            });
+
+
+
+
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD00UW-yFHi17pDyHLe19_ImRpo0ja5Q3k&callback=initMap">
+    </script>
+
+{% endblock %}

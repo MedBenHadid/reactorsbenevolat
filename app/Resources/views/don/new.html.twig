@@ -1,0 +1,202 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+<div class="container my-3">
+    <h1>Don creation</h1>
+<div class="row">
+    <div class="col-sm-12 col-lg-6">
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.title ,'titre de donnation') }}
+            {{ form_widget(form.title ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.description ,'description') }}
+            {{ form_widget(form.description ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+        {% if form.creationDate is defined   %}
+        <div class="form-group">
+            {{ form_label(form.creationDate ,'Date de creation') }}
+            {{ form_widget(form.creationDate ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+        {% endif %}
+        <div class="form-group">
+            {{ form_label(form.address ,'address') }}
+            {{ form_widget(form.address ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.state ,'etat de donnation') }}
+            {{ form_widget(form.state ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.phone ,'Telephone') }}
+            {{ form_widget(form.phone ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.ups ,'UPS') }}
+            {{ form_widget(form.ups ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+
+        <div class="form-group">
+            {% if form.creationDate is defined   %}
+            {{ form_label(form.user ,'utilisateur') }}
+            {{ form_widget(form.user ,{'attr': { 'class' : 'form-control'}}) }}
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.domaine ,'domaine') }}
+            {{ form_widget(form.domaine ,{'attr': { 'class' : 'form-control'}}) }}
+        </div>
+
+
+        <div class="form-group">
+        <p class="form-row form-row-wide">
+            <label for="password">Emplacement donnation:
+                <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
+                <input type="hidden" name="lat_don" id="lat_don" value="0" />
+                <input type="hidden" name="lng_don" id="lng_don" value="0" />
+            </label>
+        </p>
+        </div>
+
+        <div class="form-group">
+            <ul>
+            <li>
+                <a href="{{ path('don_index') }}">Back to the list</a>
+            </li>
+        </ul>
+
+
+
+
+        </div>
+        <button type="submit" class="btn btn-primary">Créer</button>
+
+
+
+        {{ form_end(form) }}
+    </div>
+</div>
+</div>
+
+
+
+
+    <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
+    <script>
+        function onchangeImgAg(){
+            input = document.getElementById('photo_association');
+            file = input.files[0];
+            console.log(file);
+
+            fr = new FileReader();
+            fr.onload = showImage;
+            //fr.readAsText(file);
+            fr.readAsDataURL(file);
+
+            function showImage() {
+                $("#img_ag").attr("src",fr.result);
+            }
+        }
+
+        function onchangePieceAg(){
+            input = document.getElementById('piece_association');
+            file = input.files[0];
+            console.log(file);
+
+            fr = new FileReader();
+            fr.onload = showImage;
+            //fr.readAsText(file);
+            fr.readAsDataURL(file);
+
+            function showImage() {
+                $("#piece_ag").attr("src",fr.result);
+            }
+        }
+    </script>
+
+    <script>
+
+        function initMap() {
+            var myLatLng = {lat: 36.772315, lng: 10.0375315};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: myLatLng
+            });
+
+
+
+
+
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    map.setCenter(pos);
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: 'Emplacement Association',
+                        draggable: true
+                    });
+                    google.maps.event.addListener(marker, 'dragend', function(evt){
+                        //$('#emplacement_lat').val(evt.latLng.lat());
+                        //$('#emplacement_lng').val(evt.latLng.lng());
+                        document.getElementById('lat_don').value = evt.latLng.lat();
+                        document.getElementById('lng_don').value = evt.latLng.lng();
+                        //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+                    });
+                }, function() {
+                    //handleLocationError(true, infoWindow, map.getCenter());
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        title: 'Emplacement Association',
+                        draggable: true
+                    });
+                    google.maps.event.addListener(marker, 'dragend', function(evt){
+                        document.getElementById('lat_don').value = evt.latLng.lat();
+                        document.getElementById('lng_don').value = evt.latLng.lng();
+                        //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+                    });
+                    alert('Error: The Geolocation service failed.');
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                //handleLocationError(false, infoWindow, map.getCenter());
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Emplacement Association',
+                    draggable: true
+                });
+                google.maps.event.addListener(marker, 'dragend', function(evt){
+                    document.getElementById('lat_don').value = evt.latLng.lat();
+                    document.getElementById('lng_don').value = evt.latLng.lng();
+                    //document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+                });
+                alert('Error: The Geolocation service failed.');
+            }
+
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+        }
+
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD00UW-yFHi17pDyHLe19_ImRpo0ja5Q3k&callback=initMap">
+    </script>
+{% endblock %}
