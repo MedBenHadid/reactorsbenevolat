@@ -59,6 +59,9 @@ ul[class^='topic-item-'] {
 .agenda .agenda-date .shortdate {
     font-size: 0.75em;
 }
+div.c {
+    font-size: 300%;
+}
 
 
 /* Times */

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_nasri.html.twig' %}
 {% block search %}
     <div class="rehomes-search-form-area">
         <div class="container">
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-2">
-                            <button type="submit" class="btn rehomes-search-btn">Search</button>
+                            <button type="submit" class="btn rehomes-search-btn">Rechercher</button>
                         </div>
                     </div>
                 </form>
@@ -97,7 +97,9 @@
                         <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                             <!-- Property Thumb -->
                             <div class="property-thumb">
-                                <img src="{{ asset('uploads/images/hebergementsImages/' ~ hebergement.image) }}" alt="">
+                                <a href="{{ path('comment_index', { 'hebergementId' : hebergement.id }) }}">
+                                    <img src="{{ asset('uploads/images/hebergementsImages/' ~ hebergement.image) }}" alt="">
+                                </a>
                             </div>
 
                             <!-- Property Description -->

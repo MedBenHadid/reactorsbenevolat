@@ -17,3 +17,6 @@ reclamation_rponse:
 reclamation_ticket:
     path:     /ticket
     defaults: { _controller: ReclamationBundle:Requete:ticket }
+reclamation_rep:
+    path:     /rep
+    defaults: { _controller: ReclamationBundle:Rponse:rep }

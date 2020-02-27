@@ -8,7 +8,8 @@
 
 <div class="container">
     <div class="row">   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <button type="button">   <a href="/thread/add" class="button">Add a new thread </a></button>
+            <div class="c"> le nombre  des sujets de discussion est :{{  nthreads  }} </div> <br>
+            <button type="button">   <a href="{{ path('thread_add') }}">Ajouter un nouvel sujet de discussion </a></button>
 
 
             <table class="table table-striped">
@@ -23,10 +24,13 @@
                 <tr>
                     <td><br/><a href="{{ path('threads_front',{'id': i.id}) }}" >{{ i.title }}</a><br/><i class="fa fa-map-marker"></i>
                         {#{{ i.User }}#}<br/>{{ i.content }}</td>
+
                     <td>{#{{ i.Lastmodified|date('Y-m-d') }}#}</td>
+
                 </tr>
 
                     {% endfor %}
+
                 </tr>
 
 
@@ -34,6 +38,8 @@
                 </tbody>
             </table>
         </div>
+        <div> {{ knp_pagination_render(threads) }}</div>
+
 
     </div>
 

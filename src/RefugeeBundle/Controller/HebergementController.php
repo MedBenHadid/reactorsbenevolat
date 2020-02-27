@@ -23,6 +23,12 @@ class HebergementController extends Controller
         $hebergements = $this->getDoctrine()->getRepository('RefugeeBundle:Hebergement')
         ->search($governorat, $nbrRooms, $duration);
 
+
+        $paginator = $this->get('knp_paginator');
+        $hebergements =  $paginator->paginate($hebergements ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
+
         return $this->render('@Refugee/front/Hebergement/index.html.twig', array(
             'hebergements' => $hebergements
         ));

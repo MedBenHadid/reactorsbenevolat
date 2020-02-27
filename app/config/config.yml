@@ -16,13 +16,14 @@ parameters:
     locale: fr
     upload_dir: '%kernel.project_dir%/web/uploads/images'
     association_directory: '%kernel.root_dir%/../web/client/images/association/images'
-    pieces_directory: '%kernel.root_dir%/../web/client/images/association/pieces'
     refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
     dons_image_directory: '%kernel.project_dir%/web/uploads/dons/images'
     mission_image_directory: '%kernel.project_dir%/web/uploads/mission/images'
     user_image_directory: '%kernel.project_dir%/web/uploads/user/images'
     association_image_directory: '%kernel.project_dir%/web/uploads/association/images'
     pieces_directory: '%kernel.project_dir%/web/uploads/association/pieces'
+    # don't delete this line for the love of god -- nasri
+    hebergementImages_directory: '%kernel.project_dir%/web/uploads/images/hebergementsImages'
 
 
 framework:
