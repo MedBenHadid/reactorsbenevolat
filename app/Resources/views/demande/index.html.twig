@@ -24,7 +24,7 @@
         <tbody>
         {% for demande in demandes %}
             <tr>
-                <td><a href="{{ path('demande_show', { 'id': demande.id }) }}">{{ demande.id }}</a></td>
+                <td><a href="{{ path('demande_back_show', { 'id': demande.id }) }}">{{ demande.id }}</a></td>
                 <td>{{ demande.title }}</td>
                 <td>{{ demande.description }}</td>
                 <td>{{ demande.address }}</td>
@@ -37,7 +37,7 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('demande_show', { 'id': demande.id }) }}">show</a>
+                            <a href="{{ path('demande_back_show', { 'id': demande.id }) }}">show</a>
                         </li>
                         <li>
                             <a href="{{ path('demande_edit', { 'id': demande.id }) }}">edit</a>
@@ -51,7 +51,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('demande_new') }}">Create a new demande</a>
+            <a href="{{ path('demande_back_new') }}">Create a new demande</a>
         </li>
     </ul>
 </div>

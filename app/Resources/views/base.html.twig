@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,7 @@
     <title>{% block title %}Reactors - Votre plateforme de bénévolat{% endblock %}</title>
     <link rel="icon" href="{{ asset('assets/back/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/appfront/style.css') }}">
+    <script src="https://kit.fontawesome.com/87cdab7d2a.js" crossorigin="anonymous"></script>
     <!--ramy stuff don't touch-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/rating/css/rating.css') }}" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -38,6 +40,16 @@
                         </div>
                         <div class="classynav">
                             <ul id="nav">
+                          <li>
+                                <li class="active"><a href="{{ path('homepage') }}">Page d'acceuil</a></li>
+                                <li><a href="{{ path('association_index') }}">Association</a></li>
+                                <li><a href="{{ path('don_homepage') }}">Don</a></li>
+                                </li>
+
+                                <li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{{ path('don_index') }}">- Don</a></li>
+                                        <li><a href="{{ path('demande_index') }}">- Demande d'aide</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li class="active"><a href="{{ path('homepage') }}">- Page d'acceuil</a></li>
@@ -171,6 +183,12 @@
     <script src="{{ asset('assets/appfront/js/default-assets/active.js') }}"></script>
 
 {% block javascript %}
+
+{% endblock %}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+{% block javascripts %}
 
 {% endblock %}
 </body>

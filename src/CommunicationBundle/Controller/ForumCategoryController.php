@@ -26,11 +26,21 @@ class ForumCategoryController extends Controller
             'forumCategories' => $forumCategories,
         ));
     }
-    public function homeAction()
+    public function homeAction(Request $request)
     {
+
         $em = $this->getDoctrine()->getManager();
 
+
         $forumCategories = $em->getRepository('CommunicationBundle:ForumCategory')->findAll();
+        if ($request->isMethod("POST")) {
+            $title = $request->get('title');
+            $threads = $em->getRepository('CommunicationBundle:Threads')->findBy(array('title'=>$title));
+            return $this->render('@Communication/Default/Recherche.html.twig', array(
+                'threads' => $threads,
+            ));
+        }
+
 
         return $this->render('@Communication/Default/ForumCategory.html.twig', array(
             'forumCategories' => $forumCategories,

@@ -1,1 +1,82 @@
-Hello World!
+{% extends 'base_nasri.html.twig' %}
+{% block breadcrumbs %}
+    <div class="breadcrumb-area bg-img bg-overlay-3 wow fadeInUp" data-wow-delay="200ms"
+         style="background-image: url({{ asset('assets/appfront/img/solidarity.jpg') }});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ path('homepage') }}">Accueil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Donnation</li>
+                            </ol>
+                        </nav>
+                        <h2 class="page-title">Espace de donnation</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block hero %}
+    <div class="jumbotron bg-light text-right mb-0">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 text-right">
+                <p class="lead">
+                    <a class="btn rehomes-btn btn-lg" href="{{ path('don_new') }}" role="button">Offrir une donnation</a>
+                </p>
+            </div>
+            <div class="col-lg-6 col-sm-12 text-left">
+                <p class="lead">
+                    <a class="btn rehomes-btn btn-lg" href="{{ path('demande_new') }}" role="button">Offrire de l'aide</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <hr class="m-0">
+{% endblock %}
+{% block choose %}
+    <section class="rehomes-choose-us-area section-padding-100-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center wow fadeInUp" data-wow-delay="200ms">
+                        <h2><span>Que Cherchez-vous</span>?</h2>
+                    </div>
+                </div>
+
+                <!-- Single choose us content -->
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="single-choose-us-content wow fadeInUp" data-wow-delay="200ms">
+                        <!-- Choose us Icon -->
+                        <div class="choose-us-icon">
+                            <a href="{{ path('don_index') }}"><i class="fas fa-hand-holding-usd"></i></a>
+                        </div>
+                        <h5>Liste des dons</h5>
+                        <p>
+                            dustry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu                        </p>
+                    </div>
+                </div>
+
+                <!-- Single choose us content -->
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="single-choose-us-content wow fadeInUp" data-wow-delay="200ms">
+                        <!-- Choose us Icon -->
+                        <div class="choose-us-icon">
+                            <a href="{{ path('demande_index') }}"><i class="fas fa-hands-helping"></i></a>
+                        </div>
+                        <h5>List des demandes des demandes d'aide</h5>
+                        <p>
+                            dustry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block body %}
+
+{% endblock %}

@@ -35,6 +35,7 @@ class AppKernel extends Kernel
             // Bundle externe Issam
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+      //bundle ramy
             //bundle rami
             new blackknight467\StarRatingBundle\StarRatingBundle(),
         ];
