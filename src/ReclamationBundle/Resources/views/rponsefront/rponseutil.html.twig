@@ -1,4 +1,4 @@
-{% extends '::base.html.twig' %}
+{% extends '::base_nasri.html.twig' %}
 {% block stylesheets %}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -27,11 +27,12 @@
 <div style="margin-right: -15px;margin-left: -15px;">
     <div style="width:100%;">
         <p>
-            Hello,<br/>
+            Salutation,<br/>
 
             <br/>
             <br/>
             &nbsp;{% for i in reponse %}
+
                 {{ i.sujet }}
                 <br/>
                 <br/>

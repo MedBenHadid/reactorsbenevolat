@@ -29,4 +29,5 @@ class RequeteRepository extends \Doctrine\ORM\EntityRepository
         $q = $this->getEntityManager()->createQuery($query);
         return $q->getResult();
     }
+
 }

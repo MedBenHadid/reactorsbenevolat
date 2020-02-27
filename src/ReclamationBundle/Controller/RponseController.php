@@ -19,12 +19,18 @@ class RponseController extends Controller
      */
     public function indexAction()
     {
+        $dm = $this->getDoctrine()->getManager();
+
         $em = $this->getDoctrine()->getManager();
+        $req = $dm->getRepository('ReclamationBundle:Requete')->findBy(array('statut' => 1));
+        $req = count($req);
+
 
         $rponses = $em->getRepository('ReclamationBundle:Rponse')->findAll();
 
         return $this->render('@Reclamation/rponse/index.html.twig', array(
             'rponses' => $rponses,
+            'nreq' => $req,
         ));
     }
 
