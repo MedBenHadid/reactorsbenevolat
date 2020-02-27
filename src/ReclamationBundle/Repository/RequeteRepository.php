@@ -10,4 +10,23 @@ namespace ReclamationBundle\Repository;
  */
 class RequeteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getRequeteIdByName($requeteName)
+    {
+        $query = $this->createQueryBuilder('r')
+            ->where('r.sujet = ' . ':requeteName')
+            ->setParameters(
+                [
+                    'requeteName' => $requeteName
+                ]
+            )
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function update($requeteId, $reponseId) {
+        $query = "UPDATE ReclamationBundle:Requete R SET R.rponse = '$reponseId', R.statut = 1 where R.id = '$requeteId'";
+        $q = $this->getEntityManager()->createQuery($query);
+        return $q->getResult();
+    }
 }

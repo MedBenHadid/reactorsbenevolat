@@ -1,0 +1,76 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+{% endblock %}
+{% block body %}
+
+
+
+<div style="margin-top:0%;width:100%;">
+    <a href="#">
+        <img src="{{ asset('assets/ramyfront/pics/freethinker.png') }}"
+             style="float: left !important;height: 40px;margin-top: 5px;margin:0;padding:0;" alt="Singtel" title="Singtel" />
+    </a>
+</div>
+<div style="padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;margin-top:3%;border-top:3px solid #ee0000;">
+
+    <div style="background:#fff;height:50px;float: left;">
+
+
+
+    </div>
+</div>
+
+<div style="margin-right: -15px;margin-left: -15px;">
+    <div style="width:100%;">
+        <p>
+            Hello,<br/>
+
+            <br/>
+            <br/>
+            &nbsp;{% for i in reponse %}
+                {{ i.sujet }}
+                <br/>
+                <br/>
+                {{ i.rep }}
+
+             {% endfor %}
+        </p>
+    </div>
+</div>
+
+<footer>
+
+    <div style="padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto;margin-top:1%;border-top:3px solid #ee0000;">
+
+        <div style="margin-right:-15px;margin-left:-15px;">
+
+
+        </div>
+    </div>
+
+</footer>
+    <style type="text/css">
+        .my_content_container a {
+            border-bottom: 1px solid #777777;
+            border-left: 1px solid #000000;
+            border-right: 1px solid #333333;
+            border-top: 1px solid #000000;
+            color: #000000;
+            display: block;
+            height: 3.5em;
+            padding: 0 1em;
+            width: 10em;
+            text-decoration: none;
+        }
+        // :hover and :active styles left as an exercise for the reader.
+    </style>
+
+    <div class="my_content_container">
+        <a href="{{ path('reaclamation_homepage') }}">Mes tickets</a>
+    </div>
+
+{% endblock %}

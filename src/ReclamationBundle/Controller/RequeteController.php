@@ -173,4 +173,7 @@ class RequeteController extends Controller
                 'requet' => $findbystatut,));
 
         }
+
+
+
 }
