@@ -27,6 +27,21 @@ class ThreadsController extends Controller
             'threads' => $threads,
         ));
     }
+    public function rechercheAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $threads = $em->getRepository('CommunicationBundle:Threads')->findAll();
+        if ($request->isMethod("POST")) {
+            $title = $request->get('title');
+            $threads = $em->getRepository('CommunicationBundle:Threads')->findBy(array('title'=>$title));
+        }
+
+
+        return $this->render('@Communication/Default/Recherche.html.twig', array(
+            'threads' => $threads,
+        ));
+    }
     public function homeAction(Request $request)
     {
         $categoryName = $request->query->get('categorie');
@@ -35,9 +50,15 @@ class ThreadsController extends Controller
 
 
         $threads = $em->getRepository('CommunicationBundle:Threads')->findByCategoryName($categoryName);
+        $paginator = $this->get('knp_paginator');
+        $threads=  $paginator->paginate($threads ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
+
+        $nthreads = count($threads);
 
 
-        return $this->render('@Communication/Default/Threads.html.twig', array('threads' => $threads));
+        return $this->render('@Communication/Default/Threads.html.twig', array('threads' => $threads,'nthreads' => $nthreads));
     }
 
     /**
@@ -78,7 +99,7 @@ class ThreadsController extends Controller
             $em->persist($thread);
             $em->flush();
 
-            return $this->redirectToRoute('threads_show', array('id' => $thread->getId()));
+
         }
 
         return $this->render('threads/thread.html.twig', array(

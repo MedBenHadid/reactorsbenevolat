@@ -101,4 +101,7 @@ body{font-family: 'Open Sans', sans-serif;}
         padding:5px;
         font-size:10px;
     }
+    div.c {
+        font-size: 300%;
+    }
 }

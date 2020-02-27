@@ -25,6 +25,10 @@ thread_add:
 thread_comments:
     path:     /thread/comment
     defaults: { _controller: CommunicationBundle:Threads:show }
+thread_recherche:
+    path:     /recherche
+    defaults: { _controller: CommunicationBundle:Threads:recherche }
+
 
 
 

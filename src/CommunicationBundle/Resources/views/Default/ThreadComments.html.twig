@@ -7,17 +7,29 @@
    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
    <link href="{{ asset('assets/front/css/MalekCSS1.css') }}" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <!------ Include the above in your HEAD tag ---------->
 
 
+   <div class="c">{{ thread.title }}</div>
 
+   <br>
+   <br>
          <!-- INFO -->
    <div class="photo">
+
+
       <div class="avatar" style="background-image: url('https://www.bordeaux-tourism.co.uk/var/ezwebin_site/storage/images/media/images/regards-bordelais/jean-poutge/profil-jean/12599-2-fre-FR/Profil-Jean_format_360x360.jpg')"></div>
+      {{ thread.user }}
+      <br>
+      <br>
+      <br>
+
    </div>
          <div class="row">
             <div class="col-xs-12">
-               <h4 style="line-height: 25px;">Tiene capacidad para 150.000 personas, sorprende a todo el mundo y no es el Santiago Bernabéu del Real Madrid, ni el Old Trafford del Manchester United, ni el Camp Nou del FC Barcelona.</h4>
+
+               <h4 style="line-height: 25px;"> {{ thread.content }}</h4>
             </div>
          </div>
          <div class="row row-eq-height" style="padding-right:15px">
@@ -143,6 +155,18 @@
       .comment-actions li:hover {
          color: #0095ff;
       }
+      div.c {
+         font-size: 300%;
+      }
+      .fa {
+         font-size: 50px;
+         cursor: pointer;
+         user-select: none;
+      }
+
+      .fa:hover {
+         color: darkblue;
+      }
    </style></head><body>
 
 <div class="comments">
@@ -151,7 +175,7 @@
          <div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg')"></div>
       </div>
       <div class="comment-block">
-         {{ thread.id }}
+
          <form action="{{ path('comments_newfront') }}" method="POST">
             <input type="text" value="{{ thread.id }}" name="thread_id" style="display: none">
             <textarea name="comment" id="" cols="30" rows="3" placeholder="Add comment..."></textarea>
@@ -166,13 +190,22 @@
    <div class="comment-wrap">
       <div class="photo">
          <div class="avatar" style="background-image: url('https://s3.amazonaws.com/uifaces/faces/twitter/felipenogs/128.jpg')"></div>
+         {{ thread.user }}
+         <br>
+         <br>
+         <br>
       </div>
       <div class="comment-block">
          <p class="comment-text"> {{ i.content }}</p>
          <div class="bottom-comment">
             <div class="comment-date">{{ i.date|date('Y-m-d') }}</div>
             <ul class="comment-actions">
-               <li class="complain">Like</li>
+               <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i>
+               <script>
+                  function myFunction(x) {
+                     x.classList.toggle("fa-thumbs-down");
+                  }
+               </script>
 
 
             </ul>
