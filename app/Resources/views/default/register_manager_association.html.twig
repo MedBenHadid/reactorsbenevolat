@@ -22,79 +22,50 @@
                         <div class="tab-content" id="tab1">
                             {% trans_default_domain 'FOSUserBundle' %}
                             {{ form_start(form, {'method': 'post', 'action': path('admin_association_register'), 'attr': {'class': 'fos_user_registration_register', 'enctype': 'multipart/form-data'}}) }}
-                            <p class="form-row form-row-wide">
-                                <label for="cin">CIN:
-                                    <i class="im im-icon-Male"></i>
-                                    {{ form_widget(form.id, {'attr': {'id':'cin'}}) }}
-                                </label>
-                            </p>
+                            {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-                            <p class="form-row form-row-wide">
-                                <label for="nom">Nom:
-                                    <i class="im im-icon-Male"></i>
-                                    {{ form_widget(form.nom, {'attr': {'id':'nom'}}) }}
-                                </label>
-                            </p>
+                            <i class="im im-icon-Male"></i>
+                            Cin :
+                            {{ form_widget(form.id, {'attr': {'id':'cin','class':'form-control'}}) }}
+                            {{ form_errors(form.id) }}
 
-                            <p class="form-row form-row-wide">
-                                <label for="prenom">Prenom:
-                                    <i class="im im-icon-Male"></i>
-                                    {{ form_widget(form.prenom, {'attr': {'id':'prenom'}}) }}
-                                </label>
-                            </p>
+                            <i class="im im-icon-Male"></i>
+                            Nom:
+                            {{ form_widget(form.nom, {'attr': {'id':'nom'}}) }}
+                            {{ form_errors(form.nom) }}
+                            <i class="im im-icon-Male"></i>
+                            Prenom :
+                            {{ form_widget(form.prenom, {'attr': {'id':'prenom'}}) }}
+                            {{ form_errors(form.prenom) }}
+                            <i class="im im-icon-Male"></i>
+                            Username:
+                            {{ form_widget(form.username, {'attr': {'id':'username'}}) }}
+                            {{ form_errors(form.username) }}
+                            <i class="im im-icon-Mail"></i>
+                            Email :
+                            {{ form_widget(form.email, {'attr': {'id':'email'}}) }}
+                            {{ form_errors(form.email) }}
 
-                            <p class="form-row form-row-wide">
-                                <label for="username">Username:
-                                    <i class="im im-icon-Male"></i>
-                                    {{ form_widget(form.username, {'attr': {'id':'username'}}) }}
-                                </label>
-                            </p>
+                            <i class="im im-icon-Lock-2"></i>
+                            Mot de passe :
+                            {{ form_widget(form.plainPassword.first, {'attr': {'id':'plainPassword'}}) }}
+                            {{ form_errors(form.plainPassword.first) }}
+                            <i class="im im-icon-Lock-2"></i>
+                            Confirmation de mot de passe :
+                            {{ form_widget(form.plainPassword.second, {'attr': {'id':'confirm_password'}}) }}
+                            {{ form_errors(form.plainPassword.second) }}
+                            <i class="im-icon-Phone-2"></i>
+                            Telephone :
+                            {{ form_widget(form.telephone, {'attr': {'id':'telephone'}}) }}
 
-                            <p class="form-row form-row-wide">
-                                <label for="email">Email Address:
-                                    <i class="im im-icon-Mail"></i>
-                                    {{ form_widget(form.email, {'attr': {'id':'email'}}) }}
-                                </label>
-                            </p>
-
-                            <p class="form-row form-row-wide">
-                                <label for="password">Password:
-                                    <i class="im im-icon-Lock-2"></i>
-                                    {{ form_widget(form.plainPassword.first, {'attr': {'id':'password'}}) }}
-                                </label>
-                            </p>
-
-                            <p class="form-row form-row-wide">
-                                <label for="confirm_password">Repeat Password:
-                                    <i class="im im-icon-Lock-2"></i>
-                                    {{ form_widget(form.plainPassword.second, {'attr': {'id':'confirm_password'}}) }}
-                                </label>
-                            </p>
-
-                            <p class="form-row form-row-wide">
-                                <label for="telephone">Telephone:
-                                    <i class="im-icon-Phone-2"></i>
-                                    {{ form_widget(form.telephone, {'attr': {'id':'telephone'}}) }}
-                                </label>
-                            </p>
-
-                            <p class="form-row form-row-wide">
-                                <label for="adresse">Adresse:
-                                    <i class="im-icon-Map-Marker2"></i>
-                                    {{ form_widget(form.adresse, {'attr': {'id':'adresse'}}) }}
-                                </label>
-                            </p>
-
-                            <p class="form-row form-row-wide">
-                                <label for="dateNaisance">Date Naissance:
-
-                                    {{ form_widget(form.dateNaissance, {'attr': {'id':'dateNaisance'}}) }}
-                                </label>
-                            </p>
+                            <i class="im-icon-Map-Marker2"></i>
+                            Adresse :
+                            {{ form_widget(form.adresse, {'attr': {'id':'adresse'}}) }}
+                            Date de naissance :
+                            {{ form_widget(form.dateNaissance, {'attr': {'id':'dateNaisance'}}) }}
 
 
 
-                            <div>
                                 <h1>Votre Association : </h1>
 
                                 <p class="form-row form-row-wide">
@@ -170,7 +141,6 @@
                                         <input type="hidden" name="lng_association" id="lng_association" value="0" />
                                     </label>
                                 </p>
-                            </div>
 
 
                             <p class="form-row">

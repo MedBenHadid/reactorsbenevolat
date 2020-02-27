@@ -90,27 +90,7 @@
                         <img class="mr-3 img-fluid w-25" src="{{ asset('uploads/association/images/'~association.photo ) }}"
                              alt="Generic placeholder image">
                         <div class="media-body">
-                            Cras sit amet nibh libero, in
-                            gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-                            odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                            condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
-                            in faucibus.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Membres de l'association : </h5>
-                    <div class="media">
-                        <img class="mr-3 img-fluid w-25" src="{{ asset('uploads/association/images/'~association.photo ) }}"
-                             alt="Generic placeholder image">
-                        <div class="media-body">
-                            Cras sit amet nibh libero, in
-                            gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-                            odio, vestibulum in vulputate at, tempus viverra turpis. Fusce
-                            condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis
-                            in faucibus.
+                            {{association.description}}
                         </div>
                     </div>
                 </div>
@@ -119,6 +99,17 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Missions : </h5>
+                    <div class="card-body">
+                        {% if not association.missions and is_granted("ROLE_ASSOCIATION_ADMIN") %}
+                            Aucune mission, <a href="{{path('mission_new') }}">Ajouter une </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Membres : </h5>
                     <div class="body">
                         <!-- Members !-->
                         <div class="table-responsive">
@@ -133,21 +124,21 @@
                                 </thead>
                                 <tbody>
                                 {% for membership in association.memberships %}
-                                    <tr>
-                                        <td class="border-top-0 px-2 py-4">
-                                            <div class="d-flex no-block align-items-center">
-                                                <div class="mr-3"><img
-                                                            src="{{ asset('uploads/user/images/'~membership.user.image) }}"
-                                                            alt="user" class="rounded-circle" width="45"
-                                                            height="45" /></div>
-                                                <div class="">
-                                                    <h5 class="text-dark mb-0 font-16 font-weight-medium">{{ membership.user.nom }} {{ membership.user.prenom }}</h5>
-                                                    <span class="text-muted font-14">{{ membership.user.email }}</span>
-                                                </div>
+                                <tr>
+                                    <td class="border-top-0 px-2 py-4">
+                                        <div class="d-flex no-block align-items-center">
+                                            <div class="mr-3"><img
+                                                        src="{{ asset('uploads/user/images/'~membership.user.image) }}"
+                                                        alt="user" class="rounded-circle" width="45"
+                                                        height="45" /></div>
+                                            <div class="">
+                                                <h5 class="text-dark mb-0 font-16 font-weight-medium">{{ membership.user.nom }} {{ membership.user.prenom }}</h5>
+                                                <span class="text-muted font-14">{{ membership.user.email }}</span>
                                             </div>
-                                        </td>
-                                        <td class="border-top-0 text-muted px-2 py-4 font-14">{{ membership.fonction }}</td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                    <td class="border-top-0 text-muted px-2 py-4 font-14">{{ membership.fonction }}</td>
+                                </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
@@ -175,23 +166,40 @@
                         <p><i class="fa fa-ribbon" aria-hidden="true"></i> <a href="#">{{ association.manager.nom }} {{ association.manager.prenom }}</a></p>
                     </div>
                     <div class="box-tools">
+                        {% if is_granted("ROLE_SUPER_ADMIN") %}
                         {%  if not association.manager.approuved  %}
-                            <button type="button" class="btn btn-info btn-circle-lg"><i class="fa fa-check"></i> Accepter
-                            </button>
+                        <button type="button" onclick="location.href = ('{{ path('admin_association_approve' , { 'id': association.id }) }}');" class="btn btn-info btn-circle-lg"><i class="fa fa-check"></i> Confirmer
+                        </button>
                         {% else %}
-                            <button type="button"  class="btn btn-danger btn-circle-lg"><i class="fa fa-times"></i> Bannir
+                        <button type="button" onclick="location.href = ('{{ path('admin_association_ban' , { 'id': association.id }) }}');" class="btn btn-danger btn-circle-lg"><i class="fa fa-times"></i> Bannir
+                        </button>
+                        {% endif %}
+                            <a class="btn btn-info" href="{{ asset('uploads/association/pieces/'~association.pieceJustificatif) }}" download>
+                                <i class="fa fa-download"></i>
+                                <img src="{{ asset('uploads/association/pieces/'~association.pieceJustificatif) }}" alt="{{ 'Piece justificave : '~association.pieceJustificatif}}">
+                            </a>
+                        {% else %}
+                            <button type="button" class="btn btn-info btn-circle-lg"><i class="fa fa-check"></i> Confirmé
                             </button>
+                            <a class="btn btn-info" href="{{ asset('uploads/association/pieces/'~association.pieceJustificatif) }}" download>
+                                <i class="fa fa-download"></i>
+                                <img src="{{ asset('uploads/association/pieces/'~association.pieceJustificatif) }}" alt="{{ 'Piece justificave : '~association.pieceJustificatif}}">
+                            </a>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12">
-            <a class="btn btn-info" href="{{ asset('uploads/association/pieces/'~association.pieceJustificatif) }}" download>
-                <i class="fa fa-download"></i>
-                <img src="{{ asset('uploads/association/pieces/'~association.pieceJustificatif) }}" alt="{{ 'Piece justificave : '~association.pieceJustificatif}}">
-            </a>
-        </div>
+        {% for member in association.members %}
+            {{ member.prenom }}
+        {% endfor %}
+        {% if is_granted("ROLE_ASSOCIATION_ADMIN") %}
+        {{ form_start(edit_form, {'method': 'post','action': path('manager_association_edit',{'id': association.id })}) }}
+        {{ form_widget(edit_form) }}
+
+        <input type="submit" value="Edit" />
+        {{ form_end(edit_form) }}
+        {% endif %}
     </div>
 
     <script>

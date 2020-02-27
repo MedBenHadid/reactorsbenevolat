@@ -2,12 +2,9 @@
 
 namespace BackofficeBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class DefaultController
@@ -16,9 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/back", name="backend")
+     * @Route("/dashboard/admin/users", name="backend",methods={"GET"})
      */
-    public function backAction(Request $request)
+    public function backAction()
     {
         return $this->render('@Backoffice/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
