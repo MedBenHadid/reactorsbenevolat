@@ -32,13 +32,19 @@
             <br/>
             <br/>
             &nbsp;{% for i in reponse %}
-
+             Sujet du problem:<br/>
                 {{ i.sujet }}
                 <br/>
                 <br/>
+             Sollution proposer:<br/>
                 {{ i.rep }}
+                <br/>
+                <br/>
+                Taux de succes de la sollution
+            {{ i.rating|rating }}
 
-             {% endfor %}
+
+            {% endfor %}
         </p>
     </div>
 </div>
