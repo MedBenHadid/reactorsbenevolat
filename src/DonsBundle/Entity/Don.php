@@ -2,6 +2,8 @@
 
 namespace DonsBundle\Entity;
 
+use AppBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -98,6 +100,26 @@ class Don
      * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association")
      */
     private $domaine;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string" , length=255)
+     */
+    private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DonsBundle\Entity\PostLike", mappedBy="don")
+     */
+    private $likes;
+
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+    }
+
+
+
 
     /**
      * Get id
@@ -347,6 +369,65 @@ class Don
         $this->domaine = $domaine;
     }
 
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     * @return Don
+     */
+    public function setImage(string $image): Don
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return Collection|PostLike[]
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PostLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getDon() === $this) {
+                $like->setDon(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }
 

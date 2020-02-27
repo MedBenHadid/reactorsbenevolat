@@ -32,7 +32,7 @@ communication:
 
 dons:
     resource: "@DonsBundle/Resources/config/routing.yml"
-    prefix:   /dons
+    prefix:   /
 
 mission:
     resource: "@MissionBundle/Controller/"
