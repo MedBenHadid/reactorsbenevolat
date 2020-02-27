@@ -97,7 +97,9 @@
                         <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
                             <!-- Property Thumb -->
                             <div class="property-thumb">
-                                <img src="{{ asset('uploads/images/hebergementsImages/' ~ hebergement.image) }}" alt="">
+                                <a href="{{ path('comment_index', { 'hebergementId' : hebergement.id }) }}">
+                                    <img src="{{ asset('uploads/images/hebergementsImages/' ~ hebergement.image) }}" alt="">
+                                </a>
                             </div>
 
                             <!-- Property Description -->
