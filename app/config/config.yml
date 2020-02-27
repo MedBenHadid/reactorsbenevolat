@@ -24,6 +24,8 @@ parameters:
     association_image_directory: '%kernel.project_dir%/web/uploads/association/images'
     pieces_directory: '%kernel.project_dir%/web/uploads/association/pieces'
     hebergementImages_directory: '%kernel.project_dir%/web/uploads/images/hebergementsImages'
+    donImages_directory: '%kernel.project_dir%/web/uploads/images/donImages'
+    demandeImages_directory: '%kernel.project_dir%/web/uploads/images/demandeImages'
 
 
 framework:
@@ -132,4 +134,3 @@ ewz_recaptcha:
     # Not needed as "%kernel.default_locale%" is the default value for the locale key
     locale_key:  %kernel.default_locale%
     locale_from_request: true
-
