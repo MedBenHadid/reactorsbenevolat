@@ -288,13 +288,13 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                                 <i data-feather="file-text" class="icon-people"></i>
-                                <span class="hide-menu">Gestion des utilisateurs </span>
+                                <span class="hide-menu">Gestion des dons & demandes </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level base-level-line">
                                 <li class="sidebar-item">
-                                    <a href="#" class="sidebar-link">
+                                    <a href="{{ path('don_back') }}" class="sidebar-link">
                                         <span class="hide-menu">
-                                            Gestion de domaines d'activités
+                                            Gestion des dons & demandes
                                         </span>
                                     </a>
                                 </li>
@@ -528,10 +528,14 @@
             method: "POST",
             data: {{  app.user.id }},
             success: function (dataNotif) {
+                //console.log("Response :  " + JSON.stringify(dataNotif));
+                DataNotification.push(dataNotif);
+                console.log("MyDATANOTIFICATION"+DataNotification);
+                console.log("Count Notification "+DataNotification.length);
                 document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
 
 
-                for (let i = 0; i <5 ; i++) {
+             for (let i = 0; i <5 ; i++) {
                     var url = '{{ path("notification_show", {'id': 'notif_id'}) }}';
                     url = url.replace("notif_id", dataNotif[i].id);
                     console.log("Invi----"+JSON.stringify(dataNotif[i].seen));

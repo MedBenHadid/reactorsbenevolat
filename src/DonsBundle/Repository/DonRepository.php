@@ -2,6 +2,9 @@
 
 namespace DonsBundle\Repository;
 
+use Doctrine\ORM\Query;
+use DonsBundle\Entity\Search;
+
 /**
  * DonRepository
  *
@@ -10,4 +13,56 @@ namespace DonsBundle\Repository;
  */
 class DonRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function myFind($ups )
+    {
+        //$qb=$this->getEntityManager()->createQuery('select c from DonsBundle:Don c where c.ups = :ups')->setParameter('ups',$ups);
+
+        $query = $this->createQueryBuilder('c')
+            ->where('c.ups = ' . ':ups')
+            ->setParameters(
+                [
+                    'ups' => $ups ,
+
+                ]
+            )
+            ->getQuery();
+
+        return $query->getResult();
+        
+        return $qb->getResult();
+    }
+
+    public function search($addresse, $ordreUps, $domaine)
+    {
+        $ordre = $ordreUps == 1 ? 'DESC' : 'ASC';
+
+        $query = null;
+
+        if (is_null($addresse) && is_null($domaine))
+        {
+            $query = $this->createQueryBuilder('d')
+                ->add('orderBy', 'd.ups ' . $ordre)
+                ->getQuery();
+
+        }
+
+        else
+        {
+            $query = $this->createQueryBuilder('d')
+                ->where('d.address = ' . ':addresse')
+                ->orWhere('d.domaine = ' . ':domaine')
+                ->add('orderBy', 'd.ups ' . $ordre)
+                ->setParameters(
+                    [
+                        'addresse' => $addresse,
+                        'domaine' => $domaine
+                    ]
+                )
+                ->getQuery();
+
+        }
+
+        return $query->getResult();
+    }
 }

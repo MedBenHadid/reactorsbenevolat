@@ -24,6 +24,8 @@ parameters:
     pieces_directory: '%kernel.project_dir%/web/uploads/association/pieces'
     # don't delete this line for the love of god -- nasri
     hebergementImages_directory: '%kernel.project_dir%/web/uploads/images/hebergementsImages'
+    donImages_directory: '%kernel.project_dir%/web/uploads/images/donImages'
+    demandeImages_directory: '%kernel.project_dir%/web/uploads/images/demandeImages'
 
 
 framework:
