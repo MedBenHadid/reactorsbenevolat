@@ -40,35 +40,44 @@ class MissionFrontController extends Controller
 
         $manager=$em->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
        //var_dump($this->getUser()->getRoles() );
-        if(in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
+        //  if(in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
             $missions = $em->getRepository('MissionBundle:Mission')->findAll();
-        }else{
+            //  }else{
            //$missions = $em->getRepository('MissionBundle:Mission')->findBy(array('CreatedBy'=>$manager->getId()));
 
-            $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
-            $missions=$repository->createQueryBuilder('M')
-                ->orderBy('M.id', 'DESC')
-                ->getQuery()->getResult();
+
         //   var_dump($missions[0]->getId());
-            foreach ($missions as &$value) {
-                //select COUNT invitation
-                $invi = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId()));
-                $value->invitation =count($invi,COUNT_NORMAL);
-                //select COUNT invitation Accepter
-                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'accepter'));
-                $value->accpter =count($inviAccpter,COUNT_NORMAL);
-                //select COUNT invitation refuser
-                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'réfuser'));
-                $value->refuser =count($inviAccpter,COUNT_NORMAL);
-            }
-        }
 
+            // }
 
+        $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
+        $missions=$repository->createQueryBuilder('M')
+            ->orderBy('M.id', 'DESC')
+            ->getQuery()->getResult();
 
      return $this->render('@Mission/Default/index.html.twig', array(
            'missions' => $missions,
       ));
     }
+    /**
+     * Finds and displays a mission entity.
+     *
+     * @Route("/{id}", name="mission_showFront")
+     * @Method("GET")
+     */
+    public function showAction(Request $request,Mission $mission)
+    {
 
+
+        $members = $this->getDoctrine()->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$mission->getId(),'etat'=>'accepter'));
+
+
+
+        // var_dump($members);
+        return $this->render('@Mission/Default/show.html.twig', array(
+            'mission' => $mission,
+            'members'=>$members
+        ));
+    }
 
 }

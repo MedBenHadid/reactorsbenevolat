@@ -5,6 +5,7 @@ namespace MissionBundle\Controller;
 use BackofficeBundle\Entity\Notification;
 use MissionBundle\Entity\Invitation;
 use MissionBundle\Entity\Mission;
+use MissionBundle\Entity\Up;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -28,6 +29,50 @@ class MissionController extends Controller
 {
 
     /**
+     * @Route("/Up/{id}", name="up")
+     * @Method("POST")
+     *
+     * @return Response
+     */
+    public function UpAction($id)
+    {
+
+        $user = $this->getUser();
+        $mission = $this->getDoctrine()->getRepository('MissionBundle:Mission')->findOneBy(array('id'=>$id));
+
+        if (!$user) {
+            return $this->json(['code' => 403, 'error' => 'Vous devez être connecté !'], 403);
+        }
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+        if ($mission->isLikedByUser($user)) {
+           $like = $this->getDoctrine()->getRepository('MissionBundle:Up')->findOneBy(['mission' => $mission->getId(), 'user' => $user]);
+            $mission->setUps($mission->getUps()-1);
+            $this->getDoctrine()->getManager()->persist($mission);
+
+            $this->getDoctrine()->getManager()->remove($like);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->json(['code' => 200, 'likes' => $this->getDoctrine()->getRepository('MissionBundle:Up')->countByMission($mission)], 200);
+
+        }
+
+        $up = new Up();
+        $up->setMission($mission)
+            ->setUser($user);
+        $mission->setUps($mission->getUps()+1);
+        $this->getDoctrine()->getManager()->persist($mission);
+
+        $this->getDoctrine()->getManager()->persist($up);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json(['code' => 200, 'likes' => $this->getDoctrine()->getRepository('MissionBundle:Up')->countByMission($mission)], 200);
+    }
+
+
+
+
+
+    /**
      * @Route("/notification", name="notification")
      * @Method("POST")
      * @param Request $request
@@ -35,6 +80,8 @@ class MissionController extends Controller
      */
     public function notificationAction(Request $request)
     {
+
+
       //  var_dump($request->request->get('data') );
         $manager=$this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
       // $notification = $this->getDoctrine()->getRepository('BackofficeBundle:Notification')->findBy(array('id_user'=>$manager->getId()));

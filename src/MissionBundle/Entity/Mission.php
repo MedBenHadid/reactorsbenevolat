@@ -2,6 +2,9 @@
 
 namespace MissionBundle\Entity;
 
+use AppBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -116,6 +119,16 @@ class Mission
      * @ORM\Column(name="longitude", type="float", precision=10, scale=0, nullable=true)
      */
     private $longitude;
+    /**
+     * @ORM\OneToMany(targetEntity="MissionBundle\Entity\Up", mappedBy="mission")
+     */
+    private $likes;
+
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+    }
 
     /**
      * @return float
@@ -376,6 +389,49 @@ class Mission
     {
         $this->CreatedBy = $CreatedBy;
     }
+    
+    
+    
+    /**
+     * @return Collection|Up[]
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
 
+    public function addLike(Up $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Up $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getMission() === $this) {
+                $like->setMission(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 
