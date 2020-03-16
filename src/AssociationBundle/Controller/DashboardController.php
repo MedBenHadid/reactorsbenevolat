@@ -136,7 +136,7 @@ class DashboardController extends Controller
             $adherance->setAssociation($association);
             $em = $this->getDoctrine()->getManager();
             $user->addRole("ROLE_MEMBER");
-
+            $user->setIsMember(true);
 
             $em->persist($user);
             $em->persist($adherance);

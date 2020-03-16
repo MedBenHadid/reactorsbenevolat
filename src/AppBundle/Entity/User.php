@@ -82,7 +82,74 @@ class User extends BaseUser
      * @ORM\Column(name="approuved", type="boolean", nullable=true)
      */
     private $approuved;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_admin", type="boolean", nullable=true)
+     */
+    private $isAdmin = false;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_ass_admin", type="boolean", nullable=true)
+     */
+    private $isAssAdmin = false ;
 
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     */
+    public function setIsAdmin(bool $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAssAdmin(): bool
+    {
+        return $this->isAssAdmin;
+    }
+
+    /**
+     * @param bool $isAssAdmin
+     */
+    public function setIsAssAdmin(bool $isAssAdmin): void
+    {
+        $this->isAssAdmin = $isAssAdmin;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMember(): bool
+    {
+        return $this->isMember;
+    }
+
+    /**
+     * @param bool $isMember
+     */
+    public function setIsMember(bool $isMember): void
+    {
+        $this->isMember = $isMember;
+    }
+
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_member", type="boolean", nullable=true)
+     */
+    private $isMember = false;
     /**
      * @var boolean
      *

@@ -107,6 +107,7 @@ class RegistrationController extends BaseController
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
                 $user->addRole(User::ASSOCIATION_ADMIN);
+                $user->setIsAssAdmin(true);
                 $user->setApprouved(false);
                 $user->setEnabled(false);
 
