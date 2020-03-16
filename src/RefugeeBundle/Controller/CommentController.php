@@ -19,9 +19,9 @@ class CommentController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $hebergementId = $request->query->get('hebergementId') ? $request->query->get('hebergementId') : null;
+        $hebergementId = $request->query->get('id') ? $request->query->get('id') : null;
 
-        dump($hebergementId);
+
         $em = $this->getDoctrine()->getManager();
 
         $criteria = ['hebergement' => $hebergementId];
@@ -48,6 +48,7 @@ class CommentController extends Controller
 
         $message = $request->query->get('message') ? $request->query->get('message') : null;
         $hebergementId = $request->query->get('hebergementId') ? $request->query->get('hebergementId') : null;
+
 
 
         $hebergement = $em->getRepository('RefugeeBundle:Hebergement')->find($hebergementId);

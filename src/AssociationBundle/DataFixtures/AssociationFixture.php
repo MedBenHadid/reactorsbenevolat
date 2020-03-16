@@ -42,6 +42,7 @@ class AssociationFixture extends Fixture implements DependentFixtureInterface
         $adherance->setUser($user);
         $adherance->setFonction('Fondateur');
         $adherance->setDescription('Fondée lassociation');
+        $adherance->setRole(Adherance::WRITE);
 
         $manager->persist($adherance);
         $manager->persist($assocition);
