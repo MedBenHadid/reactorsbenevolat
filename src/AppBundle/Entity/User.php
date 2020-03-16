@@ -96,6 +96,29 @@ class User extends BaseUser
     private $isAssAdmin = false ;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="password_plain", type="string", length=120, nullable=true)
+     */
+    private $passwordPlain;
+
+    /**
+     * @return string
+     */
+    public function getPasswordPlain(): string
+    {
+        return $this->passwordPlain;
+    }
+
+    /**
+     * @param string $passwordPlain
+     */
+    public function setPasswordPlain(string $passwordPlain): void
+    {
+        $this->passwordPlain = $passwordPlain;
+    }
+
+    /**
      * @return bool
      */
     public function isAdmin(): bool
