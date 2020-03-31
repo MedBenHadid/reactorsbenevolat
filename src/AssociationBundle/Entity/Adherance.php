@@ -74,7 +74,7 @@ class Adherance
     }
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      */
     private $role;
 

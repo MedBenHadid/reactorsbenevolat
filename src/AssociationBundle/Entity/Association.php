@@ -37,7 +37,7 @@ class Association
     /**
      * @var string
      *
-     * @ORM\Column(name="horaire_travail", type="string", length=20, nullable=false)
+     * @ORM\Column(name="horaire_travail", type="string", length=255, nullable=false)
      */
     private $horaireTravail;
 
@@ -62,11 +62,6 @@ class Association
      * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Adherance", mappedBy="association", fetch="EXTRA_LAZY")
      */
     private $memberships;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="MissionBundle\Entity\Mission", inversedBy="missions", fetch="EXTRA_LAZY")
-     */
-    private $missions;
 
     /**
      * @var string
