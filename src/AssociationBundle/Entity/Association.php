@@ -49,9 +49,9 @@ class Association
     private $photo;
 
     /**
-     * @var \AppBundle\Entity\User
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_manager", referencedColumnName="id")
      * })
@@ -97,6 +97,29 @@ class Association
      * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="MissionBundle\Entity\Mission", inversedBy="missions", fetch="EXTRA_LAZY")
+     */
+    private $missions;
+
+    /**
+     * @param mixed $missions
+     */
+    public function setMissions($missions)
+    {
+        $this->missions = $missions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMissions()
+    {
+        return $this->missions;
+    }
+
+
 
     /**
      * @return string
@@ -426,7 +449,7 @@ class Association
     /**
      * Set manager
      *
-     * @param \AppBundle\Entity\User $manager
+     * @param User $manager
      *
      * @return Association
      */
@@ -448,27 +471,11 @@ class Association
     /**
      * Get manager
      *
-     * @return \AppBundle\Entity\User
+     * @return User
      */
     public function getManager()
     {
         return $this->manager;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMissions()
-    {
-        return $this->missions;
-    }
-
-    /**
-     * @param mixed $missions
-     */
-    public function setMissions($missions)
-    {
-        $this->missions = $missions;
     }
 
     /**
