@@ -30,7 +30,7 @@ class Association
     private $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association")
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association",fetch="EXTRA_LAZY")
      */
     private $domaine;
 
@@ -51,7 +51,7 @@ class Association
     /**
      * @var User
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User",fetch="EXTRA_LAZY")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_manager", referencedColumnName="id")
      * })
@@ -526,6 +526,9 @@ class Association
 
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getNom();

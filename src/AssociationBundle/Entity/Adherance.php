@@ -18,8 +18,13 @@ class Adherance
     public const READ = 2;
     public const DELIVER = 3;
 
-    /**
+    public const INVITE_PENDING = "INVITE_PENDING";
+    public const REQUEST_PENDING = "REQUEST_PENDING";
+    public const DENIED_BY_USER = "DENIED_BY_USER";
+    public const DENIED_BY_ASS = "DENIED_BY_ASS";
+    public const ACCEPTED = "ACCEPTED";
 
+    /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue
@@ -28,13 +33,13 @@ class Adherance
 
     /**
      * @var $user User
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="adherance")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User",inversedBy="adherance", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Association", inversedBy="adherance")
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Association", inversedBy="adherance", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(nullable=false)
      */
     private $association;
@@ -91,6 +96,27 @@ class Adherance
      * @ORM\Column(type="integer")
      */
     private $role;
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $status;
 
     /**
      * @return mixed
