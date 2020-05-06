@@ -2,9 +2,11 @@
 
 namespace AssociationBundle\Controller;
 
+use AssociationBundle\Entity\Adherance;
 use AssociationBundle\Entity\Association;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -25,6 +27,7 @@ use Symfony\Component\Serializer\Serializer;
  */
 class APIController extends Controller
 {
+    // TODO : Upload fil & image
     /**
      * @Route(path="/associations/image/{name}", name="api_fetch_image",methods={"GET"})
      * @param $name
@@ -59,6 +62,20 @@ class APIController extends Controller
         return new JsonResponse($serializer->normalize($this->get('knp_paginator')->paginate($this->getDoctrine()->getManager()->createQuery('SELECT a FROM AssociationBundle:Association a WHERE a.nom LIKE :nom AND a.ville LIKE :ville AND a.approuved=true')->setParameter('nom',$nom.'%')->setParameter('ville',$ville.'%'), $page, 5)));
     }
     /**
+     * @Route(path="/associations/findoneby/manager/{managerId}", name="api_association_lookup_by_manager", methods={"GET"})
+     * @param $managerId
+     * @return JsonResponse
+     */
+    public function lookupAssociationByManagerAction($managerId): JsonResponse
+    {
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(static function ($object) {return $object->getId();});
+        $serializer = new Serializer(array($normalizer), array(new JsonEncoder()));
+        return new JsonResponse($serializer->normalize($this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(['manager' => $managerId])));
+    }
+
+
+    /**
      * @Route(path="/domaines", name="api_domaines_paginated", methods={"GET"})
      * @return JsonResponse
      */
@@ -75,7 +92,7 @@ class APIController extends Controller
      * @param $status
      * @return JsonResponse
      */
-    public function membershipsAction($id,$oneForAssociation,$status): JsonResponse
+    public function listMembershipsAction($id,$oneForAssociation,$status): JsonResponse
     {
         $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceHandler(static function ($object) {return $object->getId();});
@@ -95,13 +112,49 @@ class APIController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function addAction(Request $request): JsonResponse
+    public function addAssociationAction(Request $request): JsonResponse
     {
         $content =$request->getContent();
         if (!empty($content))
         {
             $a = new Association();
             $params = json_decode($content,false);
+            $a->setDomaine($this->getDoctrine()->getRepository('AssociationBundle:Category')->find($params->domaine));
+            $a->setManager($this->getDoctrine()->getRepository('AppBundle:User')->find($params->manager));
+            $a->setNom($params->nom);
+            $a->setDescription($params->description);
+            $a->setApprouved($params->approuved);
+            $a->setTelephone($params->telephone);
+            $a->setCodePostal($params->codePostal);
+            $a->setVille($params->ville);
+            $a->setLatitude($params->lat);
+            $a->setLongitude($params->lon);
+            $a->setRue($params->rue);
+            $a->setPieceJustificatif($params->pieceJustificatif);
+            $a->setPhoto($params->photoAgence);
+            $a->setHoraireTravail($params->horaireTravail);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($a);
+            $em->flush();
+            return new JsonResponse(array("id"=>$a->getId()), Response::HTTP_CREATED);
+        }
+        return new JsonResponse('Page not found.', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Route(path="/association/update", name="api_association_update",methods={"PATCH"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateAssociationAction(Request $request): JsonResponse
+    {
+        $content =$request->getContent();
+        if (!empty($content))
+        {
+            $a = new Association();
+            $params = json_decode($content,false);
+            $a->setId($params->id);
             $a->setDomaine($this->getDoctrine()->getRepository('AssociationBundle:Category')->find($params->domaine));
             $a->setManager($this->getDoctrine()->getRepository('AppBundle:User')->find($params->manager));
             $a->setNom($params->nom);
@@ -119,13 +172,61 @@ class APIController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($a);
             $em->flush();
-            return new JsonResponse($a->getId(), Response::HTTP_CREATED);
+            return new JsonResponse($a->getId(), Response::HTTP_OK);
         }
         return new JsonResponse('Page not found.', Response::HTTP_BAD_REQUEST);
-
-
     }
 
+    /**
+     * @Route(path="/membership", name="api_association_add",methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addMembershipAction(Request $request): JsonResponse
+    {
+        $content =$request->getContent();
+        if (!empty($content))
+        {
+            $a = new Adherance();
+            $params = json_decode($content,false);
+            $a->setUser($this->getDoctrine()->getRepository('AppBundle:User')->find($params->memberId));
+            $a->setAssociation($this->getDoctrine()->getRepository('AssociationBundle:Association')->find($params->assId));
+            $a->setStatus($params->status);
+            $a->setDescription($params->description);
+            $a->setLatitude($params->lat);
+            $a->setLongitude($params->lon);
+            $a->setRole($params->role);
+            $a->setFonction($params->fonction);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($a);
+            $em->flush();
+            return new JsonResponse(array("id"=>$a->getId()), Response::HTTP_CREATED);
+        }
+        return new JsonResponse('Failed.', Response::HTTP_BAD_REQUEST);
+    }
 
-
+    /**
+     * @Route(path="/membership/update", name="api_membership_update",methods={"PATCH"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateMembershipAction(Request $request): JsonResponse
+    {
+        $content =$request->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content,false);
+            $a = $this->getDoctrine()->getRepository('AssociationBundle:Adherance')->find($params->id);
+            $a->setStatus($params->status);
+            $a->setDescription($params->description);
+            $a->setLatitude($params->lat);
+            $a->setLongitude($params->lon);
+            $a->setRole($params->role);
+            $a->setFonction($params->fonction);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return new JsonResponse('Updated !',Response::HTTP_OK);
+        }
+        return new JsonResponse('Failed.', Response::HTTP_BAD_REQUEST);
+    }
 }
