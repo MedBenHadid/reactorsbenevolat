@@ -2,12 +2,10 @@
 
 namespace AssociationBundle\Controller;
 
-use AppBundle\AppBundle;
 use AppBundle\Entity\User;
 use AssociationBundle\Entity\Association;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -30,14 +28,10 @@ class SuperAdminController extends Controller
         $user->setApprouved(true);
         $user->setEnabled(true);
         $association->setApprouved(true);
-
-
         $em = $this->getDoctrine()->getManager();
-
         $em->persist($association);
         $em->persist($user);
         $em->flush();
-
         return $this->redirectToRoute('admin_association_index');
     }
 
@@ -55,13 +49,11 @@ class SuperAdminController extends Controller
         $user->setEnabled(false);
         $association->setApprouved(false);
         $em = $this->getDoctrine()->getManager();
-
         $adherances = $this->getDoctrine()->getRepository('AssociationBundle:Adherance')->findBy(array('association'=>$association));
         foreach ($adherances as $adherance){
             $em->remove($adherance);
         }
         $em->flush();
-
         $em->remove($association);
         $em->persist($user);
         $em->flush();
@@ -94,9 +86,7 @@ class SuperAdminController extends Controller
     public function categoryIndexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $categories = $em->getRepository('AssociationBundle:Category')->findAll();
-
         return $this->render('@Association/dashboard/category/index.html.twig', array(
             'categories' => $categories,
         ));
@@ -111,16 +101,12 @@ class SuperAdminController extends Controller
         $association = new Association();
         $form = $this->createForm('AssociationBundle\Form\AssociationType', $association);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($association);
             $em->flush();
-
             return $this->redirectToRoute('admin_association_show', array('id' => $association->getId()));
         }
-
         return $this->render('@Association/dashboard/association/new.html.twig', array(
             'association' => $association,
             'form' => $form->createView(),
@@ -132,7 +118,6 @@ class SuperAdminController extends Controller
      */
     public function showAction(Association $association)
     {
-
         return $this->render('@Association/dashboard/association/show.html.twig', array(
             'association' => $association
         ));
@@ -147,13 +132,10 @@ class SuperAdminController extends Controller
     {
         $editForm = $this->createForm('AssociationBundle\Form\AssociationType', $association);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('admin_association_edit', array('id' => $association->getId()));
         }
-
         return $this->render('@Association/dashboard/association/edit.html.twig', array(
             'association' => $association,
             'edit_form' => $editForm->createView(),
@@ -172,8 +154,4 @@ class SuperAdminController extends Controller
         $em->flush();
         return $this->redirectToRoute('admin_association_index');
     }
-
-
-
-
 }

@@ -7,12 +7,14 @@ use AssociationBundle\Entity\Association;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerInterface;
+use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -28,25 +30,6 @@ use Symfony\Component\Serializer\Serializer;
 class APIController extends Controller
 {
     // TODO : Upload fil & image
-    /**
-     * @Route(path="/associations/image/{name}", name="api_fetch_image",methods={"GET"})
-     * @param $name
-     * @return BinaryFileResponse
-     */
-    public function fetchImage($name): BinaryFileResponse
-    {
-        return new BinaryFileResponse($this->getParameter('association_image_directory'). '/' .$name);
-    }
-    /**
-     * @Route(path="/associations/file/{name}", name="api_fetch_file",methods={"GET"})
-     * @param $name
-     * @return BinaryFileResponse
-     */
-    public function fetchDocument($name): BinaryFileResponse
-    {
-        return new BinaryFileResponse($this->getParameter('pieces_directory'). '/' .$name);
-    }
-
     /**
      * @Route(path="/associations/{page}/{nom}/{ville}", defaults={"nom":"","ville":"","page":1}, name="api_association_index", methods={"GET"}, requirements={"page"="\d+"})
      * @param String $nom
@@ -73,7 +56,18 @@ class APIController extends Controller
         $serializer = new Serializer(array($normalizer), array(new JsonEncoder()));
         return new JsonResponse($serializer->normalize($this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(['manager' => $managerId])));
     }
-
+    /**
+     * @Route(path="/association/one/{assId}", name="api_association_lookup_by_id", methods={"GET"})
+     * @param $assId
+     * @return JsonResponse
+     */
+    public function lookupAssociationByIdAction($assId): JsonResponse
+    {
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceHandler(static function ($object) {return $object->getId();});
+        $serializer = new Serializer(array($normalizer), array(new JsonEncoder()));
+        return new JsonResponse($serializer->normalize($this->getDoctrine()->getRepository('AssociationBundle:Association')->find($assId)));
+    }
 
     /**
      * @Route(path="/domaines", name="api_domaines_paginated", methods={"GET"})
@@ -97,7 +91,9 @@ class APIController extends Controller
         $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceHandler(static function ($object) {return $object->getId();});
         $serializer = new Serializer(array($normalizer), array(new JsonEncoder()));
-        if ($oneForAssociation==1)
+        if( $status=="ALL")
+            return new JsonResponse($serializer->normalize($this->getDoctrine()->getRepository('AssociationBundle:Adherance')->findAll()));
+        else if ($oneForAssociation==1)
             $query = 'SELECT m FROM AssociationBundle:Adherance m WHERE m.association = :id AND m.status = :status ';
         else
             $query = 'SELECT m FROM AssociationBundle:Adherance m WHERE m.user = :id AND m.status = :status ';
@@ -226,6 +222,26 @@ class APIController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             return new JsonResponse('Updated !',Response::HTTP_OK);
+        }
+        return new JsonResponse('Failed.', Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Route(path="/membership/delete", name="api_membership_delete",methods={"DELETE"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function deleteMembershipAction(Request $request): JsonResponse
+    {
+        $content =$request->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content,false);
+            $a = $this->getDoctrine()->getRepository('AssociationBundle:Adherance')->find($params->id);
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($a);
+            $em->flush();
+            return new JsonResponse('Deleted !',Response::HTTP_OK);
         }
         return new JsonResponse('Failed.', Response::HTTP_BAD_REQUEST);
     }
