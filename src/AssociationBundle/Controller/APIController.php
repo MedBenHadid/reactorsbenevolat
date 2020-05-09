@@ -4,21 +4,17 @@ namespace AssociationBundle\Controller;
 
 use AssociationBundle\Entity\Adherance;
 use AssociationBundle\Entity\Association;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
-use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -29,6 +25,36 @@ use Symfony\Component\Serializer\Serializer;
  */
 class APIController extends Controller
 {
+    /**
+     * @Route(path="/association/image/download/{f}", name="api_file_fetch",methods={"GET"})
+     * @param $f
+     * @return BinaryFileResponse
+     */
+    public function download($f): BinaryFileResponse
+    {
+        return new BinaryFileResponse($this->getParameter('association_image_directory') .'/'. $f);
+    }
+
+    /**
+     * @Route(path="/upload", name="api_file_upload",methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function upload(Request $request): JsonResponse
+    {
+        $content =$request->getContent();
+        if (!empty($content))
+        {
+            $params = json_decode($content,false);
+            $uuid = Uuid::uuid1();
+            /** @var File $data */
+            $data = base64_decode($params->file);
+            $data->move($this->getParameter('root').$params->path, $uuid);
+            //throw new HttpException(500, 'Caught exception: No file to upload');
+            return new JsonResponse($uuid->jsonSerialize(),Response::HTTP_BAD_REQUEST);
+        }
+        return new JsonResponse('Failed to upload',Response::HTTP_BAD_REQUEST);
+    }
     // TODO : Upload fil & image
     /**
      * @Route(path="/associations/{page}/{nom}/{ville}", defaults={"nom":"","ville":"","page":1}, name="api_association_index", methods={"GET"}, requirements={"page"="\d+"})
@@ -57,16 +83,16 @@ class APIController extends Controller
         return new JsonResponse($serializer->normalize($this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(['manager' => $managerId])));
     }
     /**
-     * @Route(path="/association/one/{assId}", name="api_association_lookup_by_id", methods={"GET"})
-     * @param $assId
+     * @Route(path="/association/{id}", name="api_association_lookup_by_id", methods={"GET"})
+     * @param $id
      * @return JsonResponse
      */
-    public function lookupAssociationByIdAction($assId): JsonResponse
+    public function lookupAssociationByIdAction($id): JsonResponse
     {
         $normalizer = new ObjectNormalizer();
         $normalizer->setCircularReferenceHandler(static function ($object) {return $object->getId();});
         $serializer = new Serializer(array($normalizer), array(new JsonEncoder()));
-        return new JsonResponse($serializer->normalize($this->getDoctrine()->getRepository('AssociationBundle:Association')->find($assId)));
+        return new JsonResponse($serializer->normalize($this->getDoctrine()->getRepository('AssociationBundle:Association')->find($id)));
     }
 
     /**
