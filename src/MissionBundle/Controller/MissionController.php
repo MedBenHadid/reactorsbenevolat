@@ -112,7 +112,7 @@ class MissionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('User')->findBy(array('username'=>$this->getUser()->getUsername()));//RETERN USER CONNECTED
         $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(array('manager'=>$user));
-        var_dump($association->getMembers());
+
         $search = $em->getRepository('Association:Classified')->findAll();
 
         $results = $search->getResult();
@@ -147,13 +147,6 @@ class MissionController extends Controller
             $missions=$repository->createQueryBuilder('M')
                 ->orderBy('M.id', 'DESC')
                 ->getQuery()->getResult();
-        }else{
-            $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
-            $missions=$repository->createQueryBuilder('M')
-                ->where('M.CreatedBy = :idUser')
-                ->setParameter('idUser', $manager->getId())
-                ->orderBy('M.id', 'DESC')
-                ->getQuery()->getResult();        //   var_dump($missions[0]->getId());
             foreach ($missions as &$value) {
                 //select COUNT invitation
                 $invi = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId()));
@@ -162,8 +155,26 @@ class MissionController extends Controller
                 $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'accepter'));
                 $value->accpter =count($inviAccpter,COUNT_NORMAL);
                 //select COUNT invitation refuser
-                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'réfuser'));
-                $value->refuser =count($inviAccpter,COUNT_NORMAL);
+                $inviRefuser = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'réfuser'));
+                $value->refuser =count($inviRefuser,COUNT_NORMAL);
+            }
+        }else{
+            $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
+            $missions=$repository->createQueryBuilder('M')
+                ->where('M.CreatedBy = :idUser')
+                ->setParameter('idUser', $manager->getId())
+                ->orderBy('M.id', 'DESC')
+                ->getQuery()->getResult();
+            foreach ($missions as &$value) {
+                //select COUNT invitation
+                $invi = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId()));
+                $value->invitation =count($invi,COUNT_NORMAL);
+                //select COUNT invitation Accepter
+                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'accepter'));
+                $value->accpter =count($inviAccpter,COUNT_NORMAL);
+                //select COUNT invitation refuser
+                $inviRefuser = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'réfuser'));
+                $value->refuser =count($inviRefuser,COUNT_NORMAL);
             }
         }
 
@@ -305,19 +316,7 @@ class MissionController extends Controller
     public function showAction(Request $request,Mission $mission)
     {
 
-        //$repository= $this->getDoctrine()->getRepository("MissionBundle:Invitation");
-        // $members=$repository->createQueryBuilder('M')
-            //->where('M.id_mission = :id_mission')
-            //->where('M.etat = accepter')
-           // ->setParameter('id_mission', $mission)
-          //  ->getQuery()->getResult();
 
-
-
-        // $em = $this->getDoctrine()->getManager();
-
-        //   $query = $em->createQuery('SELECT u FROM MissionBundle:Invitation u WHERE u.age > 20');
-     //   $members = $query->getResult();
 
 
         $deleteForm = $this->createDeleteForm($mission);
@@ -369,13 +368,11 @@ class MissionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-       // $notifications=$em->getRepository('BackofficeBundle:Notification')->findOneBy(array('id_mission'=>$mission->getId()));
         $notifications=$em->createQuery('DELETE BackofficeBundle:Notification n WHERE n.id_mission ='.$mission->getId());
         $notifications->execute();
 
 
-        // $em = $this->getDoctrine()->getManager();
-     //   var_dump($notification);
+
         $em->remove($mission);
          $em->flush();
 
