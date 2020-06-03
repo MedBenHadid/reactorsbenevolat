@@ -1,6 +1,6 @@
 <?php
 
-namespace CommunicationBundle\Controller;
+namespace MissionBundle\Controller\MobileMissionAPI;
 
 use AssociationBundle\Entity\Adherance;
 use AssociationBundle\Entity\Association;
@@ -37,7 +37,7 @@ class ApiUserController extends Controller
     }
 
     /**
-     * @Route(path="/profileimage/{imageName}", name="api_profile_image_fetch",methods={"GET"})
+     * @Route(path="profileimage/{imageName}", name="api_profile_image_fetch",methods={"GET"})
      * @param $imageName
      * @return BinaryFileResponse
      */
@@ -47,7 +47,7 @@ class ApiUserController extends Controller
     }
 
     /**
-     * @Route(path="/{id}", name="api_user_get", methods={"GET"})
+     * @Route(path="{id}", name="api_user_get", methods={"GET"})
      * @param $id
      * @return JsonResponse
      */

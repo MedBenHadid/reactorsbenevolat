@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use function Sodium\add;
 
 /**
  * Mission controller.
@@ -57,6 +56,25 @@ class MissionAPIController extends Controller
         return new JsonResponse($formatted);
 
     }
+
+
+
+
+    /**
+     * @Route(path="/showNotif/", name="api_mission_showNotif", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function showNotificationAction(Request $request)
+    {
+
+        $res=new Serializer([new ObjectNormalizer()]);
+        $formatted= $this->getDoctrine()->getRepository('BackofficeBundle:Notification')->findBy(array('id_user'=>$request->get("id"),'seen'=>'0'));
+      //  $formatted =$res->normalize($this->getDoctrine()->getManager()->createQuery('SELECT n FROM BackofficeBundle:Notification n WHERE n.id_user = :idUser AND n.seen = 0')->setParameter('idUser',$request->get("id")));
+        return new JsonResponse($formatted);
+
+    }
+
 
     /**
      * @Route(path="/addMission", name="api_mission_add")
@@ -158,6 +176,10 @@ class MissionAPIController extends Controller
 
 
             $params = json_decode($content,false);
+        $em = $this->getDoctrine()->getManager();
+
+        $notifications=$em->createQuery('DELETE BackofficeBundle:Notification n WHERE n.id_mission ='.$request->get('id'));
+        $notifications->execute();
             $M = $this->getDoctrine()->getRepository('MissionBundle:Mission')->find($request->get('id'));
             $em = $this->getDoctrine()->getManager();
             $em->remove($M);
