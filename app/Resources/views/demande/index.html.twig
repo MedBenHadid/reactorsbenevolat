@@ -1,0 +1,63 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+<div class="container my-3">
+    <h1>Demandes list</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(demandes,'id' , 'de.id' ) }}</th>
+                <th>{{ knp_pagination_sortable(demandes,'title' , 'de.title' ) }}</th>
+                <th>{{ knp_pagination_sortable(demandes,'Description' , 'de.description' ) }}</th>
+
+                <th>{{ knp_pagination_sortable(demandes,'Address' , 'de.address' ) }}</th>
+                <th>State</th>
+                <th>Phone</th>
+                <th>Ups</th>
+                <th>Creationdate</th>
+                <th>Rib</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for demande in demandes %}
+            <tr>
+                <td><a href="{{ path('demande_back_show', { 'id': demande.id }) }}">{{ demande.id }}</a></td>
+                <td>{{ demande.title }}</td>
+                <td>{{ demande.description }}</td>
+                <td>{{ demande.address }}</td>
+                <td>{{ demande.state }}</td>
+                <td>{{ demande.phone }}</td>
+                <td>{{ demande.ups }}</td>
+                <td>{% if demande.creationDate %}{{ demande.creationDate|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ demande.rib }}</td>
+                <td>{{ demande.domaine }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('demande_back_show', { 'id': demande.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('demande_edit', { 'id': demande.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('demande_back_new') }}">Create a new demande</a>
+        </li>
+    </ul>
+</div>
+
+    <div class="navigation">
+        {{ knp_pagination_render(demandes) }}
+    </div>
+    </div>
+{% endblock %}
