@@ -1,1 +1,99 @@
-Hello World!
+{% extends '::base.html.twig' %}
+{% block title %}Mission{% endblock %}
+{% block bread %}<a href="{{ path('mission_index') }}"> / Mission</a>{% endblock %}
+
+{% block body %}
+    <link href="{{ asset('assets/back/dist/css/style.min.css') }}" rel="stylesheet">
+
+    <h1>Missions list</h1>
+    <div class="container-fluid">
+        <div class="row">
+            {% for mission in missions %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-property-area wow fadeInUp" data-wow-delay="200ms">
+                        <!-- Property Thumb -->
+                        <a href="{{ path('mission_showFront', { 'id': mission.id }) }}">
+
+                        <div class="property-thumb">
+                            <img style="height: 250px;width: 400px" src="{{ asset('uploads/mission/images/'~ mission.picture)}}" alt="">
+                        </div>
+                        </a>
+                        <!-- Property Description -->
+                        <div class="property-desc-area">
+                            <!-- Property Title & Seller -->
+                            <div class="property-title-seller d-flex justify-content-between">
+                                <!-- Title -->
+                                <div class="property-title">
+                                    <h4><a href="{{ path('mission_showFront', {'id': mission.id}) }}">{{mission.titleMission}}</a></h4>
+                                </div>
+                                <!-- Seller -->
+                                <div class="property-seller">
+                                    <a  href="{{ path('up', {'id': mission.id}) }}" class="js-like">
+
+                                        {% if app.user and mission.likedByUser(app.user) %}
+                                        <p>    <span  class="js-likes"> {{mission.likes | length }} </span> Ups <i style="color: red ;font-size:30px" class="fa fa-hand-o-down" aria-hidden="true"></i>
+
+                                            {% else %}
+                                        <p>     <span  class="js-likes"> {{mission.likes | length }} </span> Ups <i style="color: green;font-size:30px" class="fa fa-hand-o-up "></i>
+
+                                            {% endif %}
+
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Property Info -->
+                            <div class="property-info-area d-flex flex-wrap">
+
+                                <p>Description: <span>{{ mission.description }}</span></p>
+                            </div>
+                        </div>
+
+                        <!-- Property Price -->
+                        <div class="property-price">
+                            <p class="badge-rent">Domaine d'activité</p>
+                            <p class="price"><a href="{{ path('category_show', { 'id': mission.domaine.id }) }}">{{ mission.domaine.name  }} </a></p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+
+
+        const LIKE_ICON = 'fa fa-hand-o-up';
+        const UNLIKE_ICON = 'fa fa-hand-o-down';
+        Array.from(document.querySelectorAll('a.js-like')).forEach(function (link) {
+            link.addEventListener('click', onClickLink);
+        });
+        async function onClickLink(event) {
+            event.preventDefault();
+            const url = this.href;
+            const icone = this.querySelector('i');
+            const count = this.querySelector('span.js-likes');
+            try {
+                const result = await axios.post(url);
+                const data = result.data;
+                console.log(data.likes);
+                icone.className = icone.className === LIKE_ICON ? UNLIKE_ICON : LIKE_ICON;
+                icone.style.color = icone.className === LIKE_ICON ? 'green' : 'red';
+
+                count.textContent = data.likes;
+            } catch (error) {
+
+            }
+        }
+
+    </script>
+{% endblock %}
+{% block javascripts %}
+{% endblock %}
+{% block bootstrap4 %}
+{% endblock %}

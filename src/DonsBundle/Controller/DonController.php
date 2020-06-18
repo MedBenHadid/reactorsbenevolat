@@ -239,6 +239,12 @@ class DonController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $posts = $this->getDoctrine()->getRepository('DonsBundle:PostLike')->findBy(array('don'=>$don));
+            foreach ($posts as $postlike){
+                $this->getDoctrine()->getManager()->remove($postlike);
+                $em->flush();
+            }
+
             $em->remove($don);
             $em->flush();
         }

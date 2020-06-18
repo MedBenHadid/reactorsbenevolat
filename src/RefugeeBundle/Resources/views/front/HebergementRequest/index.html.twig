@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_nasri.html.twig' %}
 
 {% block breadcrumbs %}
     <div class="breadcrumb-area-two mt-50 wow fadeInUp" data-wow-delay="200ms">
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-2">
-                            <button type="submit" class="btn rehomes-search-btn">Search</button>
+                            <button type="submit" class="btn rehomes-search-btn">Rechercher</button>
                         </div>
                     </div>
                 </form>
@@ -136,6 +136,10 @@
                         </div>
                     {% endfor %}
                 </div>
+            </div>
+            <div class="navigation">
+                {{ knp_pagination_render(hebergementRequests) }}
+            </div>
         </section>
     {% endif %}
 {% endblock %}

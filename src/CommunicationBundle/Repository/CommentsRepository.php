@@ -10,4 +10,9 @@ namespace CommunicationBundle\Repository;
  */
 class CommentsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByThread($threadId){
+        $query = "Select C.id, C.date, C.content from CommunicationBundle:Comments C where C.thread = '$threadId'";
+        $q = $this->getEntityManager()->createQuery($query);
+        return $q->getResult();
+    }
 }

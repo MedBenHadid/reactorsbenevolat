@@ -2,6 +2,7 @@
 
 namespace AssociationBundle\Controller;
 
+use AppBundle\Entity\User;
 use AssociationBundle\Entity\Association;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,21 +18,82 @@ use Symfony\Component\Routing\Annotation\Route;
 class SuperAdminController extends Controller
 {
     /**
-     * @Route("/", name="admin_association_index",methods={"GET"})
+     * @Route(path="/approve/{id}", name="admin_association_approve",methods={"GET"})
+     * @IsGranted("ROLE_SUPER_ADMIN")
      */
-    public function indexAction()
+    public function approveAction($id){
+        $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->find($id);
+        /** @var  $user User */
+        $user = $association->getManager();
+        $user->setApprouved(true);
+        $user->setEnabled(true);
+        $association->setApprouved(true);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($association);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('admin_association_index');
+    }
+
+    /**
+     * @Route(path="/ban/{id}", name="admin_association_ban",methods={"GET"})
+     * @IsGranted("ROLE_SUPER_ADMIN")
+     */
+    public function banAction($id)
+    {
+        $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->find($id);
+        /** @var $user User */
+        $user = $association->getManager();
+        $user->setBanned(true);
+        $user->setApprouved(false);
+        $user->setEnabled(false);
+        $association->setApprouved(false);
+        $em = $this->getDoctrine()->getManager();
+        $adherances = $this->getDoctrine()->getRepository('AssociationBundle:Adherance')->findBy(array('association'=>$association));
+        foreach ($adherances as $adherance){
+            $em->remove($adherance);
+        }
+        $em->flush();
+        $em->remove($association);
+        $em->persist($user);
+        $em->flush();
+        return $this->redirectToRoute('admin_association_index');
+    }
+
+    /**
+     * @Route(path="/", name="admin_association_index",methods={"GET"})
+     */
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $associations = $em->getRepository('AssociationBundle:Association')->findAll();
+        $dql = "SELECT a FROM AssociationBundle:Association a" ;
+        $query = $em->createQuery($dql);
+        $paginator = $this->get('knp_paginator');
+        $result =  $paginator->paginate($query ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 2));
 
-        return $this->render('@Association/association/admin/index.html.twig', array(
-            'associations' => $associations,
+        $associations = $em->getRepository('AssociationBundle:Association')->findAll();
+        return $this->render('@Association/dashboard/association/index.html.twig', array(
+            'associations' => $result,
         ));
     }
 
     /**
-     * @Route("/new", name="admin_association_new",methods={"GET","POST"})
+     * @Route(path="/category", name="admin_category_index",methods={"GET"})
+     */
+    public function categoryIndexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('AssociationBundle:Category')->findAll();
+        return $this->render('@Association/dashboard/category/index.html.twig', array(
+            'categories' => $categories,
+        ));
+    }
+
+    /**
+     * @Route(path="/new", name="admin_association_new",methods={"GET","POST"})
      * @IsGranted("ROLE_SUPER_ADMIN")
      */
     public function newAction(Request $request)
@@ -39,30 +101,24 @@ class SuperAdminController extends Controller
         $association = new Association();
         $form = $this->createForm('AssociationBundle\Form\AssociationType', $association);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($association);
             $em->flush();
-
-            return $this->redirectToRoute('association_show', array('id' => $association->getId()));
+            return $this->redirectToRoute('admin_association_show', array('id' => $association->getId()));
         }
-
-        return $this->render('@Association/association/new.html.twig', array(
+        return $this->render('@Association/dashboard/association/new.html.twig', array(
             'association' => $association,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * @Route("/{id}", name="admin_association_show",methods={"GET"})
+     * @Route(path="/{id}", name="admin_association_show",methods={"GET"})
      */
     public function showAction(Association $association)
     {
-        $deleteForm = $this->createDeleteForm($association);
-
-        return $this->render('@Association/association/admin/show.html.twig', array(
+        return $this->render('@Association/dashboard/association/show.html.twig', array(
             'association' => $association
         ));
     }
@@ -70,51 +126,32 @@ class SuperAdminController extends Controller
 
     /**
      * @IsGranted("ROLE_SUPER_ADMIN")
-     * @Route("/{id}/edit", name="admin_association_edit",methods={"GET","POST"})
+     * @Route(path="/{id}/edit", name="admin_association_edit",methods={"GET","POST"})
      */
     public function editAction(Request $request, Association $association)
     {
-        $deleteForm = $this->createDeleteForm($association);
         $editForm = $this->createForm('AssociationBundle\Form\AssociationType', $association);
         $editForm->handleRequest($request);
-
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             return $this->redirectToRoute('admin_association_edit', array('id' => $association->getId()));
         }
-
-        return $this->render('@Association/association/admin/edit.html.twig', array(
+        return $this->render('@Association/dashboard/association/edit.html.twig', array(
             'association' => $association,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * @Route("/{id}", name="admin_association_delete",methods={"DELETE"})
+     * @Route(path="/{id}", name="admin_association_delete")
+     * @IsGranted("ROLE_SUPER_ADMIN")
      */
-    public function deleteAction(Request $request, Association $association)
+    public function deleteAction($id)
     {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($association);
-            $em->flush();
+        $association=$this->getDoctrine()->getRepository('AssociationBundle:Association')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($association);
+        $em->flush();
         return $this->redirectToRoute('admin_association_index');
-    }
-
-    /**
-     * Creates a form to delete a association entity.
-     *
-     * @param Association $association The association entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Association $association)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('admin_association_delete', array('id' => $association->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-            ;
     }
 }

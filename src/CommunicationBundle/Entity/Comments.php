@@ -13,6 +13,16 @@ use Doctrine\ORM\Mapping as ORM;
 class Comments
 {
     /**
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+    /**
+     * @ORM\ManyToOne(targetEntity="Threads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $thread;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -125,16 +135,7 @@ class Comments
     {
         $this->thread = $thread;
     }
-    /**
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-    /**
-     * @ORM\ManyToOne(targetEntity="Threads")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $thread;
+
 
 
 }

@@ -6,8 +6,6 @@ use AppBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Association
@@ -20,26 +18,26 @@ class Association
     /**
      * @var string
      *
-     * @ORM\Column(name="nom_agence", type="string", length=30, nullable=false)
+     * @ORM\Column(type="string", length=30, nullable=false)
      */
-    private $nomAssociation;
+    private $nom;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="telephone_agence", type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false)
      */
-    private $telephoneAssociation;
+    private $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association")
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association",fetch="EXTRA_LAZY")
      */
     private $domaine;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="horaire_travail", type="string", length=20, nullable=false)
+     * @ORM\Column(name="horaire_travail", type="string", length=255, nullable=false)
      */
     private $horaireTravail;
 
@@ -48,17 +46,22 @@ class Association
      *
      * @ORM\Column(name="photo_agence", type="text", length=65535, nullable=false)
      */
-    private $photoAssociation;
+    private $photo;
 
     /**
-     * @var \AppBundle\Entity\User
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User",fetch="EXTRA_LAZY")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_manager", referencedColumnName="id")
      * })
      */
     private $manager;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Adherance", mappedBy="association", fetch="EXTRA_LAZY")
+     */
+    private $memberships;
 
     /**
      * @var string
@@ -91,9 +94,48 @@ class Association
     /**
      * @var string
      *
-     * @ORM\Column(name="statu", type="string", length=200, nullable=true)
+     * @ORM\Column(type="string", length=500, nullable=true)
      */
-    private $status;
+    private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="MissionBundle\Entity\Mission", inversedBy="missions", fetch="EXTRA_LAZY")
+     */
+    private $missions;
+
+    /**
+     * @param mixed $missions
+     */
+    public function setMissions($missions)
+    {
+        $this->missions = $missions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMissions()
+    {
+        return $this->missions;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
+    }
 
     /**
      * @var float
@@ -128,51 +170,51 @@ class Association
 
 
     /**
-     * Set nomAssociation
+     * Set nom
      *
-     * @param string $nomAssociation
+     * @param string $nom
      *
      * @return Association
      */
-    public function setNomAssociation($nomAssociation)
+    public function setNom($nom)
     {
-        $this->nomAssociation = $nomAssociation;
+        $this->nom = $nom;
 
         return $this;
     }
 
     /**
-     * Get nomAssociation
+     * Get nom
      *
      * @return string
      */
-    public function getNomAssociation()
+    public function getNom()
     {
-        return $this->nomAssociation;
+        return $this->nom;
     }
 
     /**
-     * Set telephoneAssociation
+     * Set telephone
      *
-     * @param integer $telephoneAssociation
+     * @param integer $telephone
      *
      * @return Association
      */
-    public function setTelephoneAssociation($telephoneAssociation)
+    public function setTelephone($telephone)
     {
-        $this->telephoneAssociation = $telephoneAssociation;
+        $this->telephone = $telephone;
 
         return $this;
     }
 
     /**
-     * Get telephoneAssociation
+     * Get telephone
      *
      * @return integer
      */
-    public function getTelephoneAssociation()
+    public function getTelephone()
     {
-        return $this->telephoneAssociation;
+        return $this->telephone;
     }
 
 
@@ -202,27 +244,27 @@ class Association
     }
 
     /**
-     * Set photoAssociation
+     * Set photo
      *
-     * @param string $photoAssociation
+     * @param string $photo
      *
      * @return Association
      */
-    public function setPhotoAssociation($photoAssociation)
+    public function setPhoto($photo)
     {
-        $this->photoAssociation = $photoAssociation;
+        $this->photo = $photo;
 
         return $this;
     }
 
     /**
-     * Get photoAssociation
+     * Get photo
      *
      * @return string
      */
-    public function getPhotoAssociation()
+    public function getPhoto()
     {
-        return $this->photoAssociation;
+        return $this->photo;
     }
 
     /**
@@ -321,29 +363,6 @@ class Association
         return $this->ville;
     }
 
-    /**
-     * Set statu
-     *
-     * @param string $status
-     *
-     * @return Association
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
 
     /**
      * Set latitude
@@ -430,11 +449,11 @@ class Association
     /**
      * Set manager
      *
-     * @param \AppBundle\Entity\User $manager
+     * @param User $manager
      *
      * @return Association
      */
-    public function setManager(\AppBundle\Entity\User $manager = null)
+    public function setManager(User $manager = null)
     {
         $this->manager = $manager;
 
@@ -442,23 +461,22 @@ class Association
     }
 
     /**
+     * @param mixed $membershipships
+     */
+    public function setMembershipships($membershipships)
+    {
+        $this->membershipships = $membershipships;
+    }
+
+    /**
      * Get manager
      *
-     * @return \AppBundle\Entity\User
+     * @return User
      */
     public function getManager()
     {
         return $this->manager;
     }
-
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", inversedBy="user")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="id")
-     * })
-     */
-    private $members;
-
 
     /**
      * @return mixed
@@ -480,21 +498,21 @@ class Association
     /**
      * @return Collection|User[]
      */
-    public function getMembers(): Collection
+    public function getMemberships(): Collection
     {
-        return $this->members;
+        return $this->memberships;
     }
-    public function addMember(User $member): self
+    public function addMembership(User $member): self
     {
-        if (!$this->members->contains($member)) {
-            $this->members[] = $member;
+        if (!$this->memberships->contains($member)) {
+            $this->memberships[] = $member;
         }
         return $this;
     }
-    public function removeMember(User $member): self
+    public function removeMembership(User $member): self
     {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
+        if ($this->memberships->contains($member)) {
+            $this->memberships->removeElement($member);
         }
         return $this;
     }
@@ -504,8 +522,26 @@ class Association
      */
     public function __construct()
     {
-        $this->members = new ArrayCollection();
+        $this->memberships = new ArrayCollection();
 
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
+    public function getMembers()
+    {
+        $members = new ArrayCollection();
+        $memberships = $this->getMemberships();
+        foreach ($memberships as $membership) {
+            $members->add($membership->getUser());
+        }
+        return $members;
     }
 
 }

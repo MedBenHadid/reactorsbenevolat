@@ -1,15 +1,15 @@
 demande_index:
-    path:     /
+    path:     /demandes
     defaults: { _controller: "DonsBundle:Demande:index" }
     methods:  GET
 
 demande_show:
-    path:     /{id}/show
+    path:     /{id}/front/show
     defaults: { _controller: "DonsBundle:Demande:show" }
     methods:  GET
 
 demande_new:
-    path:     /new
+    path:     front/new
     defaults: { _controller: "DonsBundle:Demande:new" }
     methods:  [GET, POST]
 
@@ -23,6 +23,7 @@ demande_delete:
     defaults: { _controller: "DonsBundle:Demande:delete" }
     methods:  DELETE
 demande_search:
+<<<<<<< HEAD
     path:     /search
     defaults: { _controller: "DonsBundle:Demande:search" }
     methods: GET
@@ -46,3 +47,27 @@ apidemande_delete:
     path:     /remove
     defaults: { _controller: "DonsBundle:Api:removeDemande" }
     methods:  GET
+=======
+    path:     front/search
+    defaults: { _controller: "DonsBundle:Demande:search" }
+    methods: GET
+
+demande_back:
+    path:     /dashboard/admin/demandes
+    defaults: { _controller: "DonsBundle:DemandeBack:index" }
+    methods:  GET
+
+
+demande_back_new:
+    path:     /dashboard/admin/demandes/new
+    defaults: { _controller: "DonsBundle:DemandeBack:new" }
+    methods:  GET
+demande_back_show:
+    path:     /dashboard/admin/demandes/{id}/show
+    defaults: { _controller: "DonsBundle:DemandeBack:show" }
+    methods:  GET
+
+demande_like:
+    path:     /fornt/{id}/like
+    defaults: { _controller: "DonsBundle:Demande:like" }
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

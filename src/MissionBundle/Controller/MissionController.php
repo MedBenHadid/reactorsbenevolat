@@ -3,7 +3,10 @@
 namespace MissionBundle\Controller;
 
 use BackofficeBundle\Entity\Notification;
+use MissionBundle\Entity\Invitation;
 use MissionBundle\Entity\Mission;
+use MissionBundle\Entity\Up;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -19,9 +22,55 @@ use function Sodium\add;
  * Mission controller.
  *
  * @Route("/mission")
+ *
+
  */
 class MissionController extends Controller
 {
+
+    /**
+     * @Route("/Up/{id}", name="up")
+     * @Method("POST")
+     *
+     * @return Response
+     */
+    public function UpAction($id)
+    {
+
+        $user = $this->getUser();
+        $mission = $this->getDoctrine()->getRepository('MissionBundle:Mission')->findOneBy(array('id'=>$id));
+
+        if (!$user) {
+            return $this->json(['code' => 403, 'error' => 'Vous devez être connecté !'], 403);
+        }
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+        if ($mission->isLikedByUser($user)) {
+           $like = $this->getDoctrine()->getRepository('MissionBundle:Up')->findOneBy(['mission' => $mission->getId(), 'user' => $user]);
+            $mission->setUps($mission->getUps()-1);
+            $this->getDoctrine()->getManager()->persist($mission);
+
+            $this->getDoctrine()->getManager()->remove($like);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->json(['code' => 200, 'likes' => $this->getDoctrine()->getRepository('MissionBundle:Up')->countByMission($mission)], 200);
+
+        }
+
+        $up = new Up();
+        $up->setMission($mission)
+            ->setUser($user);
+        $mission->setUps($mission->getUps()+1);
+        $this->getDoctrine()->getManager()->persist($mission);
+
+        $this->getDoctrine()->getManager()->persist($up);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json(['code' => 200, 'likes' => $this->getDoctrine()->getRepository('MissionBundle:Up')->countByMission($mission)], 200);
+    }
+
+
+
+
 
     /**
      * @Route("/notification", name="notification")
@@ -31,6 +80,8 @@ class MissionController extends Controller
      */
     public function notificationAction(Request $request)
     {
+
+
       //  var_dump($request->request->get('data') );
         $manager=$this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
       // $notification = $this->getDoctrine()->getRepository('BackofficeBundle:Notification')->findBy(array('id_user'=>$manager->getId()));
@@ -61,7 +112,7 @@ class MissionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getDoctrine()->getRepository('User')->findBy(array('username'=>$this->getUser()->getUsername()));//RETERN USER CONNECTED
         $association = $this->getDoctrine()->getRepository('AssociationBundle:Association')->findOneBy(array('manager'=>$user));
-        var_dump($association->getMembers());
+
         $search = $em->getRepository('Association:Classified')->findAll();
 
         $results = $search->getResult();
@@ -88,24 +139,54 @@ class MissionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+
         $manager=$em->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
        //var_dump($this->getUser()->getRoles() );
         if(in_array('ROLE_SUPER_ADMIN', $this->getUser()->getRoles())){
-            $missions = $em->getRepository('MissionBundle:Mission')->findAll();
-
+            $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
+            $missions=$repository->createQueryBuilder('M')
+                ->orderBy('M.id', 'DESC')
+                ->getQuery()->getResult();
+            foreach ($missions as &$value) {
+                //select COUNT invitation
+                $invi = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId()));
+                $value->invitation =count($invi,COUNT_NORMAL);
+                //select COUNT invitation Accepter
+                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'accepter'));
+                $value->accpter =count($inviAccpter,COUNT_NORMAL);
+                //select COUNT invitation refuser
+                $inviRefuser = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'réfuser'));
+                $value->refuser =count($inviRefuser,COUNT_NORMAL);
+            }
         }else{
-           $missions = $em->getRepository('MissionBundle:Mission')->findBy(array('CreatedBy'=>$manager->getId()));
-
+            $repository= $this->getDoctrine()->getRepository("MissionBundle:Mission");
+            $missions=$repository->createQueryBuilder('M')
+                ->where('M.CreatedBy = :idUser')
+                ->setParameter('idUser', $manager->getId())
+                ->orderBy('M.id', 'DESC')
+                ->getQuery()->getResult();
+            foreach ($missions as &$value) {
+                //select COUNT invitation
+                $invi = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId()));
+                $value->invitation =count($invi,COUNT_NORMAL);
+                //select COUNT invitation Accepter
+                $inviAccpter = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'accepter'));
+                $value->accpter =count($inviAccpter,COUNT_NORMAL);
+                //select COUNT invitation refuser
+                $inviRefuser = $em->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$value->getId(),'etat'=>'réfuser'));
+                $value->refuser =count($inviRefuser,COUNT_NORMAL);
+            }
         }
 
-        return $this->render('@Mission/mission/index.html.twig', array(
-            'missions' => $missions,
-        ));
+
+
+     return $this->render('@Mission/mission/index.html.twig', array(
+           'missions' => $missions,
+      ));
     }
 
     /**
      * Creates a new mission entity.
-     *
      * @Route("/new", name="mission_new")
      * @Method({"GET", "POST"})
      * @param Request $request
@@ -180,17 +261,29 @@ class MissionController extends Controller
          //    var_dump($TabMembers);
             for ($i = 0;$i<sizeof($TabMembers) ; $i++) {
                 $memberInv=$em->getRepository('AppBundle:User')->findOneBy(array('id'=>$TabMembers[$i]));
-             //  var_dump($memberInv);
                 $notification=new Notification();
                 $notification->setTitle($mission->getTitleMission())
                     ->setDescription($mission->getDescription())
-                    ->setRoute('mission_show')
+                    ->setRoute('notification_show')
                     ->setParameters(array('id'=>$mission->getId()));
                 $notification->setIdUser($memberInv);
                 $notification->setIdAssociation($association);
                 $notification->setIdMission($mission);
 
+
+
+
+                $invitation=new Invitation();
+                $invitation->setIdMission($mission);
+                $invitation->setIdNotification($notification);
+                $invitation->setIdUser($memberInv);
+                $notification->setIdInvitation($invitation);
                 $em->persist($notification);
+
+                $em->persist($invitation);
+
+
+
 
                 $em->flush();
                 //$notification->setIdUser(1);
@@ -223,11 +316,20 @@ class MissionController extends Controller
     public function showAction(Request $request,Mission $mission)
     {
 
+
+
+
         $deleteForm = $this->createDeleteForm($mission);
 
+        $members = $this->getDoctrine()->getRepository('MissionBundle:Invitation')->findBy(array('id_mission'=>$mission->getId(),'etat'=>'accepter'));
+
+
+
+       // var_dump($members);
         return $this->render('@Mission/mission/show.html.twig', array(
             'mission' => $mission,
             'delete_form' => $deleteForm->createView(),
+            'members'=>$members
         ));
     }
 
@@ -266,13 +368,11 @@ class MissionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-       // $notifications=$em->getRepository('BackofficeBundle:Notification')->findOneBy(array('id_mission'=>$mission->getId()));
         $notifications=$em->createQuery('DELETE BackofficeBundle:Notification n WHERE n.id_mission ='.$mission->getId());
         $notifications->execute();
 
 
-        // $em = $this->getDoctrine()->getManager();
-     //   var_dump($notification);
+
         $em->remove($mission);
          $em->flush();
 

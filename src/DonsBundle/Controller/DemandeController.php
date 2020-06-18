@@ -3,6 +3,7 @@
 namespace DonsBundle\Controller;
 
 use DonsBundle\Entity\Demande;
+use DonsBundle\Entity\PostLike;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -57,12 +58,21 @@ class DemandeController extends Controller
         $result =  $paginator->paginate($query ,
             $request->query->getInt('page' , 1)  ,
             $request->query->getInt('limit ' , 6));
+<<<<<<< HEAD
 
 
 
         $domaines = $em->getRepository('AssociationBundle:Category')->findAll();
 
 
+=======
+
+
+
+        $domaines = $em->getRepository('AssociationBundle:Category')->findAll();
+
+
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
         return $this->render('@Dons/demande/index.html.twig', array(
             'demandes' => $result,
             'domaines' => $domaines
@@ -116,7 +126,11 @@ class DemandeController extends Controller
             return $this->redirectToRoute('demande_show', array('id' => $demande->getId()));
         }
 
+<<<<<<< HEAD
         return $this->render('@dons/demande/new.html.twig', array(
+=======
+        return $this->render('@Dons/demande/new.html.twig', array(
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
             'demande' => $demande,
             'form' => $form->createView(),
         ));
@@ -192,4 +206,38 @@ class DemandeController extends Controller
             ->getForm()
         ;
     }
+
+
+
+    public function likeAction(Demande $demande)
+    {
+
+
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->json(['code' => 403, 'error' => 'Vous devez être connecté !'], 403);
+        }
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$this->getUser()->getUsername()));
+        if ($demande->isLikedByUser($user)) {
+            $like = $this->getDoctrine()->getRepository('DonsBundle:PostLike')->findOneBy(['demande' => $demande, 'user' => $user]);
+
+            $this->getDoctrine()->getManager()->remove($like);
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->json(['code' => 200, 'likes' => $this->getDoctrine()->getRepository('DonsBundle:PostLike')->countByDon($demande)], 200);
+
+        }
+
+        $like = new PostLike();
+        $like->setDon($demande)
+            ->setUser($user);
+
+        $this->getDoctrine()->getManager()->persist($like);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->json(['code' => 200, 'likes' => $this->getDoctrine()->getRepository('DonsBundle:PostLike')->countByDon($demande)], 200);
+    }
+
+
 }

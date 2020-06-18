@@ -1,27 +1,28 @@
 don_index:
-    path:     /
+    path:     /dons
     defaults: { _controller: "DonsBundle:Don:index" }
     methods:  GET
 
 don_show:
-    path:     /{id}/show
+    path:     /dons/{id}/show
     defaults: { _controller: "DonsBundle:Don:show" }
     methods:  GET
 
 don_new:
-    path:     /new
+    path:     /dons/new
     defaults: { _controller: "DonsBundle:Don:new" }
     methods:  [GET, POST]
 
 don_edit:
-    path:     /{id}/edit
+    path:     /dons/{id}/edit
     defaults: { _controller: "DonsBundle:Don:edit" }
     methods:  [GET, POST]
 
 don_delete:
-    path:     /{id}/delete
+    path:     /dons/{id}/delete
     defaults: { _controller: "DonsBundle:Don:delete" }
     methods:  DELETE
+<<<<<<< HEAD
 don_home:
     path:     /home
     defaults: { _controller: "DonsBundle:Don:home" }
@@ -55,3 +56,31 @@ apidon_update:
     path:     /apiedit
     defaults: { _controller: "DonsBundle:Api:apiedit" }
     methods:  [GET, POST]
+=======
+
+
+don_search:
+    path:     /dons/search
+    defaults: { _controller: "DonsBundle:Don:search" }
+    methods: GET
+
+don_like:
+    path:     /dons/{id}/like
+    defaults: { _controller: "DonsBundle:Don:like" }
+
+don_back:
+    path:     /dashboard/admin/dons
+    defaults: { _controller: "DonsBundle:DonBack:index" }
+    methods:  GET
+
+don_back_new:
+    path:     /dashboard/admin/dons/new
+    defaults: { _controller: "DonsBundle:DonBack:new" }
+    methods:  GET
+
+
+don_back_show:
+    path:     /dashboard/admin/dons/{id}/show
+    defaults: { _controller: "DonsBundle:DonBack:show" }
+    methods:  GET
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

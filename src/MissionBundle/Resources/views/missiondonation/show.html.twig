@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Missiondonation</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ missionDonation.id }}</td>
+            </tr>
+            <tr>
+                <th>Sommedonner</th>
+                <td>{{ missionDonation.sommeDonner }}</td>
+            </tr>
+            <tr>
+                <th>Datedonation</th>
+                <td>{% if missionDonation.dateDonation %}{{ missionDonation.dateDonation|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('MissionDonation_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

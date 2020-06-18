@@ -34,6 +34,27 @@ class Category
     /**
      * @return mixed
      */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=500,nullable=true)
+     */
+    private $description;
+
+    /**
+     * @return mixed
+     */
     public function getName()
     {
         return $this->name;

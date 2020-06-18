@@ -23,6 +23,12 @@ class HebergementController extends Controller
         $hebergements = $this->getDoctrine()->getRepository('RefugeeBundle:Hebergement')
         ->search($governorat, $nbrRooms, $duration);
 
+
+        $paginator = $this->get('knp_paginator');
+        $hebergements =  $paginator->paginate($hebergements ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
+
         return $this->render('@Refugee/front/Hebergement/index.html.twig', array(
             'hebergements' => $hebergements
         ));
@@ -32,7 +38,7 @@ class HebergementController extends Controller
      * Lists all hebergement entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -44,6 +50,11 @@ class HebergementController extends Controller
         {
             $route = '@Refugee/front/Hebergement/index.html.twig';
         }
+
+        $paginator = $this->get('knp_paginator');
+        $hebergements =  $paginator->paginate($hebergements ,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
 
         return $this->render($route, array(
             'hebergements' => $hebergements
@@ -89,6 +100,7 @@ class HebergementController extends Controller
             $user = $em->getRepository('AppBundle:User')->find($userId);
             $hebergement->setUser($user);
 
+
             //image upload
             $imageFile = $form->get('image')->getData();
             $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -109,8 +121,11 @@ class HebergementController extends Controller
             $em->persist($hebergement);
             $em->flush();
 
-            return $this->redirectToRoute('hebergement_index', array('id' => $hebergement->getId()));
+            return $this->redirectToRoute('hebergement_index');
         }
+
+
+
         return $this->render($twig, array(
             'hebergement' => $hebergement,
             'form' => $form->createView(),
@@ -193,64 +208,4 @@ class HebergementController extends Controller
     }
 
 
-}
-
-// src/Controller/ProductController.php
-namespace App\Controller;
-
-use App\Entity\Product;
-use App\Form\ProductType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-
-class ProductController extends AbstractController
-{
-    /**
-     * @Route("/product/new", name="app_product_new")
-     */
-    public function new(Request $request)
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $brochureFile */
-            $brochureFile = $form->get('brochure')->getData();
-
-            // this condition is needed because the 'brochure' field is not required
-            // so the PDF file must be processed only when a file is uploaded
-            if ($brochureFile) {
-                $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
-                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
-
-                // Move the file to the directory where brochures are stored
-                try {
-                    $brochureFile->move(
-                        $this->getParameter('brochures_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $product->setBrochureFilename($newFilename);
-            }
-
-            // ... persist the $product variable or any other work
-
-            return $this->redirect($this->generateUrl('app_product_list'));
-        }
-
-        return $this->render('product/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
 }

@@ -10,4 +10,12 @@ namespace ReclamationBundle\Repository;
  */
 class RponseRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByThread($Requestid)
+    {
+        $query = "Select R.sujet, R.rep, R.rating from ReclamationBundle:Rponse R where R.requete = '$Requestid'";
+        $q = $this->getEntityManager()->createQuery($query);
+        return $q->getResult();
+
+    }
+
 }

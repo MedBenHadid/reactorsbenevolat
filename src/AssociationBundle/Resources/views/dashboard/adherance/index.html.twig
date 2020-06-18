@@ -1,0 +1,60 @@
+{% extends 'baseback.html.twig' %}
+{% block title %}Liste des adherances {% endblock %}
+{% block info %}Adhérances :{% endblock %}
+{% block bread %}<a href="{{ path('dashboard_manager_adherance_index') }}">Adhérances</a> {% endblock %}
+{% block body %}
+    <h1>Adherances list</h1>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="multi_col_order"
+                                       class="table table-striped table-bordered display no-wrap" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Membre</th>
+                                        <th>Date de création</th>
+                                        <th>Fonction</th>
+                                        <th>Role</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for adherance in adherances %}
+                                    <tr>
+                                        <td>
+                                            <a class="btn btn-primary rounded-circle btn-circle font-12 popover-item" >
+                                                {{ adherance.user.prenom|first|capitalize }}{{ adherance.user.nom|first|capitalize }}
+                                            </a>
+                                            <a href="{{ path('dashboard_manager_adherance_show', { 'id': adherance.id }) }}">
+                                                {{ adherance.user }}
+                                            </a>
+                                            <span class="info-box">aaze</span>
+                                        </td>
+                                        <td>{% if adherance.joinedAt %}{{ adherance.joinedAt|date('Y-m-d') }}{% endif %}</td>
+                                        <td>{{ adherance.fonction }}</td>
+                                        <td>
+                                            {% if adherance.role == 3 %}
+                                            <i class="fa fa-truck" aria-hidden="true"></i>
+                                                Livreur
+                                                {% elseif adherance.role == 2 %}
+                                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                                    Membre honoraire
+                                                {% elseif adherance.role == 1 %}
+                                                    <i class="fas fa-user-secret"></i>
+                                                Chef projets
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ path('dashboard_manager_adherance_new') }}">Create a new adherance</a>
+
+{% endblock %}

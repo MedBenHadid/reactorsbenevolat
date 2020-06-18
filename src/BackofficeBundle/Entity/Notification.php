@@ -2,7 +2,12 @@
 
 namespace BackofficeBundle\Entity;
 
+use AssociationBundle\Entity\Association;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\OneToOne;
+use MissionBundle\Entity\Invitation;
+use MissionBundle\Entity\Mission;
 use SBC\NotificationsBundle\Model\BaseNotification;
 
 /**
@@ -33,7 +38,7 @@ class Notification extends  BaseNotification implements \JsonSerializable
     private $id_user;
 
     /**
-     * @var \MissionBundle\Entity\Mission
+     * @var Mission
      *
      * @ORM\ManyToOne(targetEntity="MissionBundle\Entity\Mission")
      * @ORM\JoinColumns({
@@ -42,15 +47,22 @@ class Notification extends  BaseNotification implements \JsonSerializable
      */
     private $id_mission;
     /**
-     * @var \AssociationBundle\Entity\Association
+     * @var Association
      *
-     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Association")
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Association", cascade={"persist"})
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_association", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="id_association", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * })
      */
     private $id_association;
 
+
+    /**
+     *@var Invitation
+     * @OneToOne(targetEntity="MissionBundle\Entity\Invitation")
+     * @JoinColumn(name="id_invitation", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $id_invitation;
     /**
      * Get id
      *
@@ -82,36 +94,53 @@ class Notification extends  BaseNotification implements \JsonSerializable
     }
 
     /**
-     * @return \AssociationBundle\Entity\Association
+     * @return Association
      */
-    public function getIdAssociation(): \AssociationBundle\Entity\Association
+    public function getIdAssociation(): Association
     {
         return $this->id_association;
     }
 
     /**
-     * @param \AssociationBundle\Entity\Association $id_association
+     * @param Association $id_association
      */
-    public function setIdAssociation(\AssociationBundle\Entity\Association $id_association)
+    public function setIdAssociation(Association $id_association)
     {
         $this->id_association = $id_association;
     }
 
     /**
-     * @return \MissionBundle\Entity\Mission
+     * @return Mission
      */
-    public function getIdMission(): \MissionBundle\Entity\Mission
+    public function getIdMission(): Mission
     {
         return $this->id_mission;
     }
 
     /**
-     * @param \MissionBundle\Entity\Mission $id_mission
+     * @param Mission $id_mission
      */
-    public function setIdMission(\MissionBundle\Entity\Mission $id_mission)
+    public function setIdMission(Mission $id_mission)
     {
         $this->id_mission = $id_mission;
     }
+
+    /**
+     * @return Invitation|null
+     */
+    public function getIdInvitation():? Invitation
+    {
+        return $this->id_invitation;
+    }
+
+    /**
+     * @param Invitation $id_invitation
+     */
+    public function setIdInvitation(Invitation $id_invitation)
+    {
+        $this->id_invitation = $id_invitation;
+    }
+
 
 
 }

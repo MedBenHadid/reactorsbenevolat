@@ -115,8 +115,20 @@
                                     <p> <span></span></p>
                                     <p><span></span></p>
 
+<<<<<<< HEAD
                                     <button class="btn btn-outline-danger waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-heart"></i></span>
                                         Heart</button>
+=======
+                                    <a href="{{ path('demande_like', {'id': demande.id}) }}" id="btn">
+                                        <span  class="js-like" id="{{ demande.id }}"> {{ demande.likes|length }} </span>
+                                        {% if app.user and demande.likedByUser(app.user) %}
+                                            <i class="fas fa-thumbs-up"></i>
+
+                                        {% else %}
+                                            <i class="far fa-thumbs-up"></i>
+                                        {% endif %}
+                                    </a>
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
                                 </div>
                             </div>
 
@@ -141,3 +153,34 @@
         </div>
     </section>
 {% endblock %}
+<<<<<<< HEAD
+=======
+
+{% block javascripts %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        const LIKE_ICON = 'far fa-thumbs-up';
+        const UNLIKE_ICON = 'fas fa-thumbs-up';
+        Array.from(document.querySelectorAll('#btn')).forEach(function (link) {
+            link.addEventListener('click', onClickLink);
+        });
+        async function onClickLink(event) {
+            event.preventDefault();
+            const url = this.href;
+            const icone = this.querySelector('i');
+            const count = this.querySelector('span');
+            try {
+                const result = await axios.post(url);
+                const data = result.data;
+                icone.className = icone.className === LIKE_ICON ? UNLIKE_ICON : LIKE_ICON;
+                count.textContent = data.likes;
+            } catch (error) {
+                if (error.response.status === 403) {
+                    window.location.href = "{{ path('fos_user_security_login') }}";
+                }
+            }
+        }
+
+    </script>
+{% endblock %}
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

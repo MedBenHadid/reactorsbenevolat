@@ -2,10 +2,18 @@
 
 {% block body %}
     <h1>Mission edit</h1>
-
+    {% form_theme edit_form 'bootstrap_4_layout.html.twig' %}
     {{ form_start(edit_form) }}
+    <br><br>
+
+<div style="display:flex;align-content: center !important">
+
+
+    <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+</div>
+    <button type="submit" value="Create" class="btn btn-primary" style="width: 100px">Submit</button>
+
     {{ form_end(edit_form) }}
 
     <ul>

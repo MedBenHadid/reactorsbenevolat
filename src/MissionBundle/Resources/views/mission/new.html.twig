@@ -2,25 +2,31 @@
 
 
 {% block body %}
-   <h1>Mission creation</h1>
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+<style>
+    .inputsForm{
+        width:60px;
+        justify-content: center;
+    }
+</style>    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+<h1>Mission creation</h1>            <a href="{{ path('mission_index') }}">Back to the list</a>
 
+<div style="display:flex;align-content: center !important">
+
+    <br><br>
+    <br><br>
+    <br><br>
+<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1>
     {{ form_start(form) }}
-<div class="my-custom-class-for-errors">
-    {{ form_errors(form) }}
-</div>
-        {{ form_widget(form, {'attr': {'id': 'member_form'}}) }}
-<div class="input-group">
-    {{ form_row(form.titleMission) }}
+    {{ form_widget(form, {'attr': {'id': 'member_form'}}) }}
 
-    <span class="input-group-btn">
-    </span>
-</div>
+    <label for="password">Select Member:</label>
+
 <select name="framework" id="members" class="form-control selectpicker" data-live-search="true" multiple>
     {% for user in users %}
         <option value="{{ user.id }}">{{ user.nom }}</option>
     {% endfor %}
 </select>
+        <br><br><br><br>
 <p class="form-row form-row-wide">
     <label for="password">Emplacement Mission:
         <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
@@ -30,13 +36,12 @@
 </p>
 <input type="hidden" name="hidden_members" id="hidden_member" />
 <br><br><br><br>
-    <input type="submit" value="Create" />
+    <button type="submit" value="Create" class="btn btn-primary" style="width: 100px">Submit</button>
     {{ form_end(form) }}
-
+</div>
     <ul>
-        <li>
-            <a href="{{ path('mission_index') }}">Back to the list</a>
-        </li>
+
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
         <script src="{{ asset('assets/back/libs/jquery/dist/jquery.min.js') }}"></script>
 
@@ -63,7 +68,6 @@
                             data:form_data,
                             success:function(data)
                             {
-                               console.log(data);
                                  $('#hidden_members').val('');
                                  $('.selectpicker').selectpicker('val', '');
                             }

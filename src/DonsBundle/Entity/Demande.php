@@ -2,6 +2,8 @@
 
 namespace DonsBundle\Entity;
 
+use AppBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -103,9 +105,22 @@ class Demande
 
 
     /**
+<<<<<<< HEAD
      * @ORM\Column(type="integer")
      */
     private $ups;
+=======
+     * @ORM\OneToMany(targetEntity="DonsBundle\Entity\PostLike", mappedBy="don")
+     */
+    private $likes;
+
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+    }
+
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 
 
     /**
@@ -401,6 +416,7 @@ class Demande
     }
 
     /**
+<<<<<<< HEAD
      * @return mixed
      */
     public function getUps()
@@ -418,7 +434,64 @@ class Demande
         return $this;
     }
 
+=======
+     * @return ArrayCollection
+     */
+    /**
+     * @return Collection|PostLike[]
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param ArrayCollection $likes
+     * @return Demande
+     */
+    public function setLikes(ArrayCollection $likes): Demande
+    {
+        $this->likes = $likes;
+        return $this;
+    }
 
 
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
+
+
+
+    public function addLike(PostLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PostLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
 

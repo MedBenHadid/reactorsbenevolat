@@ -1,0 +1,49 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+    <h1>Notifications list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>User</th>
+                <th>Description</th>
+                <th>Icon</th>
+                <th>Route</th>
+                <th>Parameters</th>
+                <th>Date</th>
+                <th>Seen</th>
+                <th>Actions</th>
+                <th>Invi</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notification in notifications %}
+            <tr>
+                <td><a href="{{ path('notification_show', { 'id': notification.id }) }}">{{ notification.id }}</a></td>
+                <td>{{ notification.title }}</td>
+                <td>{{ notification.IdUser.username }}</td>
+                <td>{{ notification.description }}</td>
+                <td>{{ notification.icon }}</td>
+                <td>{{ notification.route }}</td>
+                <td>{% if notification.parameters %}{{ notification.parameters|join(', ') }}{% endif %}</td>
+                <td>{% if notification.date %}{{ notification.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if notification.seen %}Yes{% else %}No{% endif %}</td>
+                <td>{% if notification.IdInvitation %}{{ notification.IdInvitation.id }} {% endif %}</td>
+
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('notification_show', { 'id': notification.id }) }}">show</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

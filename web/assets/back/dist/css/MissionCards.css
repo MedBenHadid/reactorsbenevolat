@@ -121,3 +121,14 @@ div.footer a.Cbtn-danger{
 div.footer a.Cbtn-danger:hover{
     background-color: #fd7676;
 }
+.modal-backdrop {
+    z-index: 1040 !important;
+    position:relative !important;
+}
+.modal-dialog {
+    margin: 2px auto;
+    z-index: 1100 !important;
+}
+.inputsForm{
+    width:60px;
+}

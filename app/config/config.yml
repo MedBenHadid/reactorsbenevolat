@@ -15,14 +15,15 @@ imports:
 parameters:
     locale: fr
     upload_dir: '%kernel.project_dir%/web/uploads/images'
+    root: '%kernel.project_dir%/web/uploads/'
     association_directory: '%kernel.root_dir%/../web/client/images/association/images'
-    pieces_directory: '%kernel.root_dir%/../web/client/images/association/pieces'
     refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
     dons_image_directory: '%kernel.project_dir%/web/uploads/dons/images'
     mission_image_directory: '%kernel.project_dir%/web/uploads/mission/images'
     user_image_directory: '%kernel.project_dir%/web/uploads/user/images'
     association_image_directory: '%kernel.project_dir%/web/uploads/association/images'
     pieces_directory: '%kernel.project_dir%/web/uploads/association/pieces'
+    # don't delete this line for the love of god -- nasri
     hebergementImages_directory: '%kernel.project_dir%/web/uploads/images/hebergementsImages'
     donImages_directory: '%kernel.project_dir%/web/uploads/images/donImages'
     demandeImages_directory: '%kernel.project_dir%/web/uploads/images/demandeImages'
@@ -69,6 +70,8 @@ doctrine:
         user: '%database_user%'
         password: '%database_password%'
         charset: UTF8
+        mapping_types:
+            enum: string
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -131,6 +134,21 @@ knp_paginator:
 ewz_recaptcha:
     public_key:  6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
     private_key: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
-    # Not needed as "%kernel.default_locale%" is the default value for the locale key
+
     locale_key:  %kernel.default_locale%
     locale_from_request: true
+<<<<<<< HEAD
+=======
+
+
+#fos_rest:
+#    routing_loader:
+#        default_format: json                            # All responses should be JSON formated
+#        include_format: false                           # We do not include format in request, so that all responses
+#        # will eventually be JSON formated
+#    format_listener:
+#        rules:
+#            - { priorities: ['json', 'html'], fallback_format: json, prefer_extension: false }
+#    view:
+#        view_response_listener: true
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

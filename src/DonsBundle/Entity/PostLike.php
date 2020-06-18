@@ -28,7 +28,14 @@ class PostLike
      * @ORM\ManyToOne(targetEntity="\DonsBundle\Entity\Don", inversedBy="likes")
      */
     private $don;
+<<<<<<< HEAD
 
+=======
+    /**
+     * @ORM\ManyToOne(targetEntity="\DonsBundle\Entity\Demande", inversedBy="likes")
+     */
+    private $demande;
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
     /**
      * @return mixed
      */
@@ -83,5 +90,26 @@ class PostLike
         return $this;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return mixed
+     */
+    public function getDemande()
+    {
+        return $this->demande;
+    }
+
+    /**
+     * @param mixed $demande
+     * @return PostLike
+     */
+    public function setDemande($demande)
+    {
+        $this->demande = $demande;
+        return $this;
+    }
+
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 
 }

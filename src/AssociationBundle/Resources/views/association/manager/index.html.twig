@@ -49,9 +49,6 @@
                                 <th class="border-0 font-14 font-weight-medium text-muted">
                                     Modifier
                                 </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">
-                                    Supprimer
-                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -60,11 +57,11 @@
                                         <div class="d-flex no-block align-items-center">
                                             <div class="mr-3">
                                                 <img
-                                                        src="{{ asset('uploads/association/images/'~association.photoAssociation) }}"
+                                                        src="{{ asset('uploads/association/images/'~association.photo) }}"
                                                         alt="user" class="rounded-circle" width="45"
                                                         height="45" /></div>
                                             <div class="">
-                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('association_show', { 'id': association.id }) }}">{{ association.nomAssociation }}</a></h5>
+                                                <h5 class="text-dark mb-0 font-16 font-weight-medium"><a href="{{ path('manager_association_show', { 'id': association.id }) }}">{{ association.nom }}</a></h5>
                                                 <span class="text-muted font-14"><a href="{{ path('category_show', {'id': association.domaine.id }) }}">{{ association.domaine }}</a>
                                                 </span>
                                             </div>
@@ -73,11 +70,10 @@
                                     <td class="border-top-0 text-muted px-2 py-4 font-14"><a href="#">{{ association.manager }}</a> </td>
                                     <td class="border-top-0 px-2 py-4">
                                         <div class="popover-icon">
-                                            {% for member in association.members %}
-                                              <a class="btn btn-primary rounded-circle btn-circle font-12" href="{{ path('association_index')}}">{{ member.prenom }}</a>
+                                            {% for member in association.memberships %}
+                                                <a class="btn btn-primary rounded-circle btn-circle font-12 popover-item" href="{{ path('association_index')}}">{{ member.user.prenom|first|capitalize }}{{ member.user.nom|first|capitalize }}</a>
                                             {% endfor %}
-                                            <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                               href="javascript:void(0)">+</a>
+
                                         </div>
                                     </td>
                                     {% if association.approuved ==1 %}
@@ -93,19 +89,7 @@
                                      </td>
                                      {% endif %}
                                     <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
-                                        <a href="{{ path('admin_association_edit', { 'id': association.id }) }}">Modifier</a>
-                                    </td>
-                                    <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
-                                        <a onclick="myFunction()" href="">Supprimer</a>
-                                        <script>
-                                            function myFunction() {
-                                                confirm("Voulez vous vraiment supprimer  {{ association.nomAssociation }}!");
-                                                if (r === true) {
-                                                    window.location.href = {{ path('admin_association_delete', { 'id': association.id }) }};
-                                                    return r;
-                                                }
-                                            }
-                                        </script>
+                                        <a href="{{ path('manager_association_edit', { 'id': association.id }) }}">Modifier</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -115,7 +99,4 @@
             </div>
         </div>
     </div>
-    <!-- *************************************************************** -->
-    <!-- End Top Leader Table -->
-    <!-- *************************************************************** -->
 {% endblock %}

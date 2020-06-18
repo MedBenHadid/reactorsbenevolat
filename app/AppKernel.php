@@ -29,13 +29,21 @@ class AppKernel extends Kernel
             new SBC\NotificationsBundle\NotificationsBundle(),
             // Bundle externe nasri
             //new JMS\SerializerBundle\JMSSerializerBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
+            //new JMS\SerializerBundle\JMSSerializerBundle(),
+
+            //new FOS\RestBundle\FOSRestBundle(),
             // Bundle externe Issam
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+<<<<<<< HEAD
 
             //bundle ramy
 
+=======
+      //bundle ramy
+            //bundle rami
+            new blackknight467\StarRatingBundle\StarRatingBundle(),
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -43,6 +51,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             // Bundle Chihab
+            
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
 
             if ('dev' === $this->getEnvironment()) {

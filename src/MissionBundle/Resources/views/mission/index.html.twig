@@ -1,8 +1,10 @@
 {% extends '::baseback.html.twig' %}
 {% block title %}Mission{% endblock %}
-{% block bread %}<a href="{{ path('mission_index') }}">Mission</a>{% endblock %}
+{% block bread %}<a href="{{ path('mission_index') }}"> / Mission</a>{% endblock %}
 
 {% block body %}
+    <a  href="{{ path('mission_new') }}" class="btn btn-success pull-right" style="margin-right: 900px">Create a new mission</a>
+
     <h1>Missions list</h1>
 <div class="container-fluid">
     <div class="row">
@@ -30,15 +32,15 @@
                     <div class="statss">
 
                         <div>
-                            <strong>INVITED</strong> 3098
+                            <strong>INVITED</strong> {{ mission.invitation }}
                         </div>
 
                         <div>
-                            <strong>JOINED</strong> 562
+                            <strong>JOINED</strong> {{ mission.accpter }}
                         </div>
 
                         <div>
-                            <strong>DECLINED</strong> 182
+                            <strong>DECLINED</strong> {{ mission.refuser }}
                         </div>
 
                     </div>
@@ -60,14 +62,14 @@
                        </div>--!>
 
                     <div class="statss">
-                        <strong>Mission Progress</strong>
+                        <strong>Mission Progress : {{((mission.sumCollected/mission.objectif)*100)|round(1, 'floor')}}%</strong>
                     </div>
 
                     <div class="progress">
 
                         <div class="progress-bar progress-bar-striped progress-bar-animated"
                              role="progressbar" aria-valuenow="75" aria-valuemin="0"
-                             aria-valuemax="100" style="width: 75%"></div>
+                             aria-valuemax="100" style="width: {{ ((mission.sumCollected/mission.objectif)*100)}}%"></div>
                     </div>
                 </div>
 
@@ -105,12 +107,6 @@
 </div>
 
 
-    <ul>
-        <li>
-            <a href="{{ path('mission_new') }}">Create a new mission</a>
-        </li>
-    </ul>
 {% endblock %}
 {% block bootstrap4 %}
-
 {% endblock %}

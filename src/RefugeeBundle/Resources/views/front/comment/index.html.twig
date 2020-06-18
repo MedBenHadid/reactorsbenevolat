@@ -1,0 +1,89 @@
+{% extends 'base_nasri.html.twig' %}
+
+{% block body %}
+    <div class="rehomes-news-area blog-details">
+        <div class="container">
+            <div class="blog-details-area">
+                <div class="row">
+                        <!-- Blog Slider -->
+                        <div class="post-thumbnail mb-50">
+                            <img src="{{asset('uploads/images/hebergementsImages/' ~ hebergement.image) }}" alt="">
+                        </div>
+
+                        <!-- Blog Details Text -->
+                        <div class="blog-details-text wow fadeInUp" data-wow-delay="200ms">
+                            <p>{{ hebergement.description }}</p>
+                        </div>
+
+
+                    <!-- Leave A Reply -->
+                    <div class="rehomes-contact-form mt-50 mb-5 mb-lg-0 wow fadeInUp" data-wow-delay="200ms">
+                        <h4 class="mb-30">Ajouter un commentaire</h4>
+
+                        <!-- Form -->
+                        <form action="{{ path('comment_new') }}" method="get">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input name="hebergementId" value="{{ hebergement.id }}" style="display: none">
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="message" class="form-control mb-30" placeholder="commentaire"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn rehomes-btn mt-15">Ajouter</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                        <!-- Comment Area Start -->
+                        <div class="comment-area wow fadeInUp mt-5" data-wow-delay="200ms">
+                            <!-- Comments Area -->
+                            <div class="comment_area clearfix">
+                                <h4 class="mb-30">{{ nbrComments }} Commentaires</h4>
+
+                                <ol>
+                                    {% for comment in comments %}
+                                        <li class="single_comment_area">
+                                            <!-- Comment Content -->
+                                            <div class="comment-content d-flex">
+                                                <!-- Comment Author -->
+                                                <div class="comment-author">
+                                                    <img src="{{ asset('uploads/user/images/user.png') }}" alt="author">
+                                                </div>
+                                                <!-- Comment Meta -->
+                                                <div class="comment-meta">
+                                                    <a href="#" class="post-date">{{ comment.creationDate|date('d-m-Y') }}</a>
+                                                    <h5>{{ comment.user }}</h5>
+                                                    <p>{{ comment.content }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+
+                                    <!-- Single Comment Area -->
+                                    <li class="single_comment_area" style="visibility: hidden;">
+                                        <!-- Comment Content -->
+                                        <div class="comment-content d-flex">
+                                            <!-- Comment Author -->
+                                            <div class="comment-author">
+                                                <img src="{{ asset('assets/appfront/img/bg-img/63.jpg') }}" alt="author">
+                                            </div>
+                                            <!-- Comment Meta -->
+                                            <div class="comment-meta">
+                                                <a href="#" class="post-date">27 Aug 2019</a>
+                                                <h5>Mike Phillips</h5>
+                                                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetu adipisci velit, sed quia non numquam eius modi</p>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}

@@ -2,7 +2,7 @@
     "name": "symfony/framework-standard-edition",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "description": "Reactors BENEVOLAT",
     "autoload": {
         "psr-4": {
             "": "src/"
@@ -14,7 +14,13 @@
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
+<<<<<<< HEAD
         "php": ">=7.0",
+=======
+        "php": ">=7.1",
+        "ext-json": "*",
+        "blackknight467/star-rating-bundle": "2.*",
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "excelwebzone/recaptcha-bundle": "^1.5",
@@ -25,13 +31,16 @@
         "knplabs/knp-paginator-bundle": "3.0",
         "mgilet/notification-bundle": "^3.1",
         "mrad/notifications-bundle": "^1.3",
+        "nelmio/api-doc-bundle": "^3.6",
+        "ramsey/uuid": "^4.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+      "ext-json": "*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",

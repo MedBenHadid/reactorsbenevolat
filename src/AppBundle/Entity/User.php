@@ -1,12 +1,13 @@
 <?php
-
 namespace AppBundle\Entity;
 
+<<<<<<< HEAD
 use AssociationBundle\Entity\Association;
 use BackofficeBundle\BackofficeBundle;
+=======
+
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -18,10 +19,11 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser
 {
-    const SUPER_ADMIN = "ROLE_SUPER_ADMIN";
-    const ASSOCIATION_ADMIN = "ROLE_ASSOCIATION_ADMIN";
-    const LIVREUR = "ROLE_LIVREUR";
-    const USER = "ROLE_USER";
+    const SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
+    const ASSOCIATION_ADMIN = 'ROLE_ASSOCIATION_ADMIN';
+    const LIVREUR = 'ROLE_LIVREUR';
+    const USER = 'ROLE_USER';
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -37,13 +39,19 @@ class User extends BaseUser
         return $this->id;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
     public function __construct()
     {
         parent::__construct();
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
     /**
      * @var string
      *
@@ -58,12 +66,6 @@ class User extends BaseUser
      */
     private $prenom;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password_plain", type="string", length=20, nullable=true)
-     */
-    private $passwordPlain;
 
     /**
      * @var \DateTime
@@ -79,12 +81,6 @@ class User extends BaseUser
      */
     private $telephone;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=30, nullable=true)
-     */
-    private $mail;
 
     /**
      * @var string
@@ -114,7 +110,10 @@ class User extends BaseUser
      */
     private $image = "user.png";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 
     /**
      * Set nom
@@ -164,29 +163,6 @@ class User extends BaseUser
         return $this->prenom;
     }
 
-    /**
-     * Set passwordPlain
-     *
-     * @param string $passwordPlain
-     *
-     * @return User
-     */
-    public function setPasswordPlain($passwordPlain)
-    {
-        $this->passwordPlain = $passwordPlain;
-
-        return $this;
-    }
-
-    /**
-     * Get passwordPlain
-     *
-     * @return string
-     */
-    public function getPasswordPlain()
-    {
-        return $this->passwordPlain;
-    }
 
     /**
      * Set dateNaissance
@@ -201,13 +177,50 @@ class User extends BaseUser
 
         return $this;
     }
+
     /**
-     * @ORM\ManyToOne(targetEntity="\AssociationBundle\Entity\Association")
-     *  @ORM\JoinColumns({
-     *  @ORM\JoinColumn(name="Association", referencedColumnName="id")
-     * })
+     * @ORM\Column(type="string",nullable=true)
+     * @Assert\Length(max="8",min="8",maxMessage="CIN ne peut pas dépasser 8 caractéres")
      */
-    private $Association;
+    private $cin;
+
+    /**
+     * @return mixed
+     */
+    public function getCin()
+    {
+        return $this->cin;
+    }
+
+    /**
+     * @param mixed $cin
+     */
+    public function setCin($cin)
+    {
+        $this->cin = $cin;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAssociation()
+    {
+        return $this->association;
+    }
+
+    /**
+     * @param mixed $association
+     */
+    public function setAssociation($association)
+    {
+        $this->association = $association;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Adherance", mappedBy="user")
+     */
+    private $association;
+
     /**
      * Get dateNaissance
      *
@@ -240,30 +253,6 @@ class User extends BaseUser
     public function getTelephone()
     {
         return $this->telephone;
-    }
-
-    /**
-     * Set mail
-     *
-     * @param string $mail
-     *
-     * @return User
-     */
-    public function setMail($mail)
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    /**
-     * Get mail
-     *
-     * @return string
-     */
-    public function getMail()
-    {
-        return $this->mail;
     }
 
     /**

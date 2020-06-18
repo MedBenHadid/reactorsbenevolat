@@ -10,4 +10,11 @@ namespace CommunicationBundle\Repository;
  */
 class ThreadsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByCategoryName($categoryName)
+    {
+        $query = "Select T.id, T.title, T.content from CommunicationBundle:Threads T, CommunicationBundle:ForumCategory F where T.category = F.id AND F.name = '$categoryName'";
+        $q = $this->getEntityManager()->createQuery($query);
+        return $q->getResult();
+    }
+
 }
