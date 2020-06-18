@@ -1,25 +1,88 @@
-{% extends 'baseback.html.twig' %}
+{% extends 'base.html.twig' %}
+{% block title %}Don{% endblock %}
+{% block bread %}<a href="{{ path('don_index') }}">Don</a>{% endblock %}
+{% block info %}Dons :{% endblock %}
 
 {% block body %}
-    <h1>Demande creation</h1>
+    <div class="container my-3">
+        <h1 class="text-center">Création d'un hebergement</h1>
+        <div class="row">
+            <div class="col-sm-12 col-lg-6">
+                {{ form_start(form , {attr : {novalidate:'novalidate'}}) }}
+                <div class="form-group">
+                    {{ form_label(form.title ,'titre de donnation') }}
+                    {{ form_widget(form.title ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.image ,'titre de donnation') }}
+                    {{ form_widget(form.image ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.description ,'description') }}
+                    {{ form_widget(form.description ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+                <div class="form-group">
+                    {{ form_label(form.address ,'address') }}
+                    {{ form_widget(form.address ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.state ,'etat de donnation') }}
+                    {{ form_widget(form.state ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.phone ,'Telephone') }}
+                    {{ form_widget(form.phone ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.ups ,'UPS') }}
+                    {{ form_widget(form.ups ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(form.domaine ,'domaine') }}
+                    {{ form_widget(form.domaine ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>  <div class="form-group">
+                    {{ form_label(form.rib ,'rib') }}
+                    {{ form_widget(form.rib ,{'attr': { 'class' : 'form-control'}}) }}
+                </div>
+
+
+                <div class="form-group">
+                    <p class="form-row form-row-wide">
+                        <label for="password">Emplacement donnation:
+                            <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
+                            <input type="hidden" name="lat_demande" id="lat_demande" value="0" />
+                            <input type="hidden" name="lng_demande" id="lng_demande" value="0" />
+                        </label>
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <ul>
+                        <li>
+                            <a href="{{ path('don_index') }}">Back to the list</a>
+                        </li>
+                    </ul>
 
 
 
-    <p class="form-row form-row-wide">
-        <label for="password">Emplacement donnation:
-            <div id="map" style="width: 500px; height: 300px; background-color: red"></div>
-            <input type="hidden" name="lat_demande" id="lat_demande" value="0" />
-            <input type="hidden" name="lng_demande" id="lng_demande" value="0" />
-        </label>
-    </p>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Créer</button>
 
 
 
-    {{ form_end(form) }}
+                {{ form_end(form) }}
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+                <img src="{{ asset('assets/appfront/don.jpg') }}" class="img-fluid" alt="Responsive image">
+
+            </div>
+        </div>
+    </div>
 
     <ul>
         <li>

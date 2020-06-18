@@ -22,3 +22,36 @@ don_delete:
     path:     /{id}/delete
     defaults: { _controller: "DonsBundle:Don:delete" }
     methods:  DELETE
+don_home:
+    path:     /home
+    defaults: { _controller: "DonsBundle:Don:home" }
+don_search:
+    path:     /search
+    defaults: { _controller: "DonsBundle:Don:search" }
+    methods: GET
+don_like:
+    path:     /{id}/like
+    defaults: { _controller: "DonsBundle:Don:like" }
+
+don_api:
+    path:     /api
+    defaults: { _controller: "DonsBundle:Api:don"}
+
+don_addApi:
+    path:     /addapi
+    defaults: { _controller: "DonsBundle:Api:add"}
+    methods:  [GET, POST]
+
+apidon_show:
+    path:     /apishow
+    defaults: { _controller: "DonsBundle:Api:apishow" }
+    methods:  GET
+
+apidon_delete:
+    path:     /remove
+    defaults: { _controller: "DonsBundle:Api:remove" }
+    methods:  GET
+apidon_update:
+    path:     /apiedit
+    defaults: { _controller: "DonsBundle:Api:apiedit" }
+    methods:  [GET, POST]

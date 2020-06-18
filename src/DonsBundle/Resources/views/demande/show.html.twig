@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block title %}Association {{ demande.title }}{% endblock %}
+{% block info %}Association {{ demande.title }} :{% endblock %}
+{% block bread %}<a href="{{ path('demande_index') }}">demande</a> / {{ demande.title }} {% endblock %}
+{% block body %}
+
+    <div class="properties-hero-area d-flex flex-wrap align-items-center mb-80">
+        <div class="properties-slide">
+            <!-- Properties Slider -->
+            <div id="property-thumb-silde" class="carousel slide wow fadeInUp" data-wow-delay="200ms" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#property-thumb-silde" data-slide-to="0" class="active" style="background-image: url(img/bg-img/64.jpg);"></li>
+                    <li data-target="#property-thumb-silde" data-slide-to="1" style="background-image: url(img/bg-img/65.jpg);"></li>
+                    <li data-target="#property-thumb-silde" data-slide-to="2" style="background-image: url(img/bg-img/66.jpg);"></li>
+                    <li data-target="#property-thumb-silde" data-slide-to="3" style="background-image: url(img/bg-img/67.jpg);"></li>
+                </ol>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+
+                        <img src="{{ asset('uploads/images/demandeImages/'~demande.image)}}" class="d-block w-100" alt="...">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Properties Content Area -->
+        <div class="properties-content-area wow fadeInUp" data-wow-delay="200ms">
+            <div class="properties-content-info">
+                <h2>{{ demande.title }}</h2>
+                <div class="properties-location">
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> {{ demande.phone }} {{ demande.address }}, {{ demande.phone }}, TN</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> address:  {{ demande.address }}</p>
+                </div>
+                <h4 class="properties-rate">{{ demande.description }} <span>/ Membres</span></h4>
+                <p>Buy .</p>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <p class="form-row form-row-wide">
+        <label for="password">Emplacement Association:
+            <div id="map" style="width: 1000px; height: 500px; background-color: red"></div>
+            <input type="hidden" name="lat_demande" id="lat_demande" value="{{demande.latitude }}" />
+            <input type="hidden" name="lng_demande" id="lng_doné" value="{{demande.longitude }}" />
+        </label>
+    </p>
+
+
+    <ul>
+        <li>
+            <a href="{{ path('demande_index') }}">Back to the list</a>
+        </li>
+
+    </ul>
+    <script>
+
+        function initMap() {
+            var myLatLng = {lat: {{demande.latitude}}, lng: {{demande.longitude}}};
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+
+            });
+
+
+
+
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD00UW-yFHi17pDyHLe19_ImRpo0ja5Q3k&callback=initMap">
+    </script>
+
+{% endblock %}

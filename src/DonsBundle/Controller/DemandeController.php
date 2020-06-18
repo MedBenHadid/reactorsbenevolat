@@ -12,6 +12,36 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DemandeController extends Controller
 {
+
+
+
+    public function searchAction(Request $request)
+    {
+        $addresse = $request->query->get('adresse') ? $request->query->get('addresse') : null;
+        $ordreUps = $request->query->get('odre_ups') ? $request->query->get('ordre_ups') : null;
+        $domaine = $request->query->get('domaine') ? $request->query->get('domaine') : null;
+
+        $em = $this->getDoctrine()->getManager();
+
+        $domaines = $em->getRepository('AssociationBundle:Category')->findAll();
+
+
+        $demandes = $em->getRepository('DonsBundle:Demande')->search($addresse, $ordreUps, $domaine);
+        $paginator = $this->get('knp_paginator');
+        $demandes_paginator =  $paginator->paginate($demandes,
+            $request->query->getInt('page' , 1)  ,
+            $request->query->getInt('limit ' , 6));
+
+
+
+        return $this->render('@Dons/demande/index.html.twig', array(
+            'demandes' => $demandes_paginator,
+            'domaines' => $domaines
+        ));
+    }
+
+
+
     /**
      * Lists all demande entities.
      *
@@ -26,10 +56,16 @@ class DemandeController extends Controller
         $paginator = $this->get('knp_paginator');
         $result =  $paginator->paginate($query ,
             $request->query->getInt('page' , 1)  ,
-            $request->query->getInt('limit ' , 2));
+            $request->query->getInt('limit ' , 6));
 
-        return $this->render('demande/index.html.twig', array(
+
+
+        $domaines = $em->getRepository('AssociationBundle:Category')->findAll();
+
+
+        return $this->render('@Dons/demande/index.html.twig', array(
             'demandes' => $result,
+            'domaines' => $domaines
         ));
     }
 
@@ -49,6 +85,30 @@ class DemandeController extends Controller
             $demande->setLatitude($request->request->get('lat_demande'));
             $demande->setLongitude($request->request->get('lng_demande'));
             $em = $this->getDoctrine()->getManager();
+
+            $demande->setCreationDate(new\DateTime());
+            $userId = $this->getUser()->getId();
+            $user = $em->getRepository('AppBundle:User')->find($userId);
+            $demande->setUser($user);
+
+
+
+            $imageFile = $form->get('image')->getData();
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+
+            try {
+                $imageFile->move(
+                    $this->getParameter('demandeImages_directory'),
+                    $newFilename
+                );
+            } catch (FileException $e) {
+                // ... handle exception if something happens during file upload
+            }
+
+            $demande->setImage($newFilename);
+
             $em->persist($demande);
             $em->flush();
 
@@ -56,7 +116,7 @@ class DemandeController extends Controller
             return $this->redirectToRoute('demande_show', array('id' => $demande->getId()));
         }
 
-        return $this->render('demande/new.html.twig', array(
+        return $this->render('@dons/demande/new.html.twig', array(
             'demande' => $demande,
             'form' => $form->createView(),
         ));
@@ -70,7 +130,7 @@ class DemandeController extends Controller
     {
         $deleteForm = $this->createDeleteForm($demande);
 
-        return $this->render('demande/show.html.twig', array(
+        return $this->render('@Dons/demande/show.html.twig', array(
             'demande' => $demande,
             'delete_form' => $deleteForm->createView(),
         ));

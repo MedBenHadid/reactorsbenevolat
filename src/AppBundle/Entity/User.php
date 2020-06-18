@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use AssociationBundle\Entity\Association;
-use AssociationBundle\Entity\Invitation;
 use BackofficeBundle\BackofficeBundle;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,28 +37,12 @@ class User extends BaseUser
         return $this->id;
     }
 
-/*
-    /**
-     * @ORM\OneToOne(targetEntity="AssociationBundle\Entity\Invitation")
-     * @ORM\JoinColumn(referencedColumnName="code")
-     * @Assert\NotNull(message="Your invitation is wrong", groups={"Registration"})
-     */
-    //protected $invitation;
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function setInvitation(Invitation $invitation)
-    {
-        $this->invitation = $invitation;
-    }
-
-    public function getInvitation()
-    {
-        return $this->invitation;
-    }
 
     /**
      * @var string
@@ -131,31 +114,6 @@ class User extends BaseUser
      */
     private $image = "user.png";
 
-    /**
-     *
-     * @ORM\ManyToOne(targetEntity="BackofficeBundle\Entity\Notification",inversedBy="notification")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
-     * })
-     */
-
-    private $notifications ;
-
-    /**
-     * @return mixed
-     */
-    public function getNotifications()
-    {
-        return $this->notifications;
-    }
-
-    /**
-     * @param mixed $notifications
-     */
-    public function setNotifications($notifications)
-    {
-        $this->notifications = $notifications;
-    }
 
 
     /**

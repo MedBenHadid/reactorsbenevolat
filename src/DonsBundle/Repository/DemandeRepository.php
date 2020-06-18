@@ -10,4 +10,42 @@ namespace DonsBundle\Repository;
  */
 class DemandeRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
+    public function search($addresse, $ordreUps, $domaine)
+    {
+        $ordre = $ordreUps == 1 ? 'DESC' : 'ASC';
+
+
+        $query = null;
+
+        if (is_null($addresse) && is_null($domaine))
+        {
+            $query = $this->createQueryBuilder('de')
+                ->add('orderBy', 'de.ups ' . $ordre)
+                ->getQuery();
+
+        }
+
+        else
+            {
+                $query = $this->createQueryBuilder('de')
+                    ->where('de.address = ' . ':addresse')
+                    ->orWhere('de.domaine = ' . ':domaine')
+                    ->add('orderBy', 'de.ups ' . $ordre)
+                    ->setParameters(
+                        [
+                            'addresse' => $addresse,
+                            'domaine' => $domaine
+                        ]
+                    )
+                    ->getQuery();
+
+            }
+
+        return $query->getResult();
+    }
+
+
+
 }

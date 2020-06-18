@@ -3,6 +3,8 @@
 namespace DonsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Demande
@@ -57,12 +59,7 @@ class Demande
      */
     private $phone;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="ups", type="integer")
-     */
-    private $ups;
+
 
     /**
      * @var \DateTime
@@ -93,14 +90,23 @@ class Demande
 
     /**
      * @ORM\Column(type="string")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $latitude;
 
 
     /**
      * @ORM\Column(type="string")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $longitude;
+
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ups;
+
 
     /**
      * Get id
@@ -111,6 +117,13 @@ class Demande
     {
         return $this->id;
     }
+
+
+    /**
+     * @var string
+     * @ORM\Column(type="string" , length=255)
+     */
+    private $image;
 
     /**
      * Set title
@@ -250,29 +263,6 @@ class Demande
         return $this->phone;
     }
 
-    /**
-     * Set ups
-     *
-     * @param integer $ups
-     *
-     * @return Demande
-     */
-    public function setUps($ups)
-    {
-        $this->ups = $ups;
-
-        return $this;
-    }
-
-    /**
-     * Get ups
-     *
-     * @return int
-     */
-    public function getUps()
-    {
-        return $this->ups;
-    }
 
     /**
      * Set creationDate
@@ -349,7 +339,7 @@ class Demande
      */
     public function getLat()
     {
-        return $this->lat;
+        return $this->latitude;
     }
 
     /**
@@ -357,7 +347,7 @@ class Demande
      */
     public function setLat($lat)
     {
-        $this->lat = $lat;
+        $this->latitude = $lat;
     }
 
     /**
@@ -390,6 +380,42 @@ class Demande
     public function setLongitude($longitude)
     {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     * @return Demande
+     */
+    public function setImage(string $image): Demande
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUps()
+    {
+        return $this->ups;
+    }
+
+    /**
+     * @param mixed $ups
+     * @return Demande
+     */
+    public function setUps($ups)
+    {
+        $this->ups = $ups;
+        return $this;
     }
 
 

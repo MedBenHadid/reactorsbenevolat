@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +9,8 @@
     <title>{% block title %}Reactors - Votre plateforme de bénévolat{% endblock %}</title>
     <link rel="icon" href="{{ asset('assets/back/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/appfront/style.css') }}">
+    <script src="https://kit.fontawesome.com/87cdab7d2a.js" crossorigin="anonymous"></script>
+
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
@@ -62,9 +65,10 @@
                                 <li class="active"><a href="{{ path('homepage') }}">Page d'acceuil</a></li>
                                 <li><a href="{{ path('association_index') }}">Association</a></li>
                                 </li>
+
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
-
+                                        <li><a href="{{ path('dons_homepage') }}">- Espace de donnation</a></li>
                                         <li><a href="{{ path('category_index')}}">- Domaines</a></li>
                                         <li><a href="{{ path('mission_index')}}">- Missions</a></li>
                                         <li><a href="{{ path('communication_homepage')}}">- Blog</a></li>
@@ -246,6 +250,12 @@
 
 
 {% block javascript %}
+
+{% endblock %}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+{% block javascripts %}
 
 {% endblock %}
 </body>
