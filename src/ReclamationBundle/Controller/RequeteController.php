@@ -3,9 +3,15 @@
 namespace ReclamationBundle\Controller;
 
 use ReclamationBundle\Entity\Requete;
+use ReclamationBundle\Entity\Rponse;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Requete controller.
@@ -80,6 +86,97 @@ class RequeteController extends Controller
         }
         return $this->render('@Reclamation/requete/requetefront.html.twig');
     }
+
+    //codename one stuff
+    /**
+     * Lists all Requete entities.
+     *
+     */
+    public function getallAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $req = $em->getRepository('ReclamationBundle:Requete')->findAll();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($req);
+        return new JsonResponse($formatted,Response::HTTP_OK);
+    }
+
+    /**
+     * Creates a new Requete entity.
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function addApiAction(Request $request)
+    {
+        //return new JsonResponse(array('description'=>$request->getContent()->get('description')),Response::HTTP_OK);
+        $em = $this->getDoctrine()->getManager();
+        $req = new Requete();
+        $req->setDernierMAJ(new \DateTime());
+        $req->setDescription($request->get('description'));
+        $req->setSujet($request->get('sujet'));
+        $req->setStatut(0);
+        $req->setType($request->get('type'));
+        $user = $em->getRepository('AppBundle:User')->find(1);
+        $req->setUser($user);
+        $em->persist($req);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($req);
+
+        return new JsonResponse($formatted,Response::HTTP_OK);
+    }
+    /**
+     * Finds and displays a hebergement entity.
+     *
+     */
+    public function showApiAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $requete = $em->getRepository('ReclamationBundle:Requete')->find($request->get('id'));
+
+        $req = $em->getRepository('ReclamationBundle:Rponse')->findOneBy(['requete' => $requete]);
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($req);
+        return new JsonResponse($formatted);
+    }
+    /**
+     * Deletes a hebergement entity.
+     *
+     */
+    public function deleteApiAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $req = $em->getRepository('ReclamationBundle:Requete')->find($id);
+        $em->remove($req);
+        $em->flush();
+        return new JsonResponse('Request deleted');
+    }
+
+
+    public function editApiAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $req = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('ReclamationBundle:Requete')
+            ->find($id);
+
+        $req->setDescription($request->get('description'));
+        $req->setSujet($request->get('sujet'));
+        $userId = 1;
+        $user = $em->getRepository('AppBundle:User')->find($userId);
+        $req->setUser($user);
+        $em->persist($req);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($req);
+        return new JsonResponse($formatted);
+    }
+
+    //back to normal
 
     /**
      * Finds and displays a requete entity.
