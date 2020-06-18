@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +10,15 @@
     <link rel="icon" href="{{ asset('assets/back/images/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('assets/appfront/style.css') }}">
     <script src="https://kit.fontawesome.com/87cdab7d2a.js" crossorigin="anonymous"></script>
+<<<<<<< HEAD
+=======
     <!--ramy stuff don't touch-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/rating/css/rating.css') }}" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="{{ asset('assets/rating/js/rating.js') }}"></script>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 
     {% block stylesheets %}{% endblock %}
 </head>
@@ -39,10 +43,21 @@
                         </div>
                         <div class="classynav">
                             <ul id="nav">
+<<<<<<< HEAD
+                                <li>
+                                <li class="active"><a href="{{ path('homepage') }}">Page d'acceuil</a></li>
+                                <li><a href="{{ path('association_index') }}">Association</a></li>
+                                </li>
+
+                                <li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="{{ path('dons_homepage') }}">- Espace de donnation</a></li>
+=======
                                 <li><a href="#">Pages</a>
                                     <ul class="dropdown">
                                         <li class="active"><a href="{{ path('homepage') }}">- Page d'acceuil</a></li>
                                         <li><a href="{{ path('association_index') }}">- Association</a></li>
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
                                         <li><a href="{{ path('category_index')}}">- Domaines</a></li>
                                         <li><a href="{{ path('mission_indexFront')}}">- Missions</a></li>
                                         <li><a href="{{ path('forum_homepage')}}">- Forum</a></li>
@@ -644,6 +659,12 @@
     <script src="{{ asset('assets/appfront/js/default-assets/active.js') }}"></script>
 
 {% block javascript %}
+
+{% endblock %}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+{% block javascripts %}
 
 {% endblock %}
 </body>

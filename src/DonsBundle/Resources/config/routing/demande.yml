@@ -23,6 +23,31 @@ demande_delete:
     defaults: { _controller: "DonsBundle:Demande:delete" }
     methods:  DELETE
 demande_search:
+<<<<<<< HEAD
+    path:     /search
+    defaults: { _controller: "DonsBundle:Demande:search" }
+    methods: GET
+
+demandeApi:
+    path:     /api
+    defaults: { _controller: "DonsBundle:Api:demandeApi"}
+
+
+demande_addApi:
+    path:     /addapi
+    defaults: { _controller: "DonsBundle:Api:addDemande"}
+    methods:  [GET, POST]
+
+apidemande_show:
+    path:     /apishow
+    defaults: { _controller: "DonsBundle:Api:demandeShow" }
+    methods:  GET
+
+apidemande_delete:
+    path:     /remove
+    defaults: { _controller: "DonsBundle:Api:removeDemande" }
+    methods:  GET
+=======
     path:     front/search
     defaults: { _controller: "DonsBundle:Demande:search" }
     methods: GET
@@ -45,3 +70,4 @@ demande_back_show:
 demande_like:
     path:     /fornt/{id}/like
     defaults: { _controller: "DonsBundle:Demande:like" }
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

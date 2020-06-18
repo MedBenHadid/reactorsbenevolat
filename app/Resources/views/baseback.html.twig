@@ -532,6 +532,12 @@
                 DataNotification.push(dataNotif);
                 console.log("MyDATANOTIFICATION"+DataNotification);
                 console.log("Count Notification "+DataNotification.length);
+<<<<<<< HEAD
+                for (let i = 0; i <5 ; i++) {
+                    console.log(dataNotif[i]);
+                    document.getElementById("ListNotification").innerHTML+="  <a href='javascript:void(0)'\n" +
+                        "                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'>\n" +
+=======
                 document.getElementById("nbrNotif").innerHTML="<span>"+dataNotif.length+"</span>";
 
 
@@ -542,6 +548,7 @@
 
                     document.getElementById("ListNotification").innerHTML+="  <a href="+url+"\n" +
                         "                                               class='message-item d-flex align-items-center border-bottom px-3 py-2'><span id='spinner_notif"+dataNotif[i].id+"' ></span>\n" +
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
                         "                                                <div class='w-75 d-inline-block v-middle pl-2'>\n" +
                         "                                                    <h6 class='message-title mb-0 mt-1'>"+dataNotif[i].title+"</h6>\n" +
                         "                                                    <span class='font-12 text-nowrap d-block text-muted'>"+dataNotif[i].description+"</span>\n"+

@@ -61,12 +61,7 @@ class Demande
      */
     private $phone;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="ups", type="integer")
-     */
-    private $ups;
+
 
     /**
      * @var \DateTime
@@ -110,6 +105,11 @@ class Demande
 
 
     /**
+<<<<<<< HEAD
+     * @ORM\Column(type="integer")
+     */
+    private $ups;
+=======
      * @ORM\OneToMany(targetEntity="DonsBundle\Entity\PostLike", mappedBy="don")
      */
     private $likes;
@@ -120,6 +120,7 @@ class Demande
         $this->likes = new ArrayCollection();
     }
 
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 
 
     /**
@@ -277,29 +278,6 @@ class Demande
         return $this->phone;
     }
 
-    /**
-     * Set ups
-     *
-     * @param integer $ups
-     *
-     * @return Demande
-     */
-    public function setUps($ups)
-    {
-        $this->ups = $ups;
-
-        return $this;
-    }
-
-    /**
-     * Get ups
-     *
-     * @return int
-     */
-    public function getUps()
-    {
-        return $this->ups;
-    }
 
     /**
      * Set creationDate
@@ -376,7 +354,7 @@ class Demande
      */
     public function getLat()
     {
-        return $this->lat;
+        return $this->latitude;
     }
 
     /**
@@ -384,7 +362,7 @@ class Demande
      */
     public function setLat($lat)
     {
-        $this->lat = $lat;
+        $this->latitude = $lat;
     }
 
     /**
@@ -438,6 +416,25 @@ class Demande
     }
 
     /**
+<<<<<<< HEAD
+     * @return mixed
+     */
+    public function getUps()
+    {
+        return $this->ups;
+    }
+
+    /**
+     * @param mixed $ups
+     * @return Demande
+     */
+    public function setUps($ups)
+    {
+        $this->ups = $ups;
+        return $this;
+    }
+
+=======
      * @return ArrayCollection
      */
     /**
@@ -459,6 +456,7 @@ class Demande
     }
 
 
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 
 
 

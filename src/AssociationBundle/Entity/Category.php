@@ -26,6 +26,11 @@ class Category
      */
     private $name;
 
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $description;
     /**
      * @return mixed
      */
@@ -72,6 +77,26 @@ class Category
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     * @return Category
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+
 
     public function __toString() {
         return $this->name;

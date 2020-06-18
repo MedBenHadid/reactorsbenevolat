@@ -1,7 +1,12 @@
 <?php
 namespace AppBundle\Entity;
 
+<<<<<<< HEAD
+use AssociationBundle\Entity\Association;
+use BackofficeBundle\BackofficeBundle;
+=======
 
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -34,11 +39,19 @@ class User extends BaseUser
         return $this->id;
     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
     public function __construct()
     {
         parent::__construct();
     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
     /**
      * @var string
      *
@@ -97,6 +110,10 @@ class User extends BaseUser
      */
     private $image = "user.png";
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
 
     /**
      * Set nom

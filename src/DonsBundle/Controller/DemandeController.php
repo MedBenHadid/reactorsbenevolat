@@ -58,12 +58,21 @@ class DemandeController extends Controller
         $result =  $paginator->paginate($query ,
             $request->query->getInt('page' , 1)  ,
             $request->query->getInt('limit ' , 6));
+<<<<<<< HEAD
 
 
 
         $domaines = $em->getRepository('AssociationBundle:Category')->findAll();
 
 
+=======
+
+
+
+        $domaines = $em->getRepository('AssociationBundle:Category')->findAll();
+
+
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
         return $this->render('@Dons/demande/index.html.twig', array(
             'demandes' => $result,
             'domaines' => $domaines
@@ -117,7 +126,11 @@ class DemandeController extends Controller
             return $this->redirectToRoute('demande_show', array('id' => $demande->getId()));
         }
 
+<<<<<<< HEAD
+        return $this->render('@dons/demande/new.html.twig', array(
+=======
         return $this->render('@Dons/demande/new.html.twig', array(
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
             'demande' => $demande,
             'form' => $form->createView(),
         ));
