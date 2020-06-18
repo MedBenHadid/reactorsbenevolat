@@ -115,6 +115,10 @@
                                     <p> <span></span></p>
                                     <p><span></span></p>
 
+<<<<<<< HEAD
+                                    <button class="btn btn-outline-danger waves-effect waves-light" type="button"><span class="btn-label"><i class="fa fa-heart"></i></span>
+                                        Heart</button>
+=======
                                     <a href="{{ path('demande_like', {'id': demande.id}) }}" id="btn">
                                         <span  class="js-like" id="{{ demande.id }}"> {{ demande.likes|length }} </span>
                                         {% if app.user and demande.likedByUser(app.user) %}
@@ -124,6 +128,7 @@
                                             <i class="far fa-thumbs-up"></i>
                                         {% endif %}
                                     </a>
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
                                 </div>
                             </div>
 
@@ -148,6 +153,8 @@
         </div>
     </section>
 {% endblock %}
+<<<<<<< HEAD
+=======
 
 {% block javascripts %}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -176,3 +183,4 @@
 
     </script>
 {% endblock %}
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

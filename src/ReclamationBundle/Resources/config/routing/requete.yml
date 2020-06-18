@@ -28,3 +28,30 @@ requete_delete:
     path:     /{id}/delete
     defaults: { _controller: "ReclamationBundle:Requete:delete" }
     methods:  DELETE
+
+add_requete_API:
+    path:     /api/add
+    defaults: { _controller: "ReclamationBundle:Requete:addApi" }
+    methods:  POST
+
+update_requete_API:
+    path:     /{id}/api/edit
+    defaults: { _controller: "ReclamationBundle:Requete:editApi" }
+    methods:  POST
+
+show_requete_API:
+    path:     /api/showall
+    defaults: { _controller: "ReclamationBundle:Requete:getall" }
+    methods:  GET
+
+
+delete_requete_API:
+    path:     /{id}/api/delete
+    defaults: { _controller: "ReclamationBundle:Requete:deleteApi" }
+    methods:  POST
+
+show_id_rponse_API:
+    path:     /api/{id}/show
+    defaults: { _controller: "ReclamationBundle:Requete:showApi" }
+    methods:  GET
+

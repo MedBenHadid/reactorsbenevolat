@@ -10,3 +10,7 @@ don_homepage:
     path:     /donnation
     defaults: { _controller: DonsBundle:Default:index }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

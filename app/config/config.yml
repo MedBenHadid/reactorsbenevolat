@@ -137,6 +137,8 @@ ewz_recaptcha:
 
     locale_key:  %kernel.default_locale%
     locale_from_request: true
+<<<<<<< HEAD
+=======
 
 
 #fos_rest:
@@ -149,3 +151,4 @@ ewz_recaptcha:
 #            - { priorities: ['json', 'html'], fallback_format: json, prefer_extension: false }
 #    view:
 #        view_response_listener: true
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

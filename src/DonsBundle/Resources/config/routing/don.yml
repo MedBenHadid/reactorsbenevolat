@@ -22,6 +22,41 @@ don_delete:
     path:     /dons/{id}/delete
     defaults: { _controller: "DonsBundle:Don:delete" }
     methods:  DELETE
+<<<<<<< HEAD
+don_home:
+    path:     /home
+    defaults: { _controller: "DonsBundle:Don:home" }
+don_search:
+    path:     /search
+    defaults: { _controller: "DonsBundle:Don:search" }
+    methods: GET
+don_like:
+    path:     /{id}/like
+    defaults: { _controller: "DonsBundle:Don:like" }
+
+don_api:
+    path:     /api
+    defaults: { _controller: "DonsBundle:Api:don"}
+
+don_addApi:
+    path:     /addapi
+    defaults: { _controller: "DonsBundle:Api:add"}
+    methods:  [GET, POST]
+
+apidon_show:
+    path:     /apishow
+    defaults: { _controller: "DonsBundle:Api:apishow" }
+    methods:  GET
+
+apidon_delete:
+    path:     /remove
+    defaults: { _controller: "DonsBundle:Api:remove" }
+    methods:  GET
+apidon_update:
+    path:     /apiedit
+    defaults: { _controller: "DonsBundle:Api:apiedit" }
+    methods:  [GET, POST]
+=======
 
 
 don_search:
@@ -48,3 +83,4 @@ don_back_show:
     path:     /dashboard/admin/dons/{id}/show
     defaults: { _controller: "DonsBundle:DonBack:show" }
     methods:  GET
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040

@@ -14,9 +14,13 @@
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
+<<<<<<< HEAD
+        "php": ">=7.0",
+=======
         "php": ">=7.1",
         "ext-json": "*",
         "blackknight467/star-rating-bundle": "2.*",
+>>>>>>> 828daa075d4193b154f76a7094238bc737adb040
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
         "excelwebzone/recaptcha-bundle": "^1.5",
