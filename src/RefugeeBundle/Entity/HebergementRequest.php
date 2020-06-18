@@ -91,7 +91,8 @@ class HebergementRequest
      */
     public function setArrivalDate($arrivalDate)
     {
-        $this->arrivalDate = $arrivalDate;
+        $date = new \DateTime($arrivalDate);
+        $this->arrivalDate = $date;
     }
 
     /**

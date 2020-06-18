@@ -2,9 +2,17 @@ refugee_hebergement:
     resource: "@RefugeeBundle/Resources/config/routing/hebergement.yml"
     prefix:   /hebergement
 
+refugee_hebergement_api:
+    resource: "@RefugeeBundle/Resources/config/routing/api/hebergement.yml"
+    prefix:   /api/hebergement
+
 refugee_hebergementrequest:
-    resource: "@RefugeeBundle/Resources/config/routing/hebergementrequest.yml"
+    resource: "@RefugeeBundle/Resources/config/routing/api/hebergementrequest.yml"
     prefix:   /hebergementrequest
+
+refugee_hebergementrequest_api:
+    resource: "@RefugeeBundle/Resources/config/routing/api/hebergementrequest.yml"
+    prefix:   /api/hebergementrequest
 
 
 refugee_comment:

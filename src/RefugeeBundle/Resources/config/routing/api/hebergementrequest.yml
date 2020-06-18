@@ -1,0 +1,24 @@
+hebergementrequest_index:
+    path:     /
+    defaults: { _controller: "RefugeeBundle:HebergementRequestApi:index" }
+    methods:  [GET, POST]
+
+hebergementrequest_show:
+    path:     /show
+    defaults: { _controller: "RefugeeBundle:HebergementRequestApi:show" }
+    methods:  [GET]
+
+hebergementrequest_new:
+    path:     /new
+    defaults: { _controller: "RefugeeBundle:HebergementRequestApi:new" }
+    methods:  [GET, POST]
+
+hebergementrequest_edit:
+    path:     /edit
+    defaults: { _controller: "RefugeeBundle:HebergementRequestApi:edit" }
+    methods:  [GET, POST]
+
+hebergementrequest_delete:
+    path:     /delete
+    defaults: { _controller: "RefugeeBundle:HebergementRequestApi:delete" }
+    methods:  [DELETE, POST]
