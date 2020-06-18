@@ -30,14 +30,14 @@ class Association
     private $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association")
+     * @ORM\ManyToOne(targetEntity="AssociationBundle\Entity\Category", inversedBy="association",fetch="EXTRA_LAZY")
      */
     private $domaine;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="horaire_travail", type="string", length=20, nullable=false)
+     * @ORM\Column(name="horaire_travail", type="string", length=255, nullable=false)
      */
     private $horaireTravail;
 
@@ -49,9 +49,9 @@ class Association
     private $photo;
 
     /**
-     * @var \AppBundle\Entity\User
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User",fetch="EXTRA_LAZY")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_manager", referencedColumnName="id")
      * })
@@ -62,11 +62,6 @@ class Association
      * @ORM\OneToMany(targetEntity="AssociationBundle\Entity\Adherance", mappedBy="association", fetch="EXTRA_LAZY")
      */
     private $memberships;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="MissionBundle\Entity\Mission", inversedBy="missions", fetch="EXTRA_LAZY")
-     */
-    private $missions;
 
     /**
      * @var string
@@ -102,6 +97,29 @@ class Association
      * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="MissionBundle\Entity\Mission", inversedBy="missions", fetch="EXTRA_LAZY")
+     */
+    private $missions;
+
+    /**
+     * @param mixed $missions
+     */
+    public function setMissions($missions)
+    {
+        $this->missions = $missions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMissions()
+    {
+        return $this->missions;
+    }
+
+
 
     /**
      * @return string
@@ -431,7 +449,7 @@ class Association
     /**
      * Set manager
      *
-     * @param \AppBundle\Entity\User $manager
+     * @param User $manager
      *
      * @return Association
      */
@@ -453,27 +471,11 @@ class Association
     /**
      * Get manager
      *
-     * @return \AppBundle\Entity\User
+     * @return User
      */
     public function getManager()
     {
         return $this->manager;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMissions()
-    {
-        return $this->missions;
-    }
-
-    /**
-     * @param mixed $missions
-     */
-    public function setMissions($missions)
-    {
-        $this->missions = $missions;
     }
 
     /**
@@ -524,6 +526,9 @@ class Association
 
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getNom();

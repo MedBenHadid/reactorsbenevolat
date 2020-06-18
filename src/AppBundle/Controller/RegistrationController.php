@@ -25,7 +25,7 @@ class RegistrationController extends BaseController
         $userManager = $this->get('fos_user.user_manager');
         /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
-
+        /** @var $user User */
         $user = $userManager->createUser();
         $user->setEnabled(true);
 
@@ -50,9 +50,9 @@ class RegistrationController extends BaseController
                 $user->setRoles(array("ROLE_CLIENT"));
                 $user->setApprouved(1);
                 $user->setEmail($request->request->all()['fos_user_registration_form']['email']);
-                $user->setPlainPassword($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $userManager->updateUser($user);
-
+                $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
+                $user->setPlainPassword($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
                     $response = new RedirectResponse($url);
@@ -107,11 +107,13 @@ class RegistrationController extends BaseController
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
                 $user->addRole(User::ASSOCIATION_ADMIN);
+                $user->setIsAssAdmin(true);
                 $user->setApprouved(false);
                 $user->setEnabled(false);
 
                 $user->setCin($request->request->all()['fos_user_registration_form']['id']);
 
+                $user->setPasswordPlain($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $user->setPlainPassword($request->request->all()['fos_user_registration_form']['plainPassword']['first']);
                 $userManager->updateUser($user);
                 // AJOUT association

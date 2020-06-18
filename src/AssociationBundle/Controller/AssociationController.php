@@ -4,6 +4,7 @@ namespace AssociationBundle\Controller;
 
 use AssociationBundle\Entity\Association;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -32,7 +33,6 @@ class AssociationController extends Controller
      */
     public function showAction(Association $association)
     {
-
         return $this->render('@Association/front/association/show.html.twig', array(
             'association' => $association
         ));

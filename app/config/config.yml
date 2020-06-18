@@ -15,6 +15,7 @@ imports:
 parameters:
     locale: fr
     upload_dir: '%kernel.project_dir%/web/uploads/images'
+    root: '%kernel.project_dir%/web/uploads/'
     association_directory: '%kernel.root_dir%/../web/client/images/association/images'
     refugee_image_directory: '%kernel.project_dir%/web/uploads/refugee/images'
     dons_image_directory: '%kernel.project_dir%/web/uploads/dons/images'
