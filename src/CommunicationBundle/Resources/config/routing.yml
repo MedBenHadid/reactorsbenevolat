@@ -28,6 +28,19 @@ thread_comments:
 thread_recherche:
     path:     /recherche
     defaults: { _controller: CommunicationBundle:Threads:recherche }
+Mobile_register:
+    path:     /register
+    defaults: { _controller: CommunicationBundle:ApiCommunication:register }
+Mobile_rechercheUser:
+    path:     /chercherUser/{username}
+    defaults: { _controller: CommunicationBundle:ApiCommunication:chercherUser }
+Mobile_chercherUserMail:
+    path:     /searchUserMail/{email}
+    defaults: { _controller: CommunicationBundle:ApiCommunication:chercherUserMail }
+mobile_findbyid:
+    path:     /findby/{id}
+    defaults: { _controller: CommunicationBundle:ApiCommunication:find }
+
 
 
 

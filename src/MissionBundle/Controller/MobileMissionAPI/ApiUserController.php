@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -21,6 +23,20 @@ use Symfony\Component\Serializer\Serializer;
  */
 class ApiUserController extends Controller
 {
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var AuthenticationManagerInterface
+     */
+    private $authenticationManager;
+
+    /**
+     * @var string Uniquely identifies the secured area
+     */
+    private $providerKey;
     /**
      * @var Serializer
      */
@@ -55,4 +71,26 @@ class ApiUserController extends Controller
     {
         return new JsonResponse($this->serializer->normalize($this->getDoctrine()->getRepository('AppBundle:User')->find($id)));
     }
+
+    /**
+     * @Route(path="login", name="api_login", methods={"POST"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function loginAction(Request $request): JsonResponse
+    {
+        $password= $request->get('password') ;
+        $cred =  $request->get('username');
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->findOneBy(array('username'=>$cred));
+
+        if(!empty($user)){
+            $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+            return new JsonResponse($this->serializer->normalize(array('user'=>$user,'canLogin'=>$encoder->isPasswordValid($user->getPassword(),$password,$user->getSalt()))), Response::HTTP_OK);
+        }else{
+            return new JsonResponse($this->serializer->normalize(array('canLogin'=>false)), Response::HTTP_OK);
+        }
+    }
+
+
 }

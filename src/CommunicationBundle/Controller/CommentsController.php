@@ -66,8 +66,9 @@ class CommentsController extends Controller
 
 
         $threads = $em->getRepository('CommunicationBundle:Threads')->findAll();
+        $nthreads = count($threads);
 
-        return $this->render('@Communication/Default/Threads.html.twig', array('threads' => $threads));
+        return $this->render('@Communication/Default/Threads.html.twig', array('threads' => $threads,'nthreads' => $nthreads));
     }
 
 
